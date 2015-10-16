@@ -67,16 +67,13 @@ git remote add upstream https://github.com/tom10987/Kotodama.git
 自分の作業環境を更新します。
 
 ~~~
-git pull upstream
+git pull upstream master
 ~~~
 
 `remote` による登録が済んでいれば、今後は `pull` コマンドを入力するだけで大丈夫です。
 
 ---
 ## `GitHub` 上のリポジトリを自分の PC に持ってくる
-
----
-#### `clone` を使う方法
 
 ターミナル（`cygwin`）を起動、`cd` コマンドを使って、目的の場所に移動してください。  
 仮に、デスクトップに `clone` するものとして進めます。
@@ -92,40 +89,6 @@ cd /cygdrive/c/Users/XXXX/Desktop/
 
 ~~~
 git clone https://github.com/XXXX/Kotodama.git
-~~~
-
-目的の場所（この例ではデスクトップ）にフォルダが作られていれば完了です。
-
----
-#### `remote` を使う方法
-
-ターミナル（`cygwin`）を起動、`cd` コマンドを使って、コピーする場所に移動します。  
-仮に、デスクトップにコピーするものとして進めます。
-
-`XXXX` には、PC のユーザー名を入力します。  
-**先にフォルダを作っておく必要があることに注意**
-
-~~~
-cd /cygdrive/c/Users/XXXX/Desktop/Kotodama/
-~~~
-
-`git` コマンドを使えるように、初期化します。
-
-~~~
-git init
-~~~
-
-連携させたい `GitHub` 上のリポジトリを設定します。  
-`XXXX` の部分には、**`GitHub` 上のアカウント名** を入力してください。
-
-~~~
-git remote add origin https://github.com/XXXX/Kotodama.git
-~~~
-
-以下のコマンドを入力して `GitHub` 上のリポジトリをコピーします。
-
-~~~
-git pull origin
 ~~~
 
 目的の場所（この例ではデスクトップ）にフォルダが作られていれば完了です。
