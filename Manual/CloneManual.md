@@ -76,7 +76,7 @@ git pull upstream master
 ## `GitHub` 上のリポジトリを自分の PC に持ってくる
 
 ターミナル（`cygwin`）を起動、`cd` コマンドを使って、目的の場所に移動してください。  
-仮に、デスクトップに `clone` するものとして進めます。
+仮に、デスクトップにコピーするものとして進めます。
 
 `XXXX` には、PC のユーザー名を入力します。
 
@@ -84,7 +84,7 @@ git pull upstream master
 cd /cygdrive/c/Users/XXXX/Desktop/
 ~~~
 
-以下のコマンドを入力して `GitHub` のリポジトリをコピーします。  
+`clone` コマンドを入力して `GitHub` のリポジトリをコピーします。  
 `XXXX` の部分には、**`GitHub` 上のアカウント名** を入力してください。
 
 ~~~
