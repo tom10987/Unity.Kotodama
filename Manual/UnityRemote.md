@@ -7,7 +7,7 @@
 - `Android 6.0 (API 23)`  
 - `Google USB Driver 11`  
 - `Java SE Development Kit 8u60`  
-- `Unity Remote 4`
+- `DeployGate`
 
 `Unity 5.2.1f1` のインストール時に `Visual Studio Tools for Unity 2015` が  
 オプションで選択可能になっているはずなので、必ず選択してからインストールしてください。
@@ -16,7 +16,7 @@
 
 `Java` は、インストール時に必ず確認してください。
 
-`Unity Remote 4` は **`Android` 実機**にインストールするアプリです。  
+`DeplayGate` は **`Android` 実機**にインストールするアプリです。  
 `Google Play` からインストールしておいてください。
 
 今後、何らかの問題が発生しない限り、この開発環境で進めていきます。  
@@ -86,11 +86,6 @@
 **違うフォルダを選択しようとすると、警告が出て選択できません。**  
 何も警告が出なければ成功です。
 
-- `Android` 実機を `Unity` に認識させる
-
-`Edit -> Project Settings -> Editor` の順にクリック、`Inspector` に `Unity Remote` の項目が表示されます。  
-`Device` の欄を `Any Android Device` に設定してください。
-
 - `Android` 向けのビルド設定にする
 
 `File -> Build Settings...` の順にクリック、  
@@ -99,24 +94,27 @@
 ---
 #### 実機のテスト方法
 
-`USB` ケーブルで `Android` と自分の PC を接続してください。  
-`Android` 側で `Unity Remote 4` を起動した状態で、`Unity` のテスト開始ボタンをクリックしてください。
+`Google Play` で `DeployGate` を検索、アプリをインストールしてください。  
+アプリ側からアカウント作成ができます。`GitHub` アカウントに紐づけも可能です。
 
-`Android` 側に `Game` ビューと同じ画面が表示されれば成功です。
+アカウント登録後、PC で[**こちらのページ**][Link_DeployGate]にログインし、ビルドしたアプリをアップロードすると、  
+アプリのダウンロードができる QR コードが生成されます。
 
-表示されなかった場合、`Build Settings...` の `Platform` を切り替えたり、  
-シーンの保存、`Unity` 自体の再起動などを行うと改善されることがあるようです。
+`Android` 実機にインストールした `DeployGate` を起動、アプリ側で QR コードを読み取ると、  
+ダウンロードが開始されます。
+
+ダウンロード完了後は、`DeployGate` を経由して制作したアプリのテストができます。
 
 ---
 #### 参考リンク
 
-- [Qiita: Unity Remote4 を使った実機テストの方法][Link_qiita]  
+- [DeployGate][Link_DeployGate]
 - [Java SE Downloads][Link_JDK]  
 - [Android SDK][Link_AndroidSDK]
 
 ---
 
-[Link_qiita]: http://qiita.com/cabbage/items/783142ba7d75f32299ad
+[Link_DeployGate]: https://deploygate.com
 [Link_JDK]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [Link_AndroidSDK]: http://developer.android.com/intl/ja/sdk/index.html
 
