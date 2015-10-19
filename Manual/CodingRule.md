@@ -24,19 +24,19 @@ private int _moveSpeed;
 ~~~
 
 ---
-- プロパティ：**パスカルケース**
+- プロパティ：**キャメルケース**
 ~~~
-public int MoveSpeed { get; }
+public int moveSpeed { get; }
 
 // メンバ変数なので、アンダーバー始まりのキャメルケースに従う
 private int _jumpPower;
-public int JumpPower { get { return _jumpPower; }; }
+public int jumpPower { get { return _jumpPower; }; }
 ~~~
 
 ---
-- メソッド：**キャメルケース**
+- メソッド：**パスカルケース**
 ~~~
-public int getMoveSpeed() { return _moveSpeed; }
+public int GetMoveSpeed() { return _moveSpeed; }
 ~~~
 
 ---
