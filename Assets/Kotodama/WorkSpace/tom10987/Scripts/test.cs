@@ -1,15 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿
+using UnityEngine;
+
 
 public class test : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+  void Update() {
+    if (Input.GetKeyDown(KeyCode.Space)) {
+      FindObjectOfType<SceneSequencer>().SceneFinish();
+    }
+  }
 }
