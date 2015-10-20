@@ -7,7 +7,6 @@
 *.apk
 
 /[pP]rojectSettings
-/[pP]rojectSettings/*.asset
 
 *.sln
 *.csproj
