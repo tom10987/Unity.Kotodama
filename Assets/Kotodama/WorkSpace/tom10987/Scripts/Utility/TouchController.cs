@@ -58,4 +58,11 @@ public class TouchController : MonoBehaviour {
     if (Input.touchCount <= 0) { return false; }
     return Input.touches[0].phase == TouchPhase.Ended;
   }
+
+  /// <summary>
+  /// Android 端末の戻るボタンが押された時 true を返す
+  /// </summary>
+  static public bool IsPushedQuitKey() {
+    return IsAndroid && Input.GetKeyDown(KeyCode.Escape);
+  }
 }
