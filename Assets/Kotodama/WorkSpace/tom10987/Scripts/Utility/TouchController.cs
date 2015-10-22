@@ -22,6 +22,24 @@ public class TouchController : MonoBehaviour {
 
 
   /// <summary>
+  /// 描画画面のタッチ座標を返す
+  /// </summary>
+  static public Vector3 GetTouchPosition() {
+    return Input.touches[0].position;
+  }
+
+  /// <summary>
+  /// 画面比率を反映させたタッチ座標を返す
+  /// </summary>
+  static public Vector3 GetTouchViewPosition() {
+    var distance = GetTouchPosition() - ScreenInfo.screenCenter;
+    var normal = distance.normalized;
+    var x = normal.x * ScreenInfo.screenAspect.x;
+    var y = normal.y * ScreenInfo.screenAspect.y;
+    return new Vector3(x, y);
+  }
+
+  /// <summary>
   /// タッチされた瞬間 true を返す
   /// </summary>
   static public bool IsTouchBegan() {
