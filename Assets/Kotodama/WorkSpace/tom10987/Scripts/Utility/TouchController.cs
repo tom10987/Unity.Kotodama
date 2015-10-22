@@ -32,10 +32,9 @@ public class TouchController : MonoBehaviour {
   /// 画面比率を反映させたタッチ座標を返す
   /// </summary>
   static public Vector3 GetTouchViewPosition() {
-    var distance = GetTouchPosition() - ScreenInfo.screenCenter;
-    var normal = distance.normalized;
-    var x = normal.x * ScreenInfo.screenAspect.x;
-    var y = normal.y * ScreenInfo.screenAspect.y;
+    var distance = GetTouchPosition() - ScreenInfo.center;
+    var x = (distance.x / ScreenInfo.center.x) * ScreenInfo.aspect.x;
+    var y = (distance.y / ScreenInfo.center.y) * ScreenInfo.aspect.y;
     return new Vector3(x, y);
   }
 
