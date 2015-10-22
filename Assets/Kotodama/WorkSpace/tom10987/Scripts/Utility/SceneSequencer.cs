@@ -38,6 +38,7 @@ public class SceneSequencer : MonoBehaviour {
   /// シーンをフェードアウトさせながら終了する
   /// </summary>
   public void SceneFinish() {
+    if (sceneState != SceneState.Update) { return; }
     sceneState = SceneState.FadeOut;
   }
 
