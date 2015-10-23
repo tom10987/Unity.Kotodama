@@ -4,7 +4,7 @@
 * [マスターを `Fork` する](#header1)
 * [マスターに `pull request` する](#header2)
 * [マスターの状態を自分の環境に反映する](#header3)
-* [リポジトリを `clone` する](#header4)
+* [`GitHub` のリポジトリを自分の PC にコピーする](#header4)
 
 ---
 ## マスターバージョンのリポジトリを `Fork` する <a name="header1">
