@@ -22,20 +22,33 @@ public class TouchController : MonoBehaviour {
 
 
   /// <summary>
-  /// 描画画面のタッチ座標を返す
+  /// タッチされたスクリーン座標を返す
   /// </summary>
-  static public Vector3 GetTouchPosition() {
-    return Input.touches[0].position;
+  static public Vector3 GetTouchScreenPosition() {
+    var pos = Input.touches[0].position;
+    return new Vector3(pos.x, pos.y);
   }
 
   /// <summary>
-  /// 画面比率を反映させたタッチ座標を返す
+  /// 画面中央から見たスクリーン上のタッチ座標を返す
   /// </summary>
-  static public Vector3 GetTouchViewPosition() {
-    var distance = GetTouchPosition() - ScreenInfo.center;
-    var x = (distance.x / ScreenInfo.center.x) * ScreenInfo.aspect.x;
-    var y = (distance.y / ScreenInfo.center.y) * ScreenInfo.aspect.y;
-    return new Vector3(x, y);
+  static public Vector3 GetTouchScreenPositionFromCenter() {
+    return GetTouchScreenPosition() - ScreenInfo.center;
+  }
+
+  /// <summary>
+  /// タッチされたワールド座標を返す
+  /// </summary>
+  static public Vector3 GetTouchWorldPosition() {
+    var touchPos = GetTouchScreenPositionFromCenter();
+    var center = Camera.main.transform.position;
+    center.z = 0f;
+
+    var distance = Vector3.zero;
+    distance.x = (touchPos.x / ScreenInfo.center.x) * ScreenInfo.aspect.x;
+    distance.y = (touchPos.y / ScreenInfo.center.y) * ScreenInfo.aspect.y;
+
+    return distance + center;
   }
 
   /// <summary>
