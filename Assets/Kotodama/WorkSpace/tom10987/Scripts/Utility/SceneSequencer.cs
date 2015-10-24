@@ -16,38 +16,29 @@ public class SceneSequencer : MonoBehaviour {
     None = -1,
   }
 
-  [SerializeField, Tooltip("次のシーンの名前")]
+  public SceneState sceneState { get; private set; }
+
+  Sequence _sequence = null;
+
+  [SerializeField]
+  [Tooltip("次のシーンの名前")]
   string _nextScene = null;
 
-  [SerializeField, Tooltip("シーンの遷移時間（単位：秒）")]
+  [SerializeField]
+  [Tooltip("シーンの遷移時間（単位：秒）")]
   float _fadeTime = 1f;
-
-  float elapsedTime {
-    get { return Time.deltaTime / _fadeTime; }
-  }
-
-  public SceneState sceneState { get; private set; }
+  float elapsedTime { get { return Time.deltaTime / _fadeTime; } }
 
   float _screenAlpha = 1f;
   SpriteRenderer _renderer = null;
-
-  Sequence _sequence = null;
 
 
   /// <summary>
   /// シーンをフェードアウトさせながら終了する
   /// </summary>
-  public void SceneFinish() {
+  public void SceneFinish(string nextSceneName = null) {
     if (sceneState != SceneState.Update) { return; }
-    sceneState = SceneState.FadeOut;
-  }
-
-  /// <summary>
-  /// 次のシーンを指定、シーンをフェードアウトさせながら終了する
-  /// </summary>
-  public void SceneFinish(string nextSceneName) {
-    if (sceneState != SceneState.Update) { return; }
-    _nextScene = nextSceneName;
+    if (nextSceneName != null) { _nextScene = nextSceneName; }
     sceneState = SceneState.FadeOut;
   }
 
