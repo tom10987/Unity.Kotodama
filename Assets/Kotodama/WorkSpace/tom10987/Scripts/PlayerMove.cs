@@ -21,7 +21,7 @@ public class PlayerMove : MonoBehaviour {
 
   void Translate() {
     _ownRigid.velocity = Vector2.zero;
-    var distance = TouchController.GetTouchWorldPosition();
+    var distance = TouchController.GetTouchWorldPosition() - transform.position;
     var direction = distance.normalized * _velocity;
     _ownRigid.AddForce(direction, ForceMode2D.Impulse);
   }
