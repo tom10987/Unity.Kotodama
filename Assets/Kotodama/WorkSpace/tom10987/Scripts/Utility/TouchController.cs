@@ -36,19 +36,27 @@ public class TouchController : MonoBehaviour {
   }
 
   /// <summary>
-  /// タッチされたワールド座標を返す
+  /// 画面中央から見たワールドの絶対座標を返す
   /// </summary>
   static public Vector3 GetTouchWorldPosition() {
     var touchPos = GetTouchScreenPositionFromCenter();
-    var cameraPos = Camera.main.transform.position;
-    cameraPos.z = 0f;
 
     // タッチがスクリーン座標なので、ワールド座標に変換
     var distance = Vector3.zero;
     distance.x = (touchPos.x / ScreenInfo.center.x) * ScreenInfo.orthoAspect.x;
     distance.y = (touchPos.y / ScreenInfo.center.y) * ScreenInfo.orthoAspect.y;
 
-    return distance + cameraPos;
+    return distance;
+  }
+
+  /// <summary>
+  /// カメラ座標を反映させたタッチのワールド座標を返す
+  /// </summary>
+  static public Vector3 GetTouchWorldPositionFromCamera() {
+    var touchPos = GetTouchWorldPosition();
+    var cameraPos = Camera.main.transform.position;
+    cameraPos.z = 0f;
+    return touchPos + cameraPos;
   }
 
   /// <summary>
