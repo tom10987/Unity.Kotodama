@@ -2,6 +2,7 @@
 /.vs
 /[lL]ibrary
 /[tT]emp
+/obj
 
 /[aA]pk
 *.apk
@@ -9,5 +10,6 @@
 /[pP]rojectSettings
 
 *.sln
+*.suo
 *.csproj
 
