@@ -42,6 +42,13 @@ public class SceneSequencer : MonoBehaviour {
     sceneState = SceneState.FadeOut;
   }
 
+  /// <summary>
+  /// シーン切り替え演出中なら true を返す
+  /// </summary>
+  public bool IsFadeTime() {
+    return sceneState != SceneState.Update;
+  }
+
 
   void Awake() {
     sceneState = SceneState.FadeIn;
@@ -55,11 +62,13 @@ public class SceneSequencer : MonoBehaviour {
 
   void Start() {
     _renderer = GetComponent<SpriteRenderer>();
+    transform.localScale = ScreenInfo.orthoAspect * 2f;
   }
 
   void Update() {
-    ApplicationFinish();
     Debug.Log(sceneState);
+    ApplicationFinish();
+    transform.position = Camera.main.transform.position;
 
     var enableAct = _sequence.ContainsKey(sceneState);
     if (enableAct) { _sequence[sceneState](); }

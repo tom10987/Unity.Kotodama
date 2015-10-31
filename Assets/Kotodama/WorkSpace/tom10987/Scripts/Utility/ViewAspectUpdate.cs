@@ -31,7 +31,7 @@ public class ViewAspectUpdate : MonoBehaviour {
 
     if (_backgroundCamera != null) { return; }
 
-    var backGroundCameraObject = new GameObject("BackgroundCamera");
+    var backGroundCameraObject = new GameObject("BackGroundCamera");
     _backgroundCamera = backGroundCameraObject.AddComponent<Camera>();
     _backgroundCamera.depth = -99;
     _backgroundCamera.fieldOfView = 1;

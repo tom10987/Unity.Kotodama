@@ -1,28 +1,27 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+
 
 public class TitleScript : MonoBehaviour {
 
-    public GameObject StartCanvas;
-    public GameObject SelectCanvas;
-    public bool _changeCan = true;
+  [SerializeField]
+  GameObject StartCanvas;
 
-    public void Start()
-    {
-        StartCanvas.SetActive(_changeCan);
-        SelectCanvas.SetActive(!_changeCan);
-    }
+  [SerializeField]
+  GameObject SelectCanvas;
 
-    public void ChangeCanvas()
-    {
-        if (StartCanvas.activeInHierarchy) { _changeCan = !_changeCan; }
-        else { _changeCan=!_changeCan; }
+  [SerializeField]
+  bool _changeCan = true;
 
-        StartCanvas.SetActive(_changeCan);
-        SelectCanvas.SetActive(!_changeCan);
-    }
+  void Start() {
+    StartCanvas.SetActive(_changeCan);
+    SelectCanvas.SetActive(!_changeCan);
+  }
 
+  public void ChangeCanvas() {
+    if (StartCanvas.activeInHierarchy) { _changeCan = !_changeCan; }
+    else { _changeCan = !_changeCan; }
 
-
+    StartCanvas.SetActive(_changeCan);
+    SelectCanvas.SetActive(!_changeCan);
+  }
 }
