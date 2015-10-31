@@ -1,34 +1,33 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+
 
 public class ChapterSelectButton : MonoBehaviour {
 
-    public Text ChapMsg;
-    [SerializeField]
-    private string _chapter01Name = "";
+  Text _chapMsg;
 
-    SceneSequencer _sequencer = null;
+  [SerializeField]
+  string[] _chapterName = null;
 
-    void Start() {
-        _sequencer = FindObjectOfType<SceneSequencer>();
-    }
+  SceneSequencer _sequencer = null;
 
-    public void ChangeChapter1() {
-        //Application.LoadLevel(_chapter01Name);
-        _sequencer.SceneFinish("Chapter1");
-    }
+  void Start() {
+    _chapMsg = GameObject.Find("ChapMsg").GetComponent<Text>();
+    _sequencer = FindObjectOfType<SceneSequencer>();
+  }
 
-    public void ChangeChapter2()
-    {
-        ChapMsg.text = "チャプター２は解放されていません。";
-//        Application.LoadLevel("Chapter2");
-    }
+  public void ChangeChapter1() {
+    //Application.LoadLevel(_chapter01Name);
+    _sequencer.SceneFinish(_chapterName[0]);
+  }
 
-    public void ChangeChapter3()
-    {
-        ChapMsg.text = "チャプター３は解放されていません。";
-        //       Application.LoadLevel("Chapter3");
-    }
+  public void ChangeChapter2() {
+    _chapMsg.text = "チャプター２は解放されていません。";
+    //        Application.LoadLevel("Chapter2");
+  }
 
+  public void ChangeChapter3() {
+    _chapMsg.text = "チャプター３は解放されていません。";
+    //       Application.LoadLevel("Chapter3");
+  }
 }
