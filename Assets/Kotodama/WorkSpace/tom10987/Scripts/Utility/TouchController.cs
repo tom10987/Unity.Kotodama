@@ -50,12 +50,32 @@ public class TouchController : MonoBehaviour {
   }
 
   /// <summary>
+  /// XZ 平面で見た場合のワールドの絶対座標を返す
+  /// </summary>
+  static public Vector3 GetTouchWorldPositionXZ() {
+    var pos = GetTouchWorldPosition();
+    pos.z = pos.y;
+    pos.y = 0f;
+    return pos;
+  }
+
+  /// <summary>
   /// カメラ座標を反映させたタッチのワールド座標を返す
   /// </summary>
   static public Vector3 GetTouchWorldPositionFromCamera() {
     var touchPos = GetTouchWorldPosition();
     var cameraPos = Camera.main.transform.position;
     cameraPos.z = 0f;
+    return touchPos + cameraPos;
+  }
+
+  /// <summary>
+  /// XZ 平面で見た場合のワールドの相対座標を返す
+  /// </summary>
+  static public Vector3 GetTouchWorldPositionFromCameraXZ() {
+    var touchPos = GetTouchWorldPositionXZ();
+    var cameraPos = Camera.main.transform.position;
+    cameraPos.y = 0f;
     return touchPos + cameraPos;
   }
 
