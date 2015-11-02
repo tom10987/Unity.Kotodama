@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour {
 
-  Transform _camera = null;
+  static public Transform target { get; set; }
 
-
-  void Start() {
-    _camera = Camera.main.transform;
-  }
 
   void Update() {
-    _camera.position = transform.position + Vector3.back;
+    if (target == null) { return; }
+
+    var offset = Vector3.up * Camera.main.orthographicSize;
+    transform.position = target.position + offset;
   }
 }

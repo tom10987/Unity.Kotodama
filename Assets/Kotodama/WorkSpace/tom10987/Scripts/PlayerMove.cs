@@ -8,14 +8,16 @@ public class PlayerMove : MonoBehaviour {
   [Range(1f, 10f)]
   float _velocity = 3f;
 
-  Vector2 _direction = Vector2.zero;
-  Rigidbody2D _ownRigid = null;
-  CircleCollider2D _collider = null;
+  [SerializeField]
+  float _radius = 0.5f;
+
+  Vector3 _direction = Vector3.zero;
+  Rigidbody _ownRigid = null;
 
 
   void Start() {
-    _ownRigid = GetComponent<Rigidbody2D>();
-    _collider = GetComponent<CircleCollider2D>();
+    _ownRigid = GetComponent<Rigidbody>();
+    CameraMove.target = transform;
   }
 
   void Update() {
@@ -23,24 +25,28 @@ public class PlayerMove : MonoBehaviour {
   }
 
   void MoveStart() {
-    _ownRigid.velocity = Vector2.zero;
+    _ownRigid.velocity = Vector3.zero;
 
-    var touchPos = TouchController.GetTouchWorldPositionFromCamera();
+    var touchPos = TouchController.GetTouchWorldPositionFromCameraXZ();
+    Debug.Log(string.Format("touch = {0}", touchPos));
     var distance = touchPos - transform.position;
+    Debug.Log(distance);
 
-    if (distance.magnitude < _collider.radius) { return; }
+    if (distance.magnitude < _radius) { return; }
 
     _direction = distance.normalized * _velocity;
     _ownRigid.velocity = _direction;
+
+    Debug.Log(_direction);
   }
 
-  public void OnCollisionEnter2D(Collision2D collision) {
+  public void OnCollisionEnter(Collision collision) {
     if (_ownRigid.velocity.magnitude == 0f) { return; }
 
     var normal = _ownRigid.velocity.normalized;
-    var dot = Vector2.Dot(_direction.normalized, normal);
+    var dot = Vector3.Dot(_direction.normalized, normal);
     var radian = Mathf.Cos(Mathf.PI / 4f);
 
-    _ownRigid.velocity = dot < radian ? Vector2.zero : normal * _velocity;
+    _ownRigid.velocity = dot < radian ? Vector3.zero : normal * _velocity;
   }
 }
