@@ -12,6 +12,7 @@ public class Sensor {
   [SerializeField]
   [Range(0f, 10f)]
   float _range = 1f;
+  public float range { get { return _range; } }
 
   [SerializeField]
   [Range(0f, 10f)]
@@ -33,9 +34,11 @@ public class EnemySensor : MonoBehaviour {
 
   [SerializeField]
   Sensor _detect = null;
+  public float detectRange { get { return _detect.range; } }
 
   [SerializeField]
   Sensor _alert = null;
+  public float alertRange { get { return _alert.range; } }
 
 
   void Start() {
