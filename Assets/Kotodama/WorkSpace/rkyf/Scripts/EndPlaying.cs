@@ -16,7 +16,7 @@ public class EndPlaying : CallGameOver
         Application.Quit();
     }
 
-    public void GoTitle()
+    public new void GoTitle()
     {
         Debug.Log("タイトル画面へ戻るボタンが押されました。");
         _sequencer.SceneFinish("Title");
