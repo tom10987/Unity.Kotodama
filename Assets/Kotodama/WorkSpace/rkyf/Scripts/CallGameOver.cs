@@ -4,17 +4,10 @@ using UnityEngine.Events;
 
 public class CallGameOver : MonoBehaviour
 {
-    //[SerializeField]
-    //private
-    //    GameObject
-    //                gameOver_;
 
     SceneSequencer sceneSequencer_;
-    //GameObject SS;
 
-
-	void
-        Start()
+	void Start()
     {
         //gameOver_ = null;
 
