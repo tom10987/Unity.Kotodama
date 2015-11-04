@@ -21,6 +21,7 @@ public class CallGameOver : MonoBehaviour
     public void EndGame()
     {
         Destroy(this.gameObject);
+        Application.Quit();
     }
 
     public void Retry()
