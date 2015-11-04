@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
+using System.Collections;
 
-public class EndPlaying : CallGameOver
-{
+public class EpiScript : MonoBehaviour {
+
     SceneSequencer _sequencer = null;
 
     void Start()
     {
         _sequencer = FindObjectOfType<SceneSequencer>();
+        //_sequencer = GetComponent<SceneSequencer>();
+        Debug.Log(_sequencer);
     }
 
     // アプリケーション終了イベントの取得
@@ -22,5 +25,3 @@ public class EndPlaying : CallGameOver
         _sequencer.SceneFinish("Title");
     }
 }
-
-
