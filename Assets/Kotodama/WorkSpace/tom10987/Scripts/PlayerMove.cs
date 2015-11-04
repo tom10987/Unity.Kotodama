@@ -28,16 +28,13 @@ public class PlayerMove : MonoBehaviour {
     _ownRigid.velocity = Vector3.zero;
 
     var touchPos = TouchController.GetTouchWorldPositionFromCameraXZ();
-    Debug.Log(string.Format("touch = {0}", touchPos));
     var distance = touchPos - transform.position;
-    Debug.Log(distance);
+    distance.y = 0f;
 
     if (distance.magnitude < _radius) { return; }
 
     _direction = distance.normalized * _velocity;
     _ownRigid.velocity = _direction;
-
-    Debug.Log(_direction);
   }
 
   public void OnCollisionEnter(Collision collision) {
