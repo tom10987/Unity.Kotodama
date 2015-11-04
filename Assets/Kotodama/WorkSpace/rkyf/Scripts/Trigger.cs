@@ -14,7 +14,7 @@ public class Trigger : MonoBehaviour
     {
         //prefab = GetComponent<>();
 
-        var callback = GameObject.Instantiate(prefab) as GameObject;
+        //var callback = GameObject.Instantiate(prefab) as GameObject;
 	}
 	
 	// Update is called once per frame
