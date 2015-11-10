@@ -5,7 +5,7 @@ using UnityEngine;
 public class ViewAspectUpdate : MonoBehaviour {
 
   [SerializeField]
-  Vector2 _aspect = new Vector2(9f, 16f);
+  Vector2 _aspect = new Vector2(16f, 9f);
 
   [SerializeField]
   Color _backgroundColor = Color.black;
