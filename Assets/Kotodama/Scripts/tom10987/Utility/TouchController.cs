@@ -36,6 +36,14 @@ public class TouchController : MonoBehaviour {
   }
 
   /// <summary>
+  /// スクリーン座標を XZ 平面で見た場合の値として返す
+  /// </summary>
+  static public Vector3 GetTouchScreenPositionXZ() {
+    var pos = GetTouchScreenPositionFromCenter();
+    return new Vector3(pos.x, 0f, pos.y);
+  }
+
+  /// <summary>
   /// 画面中央から見たワールドの絶対座標を返す
   /// </summary>
   static public Vector3 GetTouchWorldPosition() {

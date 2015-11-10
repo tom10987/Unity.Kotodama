@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour {
   float _velocity = 3f;
 
   [SerializeField]
-  float _radius = 0.5f;
+  float _colliderRadius = 0.5f;
 
   Vector3 _direction = Vector3.zero;
   Rigidbody _ownRigid = null;
@@ -27,23 +27,20 @@ public class PlayerMove : MonoBehaviour {
   void MoveStart() {
     _ownRigid.velocity = Vector3.zero;
 
-    var touchPos = TouchController.GetTouchWorldPositionFromCameraXZ();
-    var distance = touchPos - transform.position;
-    distance.y = 0f;
+    var touchPos_ = TouchController.GetTouchWorldPositionXZ();
+    if (touchPos_.magnitude < _colliderRadius) { return; }
 
-    if (distance.magnitude < _radius) { return; }
-
-    _direction = distance.normalized * _velocity;
-    _ownRigid.velocity = _direction;
+    _direction = touchPos_.normalized * _velocity;
+    _ownRigid.AddForce(_direction, ForceMode.Impulse);
   }
 
   public void OnCollisionEnter(Collision collision) {
     if (_ownRigid.velocity.magnitude == 0f) { return; }
 
-    var normal = _ownRigid.velocity.normalized;
-    var dot = Vector3.Dot(_direction.normalized, normal);
-    var radian = Mathf.Cos(Mathf.PI / 4f);
+    var normal_ = _ownRigid.velocity.normalized;
+    var dot_ = Vector3.Dot(_direction.normalized, normal_);
+    var radian_ = Mathf.Cos(Mathf.PI / 4f);
 
-    _ownRigid.velocity = dot < radian ? Vector3.zero : normal * _velocity;
+    _ownRigid.velocity = dot_ < radian_ ? Vector3.zero : normal_ * _velocity;
   }
 }
