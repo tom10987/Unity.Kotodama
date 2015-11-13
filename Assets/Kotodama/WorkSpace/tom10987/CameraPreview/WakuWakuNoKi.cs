@@ -12,7 +12,6 @@ public class WakuWakuNoKi : MonoBehaviour {
 
   void Start() {
     var mesh = GetComponent<MeshRenderer>();
-    foreach (var material in mesh.materials) { Debug.Log(material.name); }
     _tree = mesh.materials[3];
     _color = _tree.color;
   }

@@ -1,28 +1,59 @@
 ﻿
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
-using State = EnemyData.EnemyState;
-using StateAction = System.Collections.Generic.
-  Dictionary<EnemyData.EnemyState, System.Action>;
+
+public class EnemyAction {
+
+  EnemyModel model { get; set; }
+  public EnemyModel setModel { set { model = value; } }
+
+  public void OnWait() {
+  }
+
+  public void OnMove() {
+  }
+
+  public void OnAlert() {
+  }
+
+  public void OnChase() {
+  }
+
+  public void OnPortal() {
+  }
+}
+
+
+public class EnemyTypeBase {
+
+  protected EnemyAction _action = null;
+
+  public virtual void Setup() {
+    _action = new EnemyAction();
+  }
+}
+
+
+public class EnemyChaser : EnemyTypeBase {
+}
 
 
 public class EnemyActor : MonoBehaviour {
 
-  StateAction _action = new StateAction();
+  [SerializeField]
+  EnemyType _type = EnemyType.None;
+  EnemyTypeBase _action = null;
+
+
+  void Awake() {
+  }
 
   void Start() {
-    _action.Add(State.Move, OnMove);
-    _action.Add(State.Alert, OnAlert);
-    _action.Add(State.Chase, OnChase);
+    EnemyManager.actors.Add(this);
   }
 
-
-  void OnMove() {
-  }
-
-  void OnAlert() {
-  }
-
-  void OnChase() {
+  public void Execute() {
   }
 }
