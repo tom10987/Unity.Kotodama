@@ -7,8 +7,6 @@
 /[aA]pk
 *.apk
 
-/[pP]rojectSettings
-
 *.sln
 *.suo
 *.csproj
