@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerLight : MonoBehaviour {
 
-  Transform _player = null;
+  //Transform _player = null;
 
 
   void Start() {
-    _player = GameObject.Find("Player").transform;
+    //_player = GameObject.Find("Player").transform;
   }
 
   void Update() {
-    transform.position = _player.position;
+    //transform.position = _player.position;
   }
 }

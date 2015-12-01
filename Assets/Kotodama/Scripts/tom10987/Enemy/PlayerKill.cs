@@ -2,7 +2,9 @@
 using UnityEngine;
 
 
-public class PlayerDead : MonoBehaviour {
+public class PlayerKill : MonoBehaviour {
+
+  /*
 
   public void OnTriggerEnter(Collider collision) {
     if (collision.gameObject.tag != "Player") { return; }
@@ -14,4 +16,5 @@ public class PlayerDead : MonoBehaviour {
     enemy.SetDestination(enemy.transform.position);
     enemy.velocity = Vector3.zero;
   }
+  */
 }

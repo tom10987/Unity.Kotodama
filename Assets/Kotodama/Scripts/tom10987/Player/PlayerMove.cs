@@ -2,6 +2,9 @@
 using UnityEngine;
 
 
+// TODO: タッチ判定の修正
+//     : UI（ボタン）などにタッチした時は移動しないようにする
+
 public class PlayerMove : MonoBehaviour {
 
   [SerializeField]
@@ -34,6 +37,7 @@ public class PlayerMove : MonoBehaviour {
     _ownRigid.AddForce(_direction, ForceMode.Impulse);
   }
 
+  // TODO: 削除予定
   public void OnCollisionEnter(Collision collision) {
     if (_ownRigid.velocity.magnitude == 0f) { return; }
 

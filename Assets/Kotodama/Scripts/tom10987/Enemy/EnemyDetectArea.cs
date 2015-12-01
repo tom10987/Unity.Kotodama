@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class Sensor {
+public class DetectArea {
 
   [SerializeField]
   MeshCollider _collider = null;
@@ -27,23 +27,23 @@ public class Sensor {
 }
 
 
-public class EnemySensor : MonoBehaviour {
+public class EnemyDetectArea : MonoBehaviour {
 
   [SerializeField]
-  Sensor _kill = null;
+  DetectArea _kill = null;
 
   [SerializeField]
-  Sensor _detect = null;
-  public float detectRange { get { return _detect.range; } }
+  DetectArea _chase = null;
+  public float chaseRange { get { return _chase.range; } }
 
   [SerializeField]
-  Sensor _alert = null;
+  DetectArea _alert = null;
   public float alertRange { get { return _alert.range; } }
 
 
   void Start() {
     _kill.Setup();
-    _detect.Setup();
+    _chase.Setup();
     _alert.Setup();
   }
 }

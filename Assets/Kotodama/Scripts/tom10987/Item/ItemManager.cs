@@ -2,6 +2,7 @@
 using UnityEngine;
 
 
+// TODO: アルファ発表用、統合に使えそうなら再利用
 public class ItemManager : MonoBehaviour {
 
   static public bool hasItem { get; set; }
