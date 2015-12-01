@@ -2,6 +2,7 @@
 using UnityEngine;
 
 
+// TODO: アルファ発表用、削除予定
 public class ItemStateAlpha : MonoBehaviour {
 
   void Start() {

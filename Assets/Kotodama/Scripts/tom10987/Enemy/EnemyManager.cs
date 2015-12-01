@@ -2,36 +2,65 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-//
-// 敵キャラの管理
-//
-// 更新する対象キャラクターを追加するのは、各オブジェクトの
-// Start() メソッドの最後に行う
-//
 
-public class EnemyManager : MonoBehaviour {
+public class EnemyManager : SingletonBehaviour<EnemyManager> {
 
-  static List<EnemyActor> _actors = null;
-  static public List<EnemyActor> actors {
+  [SerializeField]
+  Transform[] _spots = null;
+
+  GameObject _enemy = null;
+  GameObject enemy {
     get {
-      if (_actors == null) { _actors = new List<EnemyActor>(); }
-      return _actors;
+      if (_enemy == null) { _enemy = Resources.Load<GameObject>("Enemy/Enemy"); }
+      return _enemy;
     }
   }
 
+  List<EnemyActor> _actors = null;
 
-  void Awake() {
-    var findManager = FindObjectsOfType<EnemyManager>();
-    if (findManager.Length > 1) { Destroy(gameObject); return; }
-    if (_actors.Count != 0) { _actors.Clear(); }
+
+  //------------------------------------------------------------
+  // Instanciate Enemy
+
+  // TODO: actor の agent パラメータを変更してバリエーションを増やす
+  // TODO: タイプごとに生成メソッドを作る
+  public void CreateEnemy(Vector3 position) {
+    var actor = GenerateActor(position);
+    AppendActor(actor);
   }
 
-  void Start() {
+  public void DestroyEnemy() {
+    foreach (var actor in _actors) { Destroy(actor.gameObject); }
+  }
+
+
+  //------------------------------------------------------------
+  // System
+
+  EnemyActor GenerateActor(Vector3 position) {
+    var actor = Instantiate(enemy);
+    actor.transform.position = position;
+    actor.transform.SetParent(transform);
+    return actor.GetComponent<EnemyActor>();
+  }
+
+  void AppendActor(EnemyActor actor) {
+    actor.SetCourse(_spots);
+    _actors.Add(actor);
+  }
+
+
+  //------------------------------------------------------------
+  // MonoBehaviour
+
+  protected override void Awake() {
+    base.Awake();
+    _actors = new List<EnemyActor>();
   }
 
   void Update() {
     //TODO: ポーズ中は敵キャラの更新をしない
     //if (true) { return; }
-    foreach (var actor in _actors) { actor.Execute(); }
+    //foreach (var actor in _actors) { actor.Execute(); }
   }
 }
