@@ -22,10 +22,9 @@ public class TouchController : MonoBehaviour {
   /// </summary>
   static public Vector3 GetTouchScreenPosition() {
     // TIPS: スマートフォンでなければ、代わりにマウス位置を返す
-    var pos = IsSmartDevice
-      ? (Vector3)Input.touches[0].position
-      : Input.mousePosition;
-    return new Vector3(pos.x, pos.y);
+    var touchPosition = (Input.touchCount > 0) ?
+      (Vector3)Input.touches[0].position : Vector3.zero;
+    return IsSmartDevice ? touchPosition : Input.mousePosition;
   }
 
   /// <summary>

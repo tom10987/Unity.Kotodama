@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class PlayerKill : MonoBehaviour {
 
-  /*
+  // TODO: ゲームオーバー演出が始まるようにする
+  public void OnTriggerEnter(Collider other) {
+    if (other.gameObject.tag != ObjectTag.player) { return; }
 
-  public void OnTriggerEnter(Collider collision) {
-    if (collision.gameObject.tag != "Player") { return; }
-
-    FindObjectOfType<SceneSequencer>().SceneFinish("Epilogue");
-    collision.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    FindObjectOfType<SceneSequencer>().SceneFinish(SceneTag.epilogue);
+    other.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
     var enemy = GetComponentInParent<NavMeshAgent>();
     enemy.SetDestination(enemy.transform.position);
     enemy.velocity = Vector3.zero;
   }
-  */
 }

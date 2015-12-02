@@ -13,6 +13,7 @@ public abstract class SingletonBehaviour<T> :
     }
   }
 
+
   virtual protected void Awake() {
     if (!ExistsInstance()) { Debug.LogWarning(typeof(T) + " is nothing."); }
   }
