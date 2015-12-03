@@ -12,7 +12,6 @@ public class TitleManager : MonoBehaviour {
   SceneSequencer _sequencer = null;
   Text _telop = null;
 
-
   void Awake() {
     isSelect = false;
     buttonAlpha = 1f;
@@ -48,4 +47,11 @@ public class TitleManager : MonoBehaviour {
     _telop.text = "Chapter 3 は選択できません";
     //_sequencer.SceneFinish("Chapter3");
   }
+
+
+   /////
+   /// 以下演出
+   ///
+   /////
+  
 }
