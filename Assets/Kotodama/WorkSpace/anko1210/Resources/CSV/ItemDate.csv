@@ -1,0 +1,4 @@
+,enableFlag,name,summary,TextureName,,
+例,F,アイテムの名前,概要,dataName,,※ enableFlagはFと記入してください
+1,T,カギ,どこかの扉の鍵,Sprits/Item/Key,,※ TextureNameは書き換え不可です。
+2,T,懐中電灯,どこかを照らせる,Sprits/Item/Memo,,※ 内容を書き換える時は「name」と「summary」のみ記入お願いします。
