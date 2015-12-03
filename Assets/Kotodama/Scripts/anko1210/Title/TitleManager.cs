@@ -16,9 +16,10 @@ public class TitleManager : MonoBehaviour {
   void Awake() {
     isSelect = false;
     buttonAlpha = 1f;
-  }
+    _sequencer = FindObjectOfType<SceneSequencer>();
+    }
 
-  void Update() {
+    void Update() {
     if (!isSelect) { return; }
     if (buttonAlpha > 0f) { buttonAlpha -= Time.deltaTime; }
   }
@@ -26,8 +27,9 @@ public class TitleManager : MonoBehaviour {
 
   public void TouchStart() {
     isSelect = true;
-    _sequencer = FindObjectOfType<SceneSequencer>();
-    _telop = FindObjectOfType<Text>();
+    //_telop = FindObjectOfType<Text>();
+        if (effectPlaying) { return; }
+        _sequencer.SceneFinish("Chapter1");
   }
 
   public void TouchChapter1() {
