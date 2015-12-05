@@ -8,11 +8,10 @@ public class SpriteBillBoard : MonoBehaviour {
 
 
   void Start() {
-    var camera_ = Camera.main.transform;
-    _rotate = camera_.rotation;
+    _rotate = Camera.main.transform.rotation;
 
-    var renderer_ = GetComponent<MeshRenderer>();
-    if (renderer_ != null) { renderer_.enabled = false; }
+    var renderer = GetComponent<MeshRenderer>();
+    if (renderer != null) { renderer.enabled = false; }
   }
 
   void Update() {

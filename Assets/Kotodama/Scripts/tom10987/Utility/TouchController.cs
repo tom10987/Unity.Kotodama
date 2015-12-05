@@ -21,7 +21,8 @@ public class TouchController : MonoBehaviour {
   /// タッチされたスクリーン座標を返す
   /// </summary>
   static public Vector3 GetTouchScreenPosition() {
-    // TIPS: スマートフォンでなければ、代わりにマウス位置を返す
+    // TIPS: タッチされてなければ、(0, 0, 0) を返す
+    // TIPS: スマートフォンでなければ、代わりにマウスの座標を返す
     var touchPosition = (Input.touchCount > 0) ?
       (Vector3)Input.touches[0].position : Vector3.zero;
     return IsSmartDevice ? touchPosition : Input.mousePosition;
@@ -43,7 +44,7 @@ public class TouchController : MonoBehaviour {
   }
 
   /// <summary>
-  /// 画面中央から見たワールドの絶対座標を返す
+  /// 画面中央から見たワールドの標準座標を返す
   /// </summary>
   static public Vector3 GetTouchWorldPosition() {
     var touchPos = GetTouchScreenPositionFromCenter();
@@ -57,7 +58,7 @@ public class TouchController : MonoBehaviour {
   }
 
   /// <summary>
-  /// XZ 平面で見た場合のワールドの絶対座標を返す
+  /// XZ 平面で見た場合のワールドの標準座標を返す
   /// </summary>
   static public Vector3 GetTouchWorldPositionXZ() {
     var pos = GetTouchWorldPosition();

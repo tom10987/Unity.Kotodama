@@ -63,12 +63,12 @@ public class ViewAspectUpdate : MonoBehaviour {
 
 
   bool IsChangeAspect() {
-    return _camera.aspect == _aspectRate;
+    return _camera.aspect != _aspectRate;
   }
 
 
   void Update() {
-    if (IsChangeAspect()) { return; }
+    if (!IsChangeAspect()) { return; }
 
     UpdateScreenRate();
     _camera.ResetAspect();

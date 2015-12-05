@@ -1,26 +1,11 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
+
 
 public class MenuButton : MonoBehaviour {
 
-  SceneSequencer _sequencer = null;
-  UIScript _uiScript = null;
+  MenuAction button { get { return MainGameButton.instance; } }
 
-  void Start() {
-    _sequencer = FindObjectOfType<SceneSequencer>();
-    _uiScript = FindObjectOfType<UIScript>();
-  }
-
-  public void Back() {
-    _uiScript._menuActive = false;
-    DestroyObject();
-  }
-
-  public void GoTitle() {
-    DestroyObject();
-    _sequencer.SceneFinish("Title");
-  }
-
-  void DestroyObject() {
-    Destroy(gameObject);
-  }
+  public void OnBack() { button.Back(gameObject); }
+  public void OnGoTitle() { button.GoTitle(gameObject); }
 }

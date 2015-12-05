@@ -10,7 +10,8 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
 
   [SerializeField]
   [Range(0f, 2f)]
-  float _colliderRadius = 0.5f;
+  [Tooltip("キャラクターに対するタッチ判定の大きさ")]
+  float _touchRadius = 0.5f;
 
   Vector3 _direction = Vector3.zero;
   Rigidbody _ownRigid = null;
@@ -25,7 +26,7 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
     _ownRigid.velocity = Vector3.zero;
 
     var touchPos = TouchController.GetTouchWorldPositionXZ();
-    if (touchPos.magnitude < _colliderRadius) { return; }
+    if (touchPos.magnitude < _touchRadius) { return; }
 
     _direction = touchPos.normalized * _moveSpeed;
     _ownRigid.AddForce(_direction, ForceMode.Impulse);

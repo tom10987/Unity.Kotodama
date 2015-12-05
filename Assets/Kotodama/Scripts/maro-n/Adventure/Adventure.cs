@@ -1,105 +1,42 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.IO;
-using System.Collections.Generic;
+﻿
+//using UnityEngine;
 
-public class Adventure : MonoBehaviour
-{
 
-    public int MAX_TEXT = 4;
+//------------------------------------------------------------
+// FIXME:
+// gameObject.enabled = true の状態でゲームを起動しないと、
+// Activate() を呼び出した時に null 参照になる
 
-    const string RESOURCE_PATH = "/Kotodama/Resources/JSON/";
+public class Adventure : SingletonBehaviour<Adventure> {
 
-    [SerializeField]
-    string JSON_PATH = "";
+  StoryManager _manager = null;
 
-    //private string[] _text;
-    public int _current_text;
-    public Text _textBox;
-    private List<string> _texts;
-    private List<string> _speakers;
 
-    void Awake()
-    {
-        _current_text = 0;
-        //_text = new string[MAX_TEXT];
-        _texts = new List<string>();
-        _speakers = new List<string>();
-    }
+  //------------------------------------------------------------
+  // public method
 
-    void Start()
-    {
-        var text = File.ReadAllText(Application.dataPath + RESOURCE_PATH + JSON_PATH);
+  /// <summary>
+  /// json ファイルを読み込んでアドベンチャーモード起動
+  /// </summary>
+  public void Activate(string jsonName) {
+    gameObject.SetActive(true);
+    _manager.LoadJson(jsonName);
+  }
 
-        JsonNode json = JsonNode.Parse(text);
 
-        for (int i = 0; i < MAX_TEXT; ++i)
-        {
-            _speakers.Add(json["Texts"][i]["speaker"].Get<string>());
-            Debug.Log(_speakers[i]);
-            _texts.Add(json["Texts"][i]["text"].Get<string>());
-            Debug.Log(_texts[i]);
+  //------------------------------------------------------------
+  // Behaviour
 
-            if (_speakers[i] != "")
-            {
-                _speakers[i] += "\n";
-            }
-            _texts[i] = _speakers[i] + _texts[i];
-        }
-    }
+  protected override void Awake() { base.Awake(); }
 
-    void TextUpdate()
-    {
-        var activeCanvas = FindObjectOfType<CanvasActive>();
+  void Start() {
+    _manager = GetComponent<StoryManager>();
+    gameObject.SetActive(false);
+  }
 
-        if (activeCanvas.EventStart())
-        {
-            _textBox.text = _texts[_current_text];
-
-            if (_current_text < MAX_TEXT - 1 && Input.GetMouseButtonDown(0))
-            {
-                _current_text++;
-            }
-        }
-    }
-
-    void KotodamaDestroy()
-    {
-        var kotodama_ = GameObject.Find("Kotodama");
-
-        Destroy(kotodama_);
-    }
-
-    void HeroineDestroy()
-    {
-        var heroine_ = GameObject.Find("Heroine");
-
-        Destroy(heroine_);
-    }
-
-    void CharacterDestroy()
-    {
-        HeroineDestroy();
-        KotodamaDestroy();
-    }
-
-    void TextBoxDestroy()
-    {
-        GameObject textBox_ = GameObject.Find("TextBox");
-        GameObject text_ = GameObject.Find("Text");
-        textBox_.GetComponent<Image>().enabled = false;
-        text_.GetComponent<Text>().enabled = false;
-    }
-
-    void Destroy()
-    {
-        CharacterDestroy();
-        TextBoxDestroy();
-    }
-
-    void Update()
-    {
-        TextUpdate();
-        //Destroy();
-    }
+  // FIXME: 選択肢に対応していない
+  // TODO: 選択肢に対応できる仕組みを作る
+  void Update() {
+    if (TouchController.IsTouchBegan()) { _manager.Next(); }
+  }
 }

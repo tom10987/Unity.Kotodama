@@ -1,24 +1,23 @@
 ﻿
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class TitleManager : MonoBehaviour {
 
   static public bool isSelect { get; private set; }
   static public float buttonAlpha { get; private set; }
+
   public bool effectPlaying { get { return buttonAlpha > 0f; } }
 
-  SceneSequencer _sequencer = null;
-  Text _telop = null;
+  SceneSequencer sequencer { get { return SceneSequencer.instance; } }
+
 
   void Awake() {
     isSelect = false;
     buttonAlpha = 1f;
-    _sequencer = FindObjectOfType<SceneSequencer>();
-    }
+  }
 
-    void Update() {
+  void Update() {
     if (!isSelect) { return; }
     if (buttonAlpha > 0f) { buttonAlpha -= Time.deltaTime; }
   }
@@ -26,32 +25,13 @@ public class TitleManager : MonoBehaviour {
 
   public void TouchStart() {
     isSelect = true;
-    //_telop = FindObjectOfType<Text>();
-        if (effectPlaying) { return; }
-        _sequencer.SceneFinish("Chapter1");
-  }
-
-  public void TouchChapter1() {
     if (effectPlaying) { return; }
-    _sequencer.SceneFinish("Chapter1");
+    sequencer.SceneFinish(SceneTag.mainGame);
   }
 
-  public void TouchChapter2() {
-    if (effectPlaying) { return; }
-    _telop.text = "Chapter 2 は選択できません";
-    //_sequencer.SceneFinish("Chapter2");
-  }
+  /////
+  /// 以下演出
+  ///
+  /////
 
-  public void TouchChapter3() {
-    if (effectPlaying) { return; }
-    _telop.text = "Chapter 3 は選択できません";
-    //_sequencer.SceneFinish("Chapter3");
-  }
-
-
-   /////
-   /// 以下演出
-   ///
-   /////
-  
 }
