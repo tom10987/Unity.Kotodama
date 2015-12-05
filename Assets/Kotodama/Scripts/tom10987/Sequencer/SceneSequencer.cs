@@ -2,29 +2,31 @@
 using UnityEngine;
 
 
-public class SceneSequencer : MonoBehaviour {
+public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
 
   [SerializeField]
   [Tooltip("次のシーンの名前")]
   string _nextScene = null;
+
+  EffectSequencer effect { get { return EffectSequencer.instance; } }
 
 
   /// <summary>
   /// シーンをフェードアウトさせながら終了する
   /// </summary>
   public void SceneFinish(string nextSceneName = null) {
-    if (ScreenEffect.IsFadeTime()) { return; }
+    if (effect.IsFadeTime()) { return; }
     if (nextSceneName != null) { _nextScene = nextSceneName; }
-    ScreenEffect.FadeOutStart();
+    effect.FadeOutStart();
   }
 
 
-  void Awake() {
-    if (_nextScene == null) { _nextScene = "Title"; }
-  }
+  protected override void Awake() { base.Awake(); }
 
   void Update() {
-    if (!ScreenEffect.IsFadeFinish()) { return; }
+    if (TouchController.IsPushedQuitKey()) { Application.Quit(); }
+    if (Input.GetKeyDown(KeyCode.D)) { Adventure.instance.Activate("Sample"); }
+    if (!effect.IsFadeFinish()) { return; }
     Application.LoadLevel(_nextScene);
   }
 }

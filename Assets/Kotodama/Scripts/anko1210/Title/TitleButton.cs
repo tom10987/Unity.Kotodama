@@ -13,8 +13,8 @@ public class TitleButton : MonoBehaviour {
 
   float alpha {
     get {
-      var alpha_ = TitleManager.buttonAlpha;
-      return _isSelectable ? alpha_ : 1 - alpha_;
+      var alpha = TitleManager.buttonAlpha;
+      return _isSelectable ? alpha : 1 - alpha;
     }
   }
 

@@ -102,9 +102,13 @@ public class EnemyActor : MonoBehaviour {
     foreach (var spot in spots) { _spot.Add(spot); }
   }
 
+  public void SetTarget(Transform target) {
+    _target = target;
+  }
+
 
   //------------------------------------------------------------
-  // MonoBehaviour and initialize
+  // Behaviour
 
   void Awake() {
     _action = new Dictionary<EnemyState, Action>();
