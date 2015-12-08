@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TouchController : MonoBehaviour {
 
-  static bool IsAndroid {
+  static public bool IsAndroid {
     get { return Application.platform == RuntimePlatform.Android; }
   }
 
-  static bool IsIPhone {
+  static public bool IsIPhone {
     get { return Application.platform == RuntimePlatform.IPhonePlayer; }
   }
 

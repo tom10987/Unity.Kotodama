@@ -25,7 +25,6 @@ public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
 
   void Update() {
     if (TouchController.IsPushedQuitKey()) { Application.Quit(); }
-    if (Input.GetKeyDown(KeyCode.D)) { Adventure.instance.Activate("Sample"); }
     if (!effect.IsFadeFinish()) { return; }
     Application.LoadLevel(_nextScene);
   }

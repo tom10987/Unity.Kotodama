@@ -4,17 +4,12 @@ using System.Collections.Generic;
 
 public class ObjectTag {
 
-  static public string player { get { return "Player"; } }
-  static public string enemy { get { return "Enemy"; } }
-  static public string ui { get { return "UI"; } }
+  public const string player = "Player";
+  public const string enemy = "Enemy";
+  public const string ui = "UI";
 
-  static List<string> _name = new List<string> {
-    player,
-    enemy,
-    ui,
-  };
-
-  static public List<string> name { get { return _name; } }
+  public const string gimmick = "Gimmick";
+  public const string item = "Item";
 }
 
 
