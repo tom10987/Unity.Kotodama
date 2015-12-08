@@ -44,6 +44,10 @@ public class StoryManager : MonoBehaviour {
   [Tooltip("テキストを表示するためのボックスを指定")]
   Text _textBox = null;
 
+  [SerializeField]
+  [Tooltip("キャラクター名を表示するためのボックスを指定")]
+  Text _nameBox = null;
+
   // TODO: json の内部構造に合わせたデータ構造にする
   // TODO: 立ち絵表示位置を決める
   // TODO: 表示位置と ID の関連付けを行う
@@ -51,8 +55,8 @@ public class StoryManager : MonoBehaviour {
 
     // TIPS: 構造体は初期化が面倒なので、あらかじめ空のオブジェクトを用意
     static public readonly StoryData empty = new StoryData {
-      text = "",
-      name = "",
+      text = string.Empty,
+      name = string.Empty,
       actor = new List<int>(),
       posID = new List<int>(),
       bgDraw = 0,
@@ -81,8 +85,7 @@ public class StoryManager : MonoBehaviour {
 
   int currentIndex { get; set; }
 
-  readonly string filePath = "/Kotodama/Resources/Json/";
-  readonly string fileExt = ".json";
+  readonly string fileExtension = ".json";
 
   // TODO: json のデータ構造に合わせたキーを作る
   // FIXME: 時間ないので、現状のキーを流用
@@ -99,6 +102,7 @@ public class StoryManager : MonoBehaviour {
 
   public void LoadJson(string fileName) {
     if (_textBox == null) { Debug.LogError("textBox is null"); return; }
+    if (_nameBox == null) { Debug.LogError("nameBox is null"); return; }
 
     // 初期化
     _data = new List<StoryData>();
@@ -124,6 +128,8 @@ public class StoryManager : MonoBehaviour {
       _data.Add(temp);
     }
 
+    _textBox.text = GeneratePath(fileName);
+
     _iterator = GetIterator();
     _iterator.MoveNext();
   }
@@ -133,7 +139,8 @@ public class StoryManager : MonoBehaviour {
   // system
 
   string GeneratePath(string name) {
-    return Application.dataPath + filePath + name + fileExt;
+    var assetsPath = Application.dataPath + "/Kotodama/Resources/Json/";
+    return assetsPath + name + fileExtension;
   }
 
   IEnumerator GetIterator() {
@@ -142,7 +149,11 @@ public class StoryManager : MonoBehaviour {
 
       // TODO: テキスト以外に読み込んだデータの反映
 
+      _nameBox.enabled = (_data[currentIndex].name != string.Empty);
+
       _textBox.text = _data[currentIndex].text;
+      _nameBox.text = _data[currentIndex].name;
+
       yield return null;
       ++currentIndex;
     }

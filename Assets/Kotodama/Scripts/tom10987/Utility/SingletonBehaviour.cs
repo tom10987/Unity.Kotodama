@@ -10,13 +10,8 @@ public abstract class SingletonBehaviour<T> :
     get {
       if (_instance == null) {
         var find = FindObjectOfType(typeof(T));
-        if (find != null) {
-          _instance = find as T;
-        }
-        else {
-          var newObject = new GameObject().AddComponent<T>();
-          _instance = newObject;
-        }
+        _instance = (find != null) ?
+          find as T : new GameObject().AddComponent<T>();
       }
       return _instance;
     }

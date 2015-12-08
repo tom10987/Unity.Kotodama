@@ -16,11 +16,8 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
   Vector3 _direction = Vector3.zero;
   Rigidbody _ownRigid = null;
 
+  PlayerAnimator _animator = null;
 
-  void Start() {
-    _ownRigid = GetComponent<Rigidbody>();
-    CameraMove.target = transform;
-  }
 
   public void MoveStart() {
     _ownRigid.velocity = Vector3.zero;
@@ -30,5 +27,21 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
 
     _direction = touchPos.normalized * _moveSpeed;
     _ownRigid.AddForce(_direction, ForceMode.Impulse);
+  }
+
+  public void MoveStop() {
+    _ownRigid.velocity = Vector3.zero;
+  }
+
+  public void SpriteState(PlayerSpriteState newState) {
+    _animator.SetSpriteState(newState);
+  }
+
+
+  void Start() {
+    _ownRigid = GetComponent<Rigidbody>();
+    _animator = FindObjectOfType<PlayerAnimator>();
+    
+    CameraMove.target = transform;
   }
 }

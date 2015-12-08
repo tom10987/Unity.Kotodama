@@ -18,15 +18,15 @@ public class TitleManager : MonoBehaviour {
   }
 
   void Update() {
-    if (!isSelect) { return; }
+    //if (!isSelect) { return; }
     if (buttonAlpha > 0f) { buttonAlpha -= Time.deltaTime; }
   }
 
 
   public void TouchStart() {
-    isSelect = true;
-    if (effectPlaying) { return; }
-    sequencer.SceneFinish(SceneTag.mainGame);
+    //isSelect = true;
+    //if (effectPlaying) { return; }
+    sequencer.SceneFinish(SceneTag.prologue);
   }
 
   /////

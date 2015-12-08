@@ -27,6 +27,7 @@ public class MainGameButton : SingletonBehaviour<MainGameButton>,
   MenuAction, OpenAction, GameOverAction {
 
   SceneSequencer sequencer { get { return SceneSequencer.instance; } }
+  PlayerStatus player { get { return PlayerStatus.instance; } }
 
 
   //------------------------------------------------------------
@@ -55,6 +56,7 @@ public class MainGameButton : SingletonBehaviour<MainGameButton>,
 
   public void MenuOpen(GameObject instance) {
     Instantiate(instance);
+    player.MoveStop();
     //TODO: ポーズ状態にする処理
   }
 
