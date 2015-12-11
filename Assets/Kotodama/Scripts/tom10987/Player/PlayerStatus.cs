@@ -19,6 +19,9 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
   PlayerAnimator _animator = null;
 
 
+  //------------------------------------------------------------
+  // public method
+
   public void MoveStart() {
     _ownRigid.velocity = Vector3.zero;
 
