@@ -18,7 +18,6 @@ public class ItemViewer : MonoBehaviour {
 
   void Start() {
     foreach (var itemData in manager.items) {
-      manager.UpdateItemState(itemData.Key, true);
       if (!itemData.Value.hasItem) { continue; }
 
       var newObject = Instantiate(itemBox);
