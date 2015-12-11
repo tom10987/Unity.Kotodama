@@ -19,12 +19,16 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
   PlayerAnimator _animator = null;
 
 
+  //------------------------------------------------------------
+  // public method
+
   public void MoveStart() {
     _ownRigid.velocity = Vector3.zero;
 
     var touchPos = TouchController.GetTouchWorldPositionXZ();
     if (touchPos.magnitude < _touchRadius) { return; }
 
+    touchPos.x /= Camera.main.aspect;
     _direction = touchPos.normalized * _moveSpeed;
     _ownRigid.AddForce(_direction, ForceMode.Impulse);
   }
@@ -33,15 +37,20 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
     _ownRigid.velocity = Vector3.zero;
   }
 
-  public void SpriteState(PlayerSpriteState newState) {
+  public void SpriteState(PlayerAnimationState newState) {
     _animator.SetSpriteState(newState);
   }
 
 
+  //------------------------------------------------------------
+  // Behaviour
+
+  protected override void Awake() { base.Awake(); }
+
   void Start() {
     _ownRigid = GetComponent<Rigidbody>();
     _animator = FindObjectOfType<PlayerAnimator>();
-    
+
     CameraMove.target = transform;
   }
 }

@@ -7,9 +7,6 @@
 /[aA]pk
 *.apk
 
-/[pProjectSettings]/ProjectSettings.asset
-/[pProjectSettings]/EditorBuildSettings.asset
-
 *.sln
 *.suo
 *.csproj
