@@ -10,7 +10,7 @@ class PlayerSprite {
 }
 
 
-public enum PlayerSpriteState {
+public enum PlayerAnimationState {
   Default,
   Lantern,
 }
@@ -21,8 +21,8 @@ public class PlayerAnimator : MonoBehaviour {
   [SerializeField]
   PlayerSprite _sprite = null;
 
-  PlayerSpriteState _state = PlayerSpriteState.Default;
-  Dictionary<PlayerSpriteState, List<Sprite>> _animation = null;
+  PlayerAnimationState _state = PlayerAnimationState.Default;
+  Dictionary<PlayerAnimationState, List<Sprite>> _animation = null;
 
   SpriteRenderer _renderer = null;
   int _time = 0;
@@ -35,7 +35,7 @@ public class PlayerAnimator : MonoBehaviour {
   //------------------------------------------------------------
   // public method
 
-  public void SetSpriteState(PlayerSpriteState newState) {
+  public void SetSpriteState(PlayerAnimationState newState) {
     _state = newState;
   }
 
@@ -66,20 +66,22 @@ public class PlayerAnimator : MonoBehaviour {
     _direction = (_ownRigid.velocity.z > 0f) ? 2 : 0;
   }
 
-  void SpriteSetup(Sprite[] sprites, PlayerSpriteState state) {
-    var list = new List<Sprite>();
-    foreach (var sprite in sprites) { list.Add(sprite); }
-    _animation.Add(state, list);
-  }
-
 
   //------------------------------------------------------------
   // Behaviour
 
   void Awake() {
-    _animation = new Dictionary<PlayerSpriteState, List<Sprite>>();
-    SpriteSetup(_sprite._default, PlayerSpriteState.Default);
-    SpriteSetup(_sprite._lantern, PlayerSpriteState.Lantern);
+    _animation = new Dictionary<PlayerAnimationState, List<Sprite>>();
+
+    System.Action<Sprite[], PlayerAnimationState> spriteSetup = null;
+    spriteSetup = (Sprite[] sprites, PlayerAnimationState state) => {
+      var list = new List<Sprite>();
+      foreach (var sprite in sprites) { list.Add(sprite); }
+      _animation.Add(state, list);
+    };
+
+    spriteSetup(_sprite._default, PlayerAnimationState.Default);
+    spriteSetup(_sprite._lantern, PlayerAnimationState.Lantern);
   }
 
   void Start() {

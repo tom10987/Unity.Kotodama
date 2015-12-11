@@ -2,6 +2,12 @@
 using UnityEngine;
 
 
+//------------------------------------------------------------
+// TIPS:
+// 継承させたクラスは、あらかじめシーンに登録したうえで
+// base.Awake() を呼び出すか、派生クラスの内部で
+// 自身の static インスタンスを初期化するようにすること
+
 public abstract class SingletonBehaviour<T> :
   MonoBehaviour where T : SingletonBehaviour<T> {
 
@@ -10,8 +16,8 @@ public abstract class SingletonBehaviour<T> :
     get {
       if (_instance == null) {
         var find = FindObjectOfType(typeof(T));
-        _instance = (find != null) ?
-          find as T : new GameObject().AddComponent<T>();
+        if (find != null) { _instance = find as T; }
+        else { Debug.LogError(typeof(T) + " is not exists !"); }
       }
       return _instance;
     }
