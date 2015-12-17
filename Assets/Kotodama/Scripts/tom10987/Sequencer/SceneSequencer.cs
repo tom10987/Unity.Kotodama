@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
 
-  [SerializeField]
-  [Tooltip("次のシーンの名前")]
-  string _nextScene = null;
-
+  string nextScene { get; set; }
   EffectSequencer effect { get { return EffectSequencer.instance; } }
 
 
   /// <summary>
   /// シーンをフェードアウトさせながら終了する
   /// </summary>
-  public void SceneFinish(string nextSceneName = null) {
+  public void SceneFinish(string nextSceneName) {
     if (effect.IsFadeTime()) { return; }
-    if (nextSceneName != null) { _nextScene = nextSceneName; }
+    nextScene = nextSceneName;
     effect.FadeOutStart();
   }
 
@@ -26,6 +23,6 @@ public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
   void Update() {
     if (TouchController.IsPushedQuitKey()) { Application.Quit(); }
     if (!effect.IsFadeFinish()) { return; }
-    Application.LoadLevel(_nextScene);
+    Application.LoadLevel(nextScene);
   }
 }
