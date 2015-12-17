@@ -20,6 +20,7 @@ public class ItemState : MonoBehaviour {
   public string itemInfo { get { return _itemInfo; } }
 
   public bool hasItem { get; private set; }
+  public void UpdateState(bool newState) { hasItem = newState; }
 
 
   void Start() {
