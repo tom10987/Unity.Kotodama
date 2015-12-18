@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
 
+  EffectSequencer effect { get { return EffectSequencer.instance; } }
+
   [SerializeField]
   [Range(1f, 10f)]
   float _moveSpeed = 3f;
@@ -24,6 +26,7 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
 
   public void MoveStart() {
     _ownRigid.velocity = Vector3.zero;
+    if (effect.IsFadeTime()) { return; }
 
     var touchPos = TouchController.GetTouchWorldPositionXZ();
     if (touchPos.magnitude < _touchRadius) { return; }
