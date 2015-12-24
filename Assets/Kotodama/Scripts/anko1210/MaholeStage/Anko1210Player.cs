@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Anko1210Player : MonoBehaviour {
 
@@ -57,17 +58,17 @@ public class Anko1210Player : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-        /// 徘徊する敵に衝突する
-        if (col.gameObject.tag.Equals(ObjectTag.enemy))
-        {
-            if (col.gameObject.name == "MoveEnemy")
-            {
-                _ms.ChangePosition(StartPosition.ManholeStage);
-                _ms.ChangeMapView(true);
-            }
-        }
+        ///// 徘徊する敵に衝突する
+        //if (col.gameObject.tag.Equals(ObjectTag.enemy))
+        //{
+        //    if (col.gameObject.name == "MoveEnemy")
+        //    {
+        //        _ms.ChangePosition(StartPosition.ManholeStage);
+        //        _ms.ChangeMapView(true);
+        //    }
+        //}
         /// アイテムを拾う
-        else if (col.gameObject.tag.Equals(ObjectTag.item)) { ItemGet(col); }
+        if (col.gameObject.tag.Equals(ObjectTag.item)) { ItemGet(col); }
         /// ゴールテープに衝突
         else if (col.gameObject.name.Equals("GoalTape"))
         {
@@ -198,10 +199,7 @@ public class Anko1210Player : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            _ms.DestroyStage();
-            manager.items.Clear();
-            _ms.RESET();
-            state.MoveStop();
+            SceneSequencer.instance.SceneFinish(SceneManager.GetActiveScene().name);
         }
     }
 }
