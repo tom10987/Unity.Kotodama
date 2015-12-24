@@ -135,7 +135,7 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
     public void IsEnd()
     {
         _isChoice = true;
-        sceneSequencer.SceneFinish(SceneTag.title);
+        sceneSequencer.SceneFinish(SceneTag.shrine);
     }
 }
 
