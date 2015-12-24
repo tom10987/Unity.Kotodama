@@ -9,7 +9,7 @@ public class EventTrigger : MonoBehaviour {
   bool _removeEvent = false;
 
   [SerializeField]
-  string _eventName = string.Empty;
+  Scenario.StoryName _eventName = Scenario.StoryName.None;
 
 
   public void OnTriggerEnter(Collider other) {
@@ -17,8 +17,23 @@ public class EventTrigger : MonoBehaviour {
 
     var body = other.GetComponent<Rigidbody>();
     body.velocity = Vector3.zero;
-    _eventName = "test";
+    // TODO: アドベンチャーパート開始
+    // manager.Adventure(_eventName);
 
     if (_removeEvent) { Destroy(gameObject); }
+  }
+
+  // test
+  void hoge() {
+    var character = Scenario.prologue[0].name;
+    var nana = CharacterSprite.GetSprite(character);
+
+    foreach (var scenario in Scenario.prologue) {
+      Debug.Log(scenario.name);
+      Debug.Log(scenario.text);
+
+      var sprite = CharacterSprite.GetSprite(scenario.name);
+      Debug.Log(sprite.name);
+    }
   }
 }
