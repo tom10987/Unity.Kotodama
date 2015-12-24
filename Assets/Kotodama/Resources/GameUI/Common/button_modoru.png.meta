@@ -1,0 +1,86 @@
+fileFormatVersion: 2
+guid: 7e558d29696aa8e40b77ccf62b2a3d78
+timeCreated: 1450450599
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: button_modoru
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: button_modoru
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 369
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 179.5, y: -49.5}
+        - {x: 184.5, y: -27.5}
+        - {x: 184.5, y: 41.5}
+        - {x: 161.5, y: 62.5}
+        - {x: -163.5, y: 62.5}
+        - {x: -173.5, y: 53.5}
+        - {x: -184.5, y: 28.5}
+        - {x: -184.5, y: -26.5}
+        - {x: -172.5, y: -54.5}
+        - {x: -162.5, y: -62.5}
+        - {x: -139.5, y: -62.5}
+        - {x: -100.5, y: -59.5}
+        - {x: -68.5, y: -62.5}
+        - {x: -12.5, y: -62.5}
+        - {x: -0.5, y: -59.5}
+        - {x: 20.5, y: -62.5}
+        - {x: 155.5, y: -62.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
