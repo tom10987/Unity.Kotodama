@@ -10,12 +10,9 @@ public enum ItemName {
   Amulet_B,
   Amulet_C,
   Amulet_D,
+
   ManholeKey_B,
   ManholeKey_D,
-
-  Bone,
-  Collar,
-  Ball,
 
   Shoes,
   Papers,
@@ -34,12 +31,9 @@ public class ItemData {
     { ItemName.Amulet_B, "お札" },
     { ItemName.Amulet_C, "お札" },
     { ItemName.Amulet_D, "お札" },
+
     { ItemName.ManholeKey_B, "お札" },
     { ItemName.ManholeKey_D, "お札" },
-
-    { ItemName.Bone,   "ホネ" },
-    { ItemName.Collar, "首輪" },
-    { ItemName.Ball,   "ボール" },
 
     { ItemName.Shoes,  "シューズ" },
     { ItemName.Papers, "作文用紙" },
