@@ -20,6 +20,12 @@ public class ItemReader : MonoBehaviour {
   string[] _col;
   string[,] _preservation;
 
+    void hoge()
+    {
+        if (TouchController.IsTouchBegan())
+            TouchController.IsTouchEnded();
+        TouchController.IsTouchMoved();
+    }
 
   void Start() {
     _itemBox = Resources.Load<GameObject>(_itemBoxPath);

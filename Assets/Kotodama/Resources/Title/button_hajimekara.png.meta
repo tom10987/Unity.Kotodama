@@ -1,0 +1,82 @@
+fileFormatVersion: 2
+guid: d6cc534fb5264ac4cb6a09c92aa5c0a8
+timeCreated: 1450469038
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: button_hajimekara
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: button_hajimekara
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 370
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 176, y: -43.5}
+        - {x: 185, y: -22.5}
+        - {x: 185, y: 41.5}
+        - {x: 162, y: 62.5}
+        - {x: -162, y: 62.5}
+        - {x: -178, y: 43.5}
+        - {x: -185, y: 22.5}
+        - {x: -185, y: -25.5}
+        - {x: -165, y: -62.5}
+        - {x: -131, y: -62.5}
+        - {x: -93, y: -59.5}
+        - {x: -82, y: -62.5}
+        - {x: 157, y: -62.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
