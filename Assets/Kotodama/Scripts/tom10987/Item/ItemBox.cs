@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+// TIPS: プレハブに設定、プレハブ自身のオブジェクトを登録する
 public class ItemBox : MonoBehaviour {
 
   [SerializeField]

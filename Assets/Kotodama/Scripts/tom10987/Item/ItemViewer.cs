@@ -1,7 +1,9 @@
 ﻿
 using UnityEngine;
+using UnityEngine.UI;
 
 
+// TIPS: メニュー画面生成時の初期化のみ動作する
 public class ItemViewer : MonoBehaviour {
 
   [SerializeField]
@@ -27,6 +29,8 @@ public class ItemViewer : MonoBehaviour {
 
       var box = newObject.GetComponent<ItemBox>();
       box.image.sprite = itemData.Value.sprite;
+      box.image.type = Image.Type.Filled;
+      box.image.preserveAspect = true;
       box.itemName.text = ItemData.ToString(itemData.Key);
       box.itemInfo.text = itemData.Value.itemInfo;
     }

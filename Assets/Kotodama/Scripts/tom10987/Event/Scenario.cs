@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 
 
+public enum StoryName {
+  None,
+
+  Prologue,
+  Tutorial,
+}
+
+
 public class Scenario {
 
   const string None = "";
