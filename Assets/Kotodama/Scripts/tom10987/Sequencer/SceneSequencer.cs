@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
 
-  string nextScene { get; set; }
   EffectSequencer effect { get { return EffectSequencer.instance; } }
+
+  bool _isFinish = false;
+  string _nextScene = string.Empty;
 
 
   /// <summary>
@@ -14,7 +16,8 @@ public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
   /// </summary>
   public void SceneFinish(string nextSceneName) {
     if (effect.IsFadeTime()) { return; }
-    nextScene = nextSceneName;
+    _isFinish = true;
+    _nextScene = nextSceneName;
     effect.FadeOutStart();
   }
 
@@ -23,7 +26,9 @@ public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
 
   void Update() {
     if (TouchController.IsPushedQuitKey()) { Application.Quit(); }
-    if (!effect.IsFadeFinish()) { return; }
-    SceneManager.LoadScene(nextScene);
+    if (!effect.IsFadeFinish() && !_isFinish) { return; }
+
+    _isFinish = false;
+    SceneManager.LoadScene(_nextScene);
   }
 }

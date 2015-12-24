@@ -9,6 +9,7 @@ public class ObjectTag {
 
   public const string gimmick = "Gimmick";
   public const string item = "Item";
+  public const string adventure = "Adventure";
 }
 
 /// <summary>
