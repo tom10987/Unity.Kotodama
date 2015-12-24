@@ -194,7 +194,6 @@ public class Anko1210Player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             _ms.ChangePosition(StartPosition.ManholeStage);
-            _ms.ChangeMapView(true);
             state.MoveStop();
         }
         if (Input.GetKeyDown(KeyCode.R))

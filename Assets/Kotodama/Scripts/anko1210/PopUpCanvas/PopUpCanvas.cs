@@ -8,12 +8,14 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
     /// 読み込むスクリプト
     /// </summary>
     SceneSequencer sceneSequencer { get { return SceneSequencer.instance; } }
+    EffectSequencer effectSequencer { get { return EffectSequencer.instance; } }
     ManholeScript _manhole;
 
     /// <summary>
     /// ウィンドウの設定
     /// </summary>
     private bool _isChoice;
+    private bool _isEffect;
     private GameObject _popupWindow;
     private Canvas _canvas;
     private CanvasGroup _canvasGroup;
@@ -36,12 +38,22 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
     {
         _manhole = GameObject.FindObjectOfType<ManholeScript>();
         _isChoice = false;
+        _isEffect = false;
     }
 
     void Update()
     {
         if (_count > 0) _count -= 1 * Time.deltaTime;
         if (_isChoice && _count<=0) { FadeDestroy(1.5f); }
+        if (_isEffect) {
+            effectSequencer.FadeOutStart();
+            if (effectSequencer.IsFadeFinish())
+            {
+                _manhole.IsDestination(_str);
+                effectSequencer.FadeInStart();
+                _isEffect = false;
+            }
+        }
     }
 
     void FadeDestroy(float time)
@@ -134,7 +146,7 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
     public void IsWarpMari()
     {
         _isChoice = true;
-        _manhole.IsDestination(_str);
+        _isEffect = true;
     }
 
     public void IsEnd()
