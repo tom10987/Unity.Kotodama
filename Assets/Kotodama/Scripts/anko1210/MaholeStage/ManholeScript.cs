@@ -29,13 +29,6 @@ public class ManholeScript : MonoBehaviour
         _player.transform.localPosition = pos;
     }
 
-    public void ChangeMapView(bool up)
-    {
-        /// マップの切り替え関数
-        _upMap.SetActive(up);
-        _downMap.SetActive(!up);
-    }
-
     public void IsDestination(string name)
     {
         /// <summary>
@@ -47,13 +40,6 @@ public class ManholeScript : MonoBehaviour
         { ChangePosition(ManholePosition.pos[name]); }
         /// nameが該当しない場合はスタート地点に戻します
         else { ChangePosition(StartPosition.ManholeStage); }
-
-        /// そして現在地を調べて地上のマップの場合「地下表示」にきりかえます
-        if (name == "ManholeUA" || name == "ManholeKey_B" ||
-            name == "ManholeUC" || name == "ManholeKey_D")
-        { ChangeMapView(false); }
-        /// 地下の場合とnameが該当しない場合は「地上表示」に切り替えます
-        else { ChangeMapView(true); }
     }
 
     public void MoveFloor()
@@ -87,7 +73,6 @@ public class ManholeScript : MonoBehaviour
         _rightFloor.localPosition = new Vector3(0f, _min);
         _player = GameObject.Find(_playerObjName);
         ChangePosition(StartPosition.ManholeStage);
-        ChangeMapView(true);
     }
 
     /// <summary>
@@ -104,6 +89,9 @@ public class ManholeScript : MonoBehaviour
         _downMap.name = "Down";
         if (_item == null) { _item = Instantiate(item); }
         _item.name = "Item";
+        _upMap.SetActive(true);
+        _downMap.SetActive(true);
+        _item.SetActive(true);
     }
 
     public void DestroyStage()
