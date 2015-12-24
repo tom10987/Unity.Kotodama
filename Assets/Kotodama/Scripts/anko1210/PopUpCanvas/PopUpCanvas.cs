@@ -27,6 +27,11 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
     public string _str;
     public float _count;
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     void Start()
     {
         _manhole = GameObject.FindObjectOfType<ManholeScript>();

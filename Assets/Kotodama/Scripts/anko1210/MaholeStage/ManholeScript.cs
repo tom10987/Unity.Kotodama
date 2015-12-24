@@ -3,7 +3,7 @@
 public class ManholeScript : MonoBehaviour
 {
     [SerializeField]
-    private string _playerObjName = "PlayerAnko";
+    private string _playerObjName = "Player";
     private GameObject _player;
 
     private GameObject _upMap;
