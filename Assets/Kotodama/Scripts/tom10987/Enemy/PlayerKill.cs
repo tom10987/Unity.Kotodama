@@ -1,18 +1,22 @@
 ﻿
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerKill : MonoBehaviour {
 
-  // TODO: ゲームオーバー演出が始まるようにする
-  public void OnTriggerEnter(Collider other) {
-    if (other.gameObject.tag != ObjectTag.player) { return; }
+  SceneSequencer sequencer { get { return SceneSequencer.instance; } }
 
-    FindObjectOfType<SceneSequencer>().SceneFinish(SceneTag.epilogue);
+  // TIPS: プレイヤーがトリガーに触れたらステージの最初に戻す
+  public void OnTriggerEnter(Collider other) {
+    if (other.tag != ObjectTag.player) { return; }
+
     other.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
     var enemy = GetComponentInParent<NavMeshAgent>();
     enemy.SetDestination(enemy.transform.position);
     enemy.velocity = Vector3.zero;
+
+    sequencer.SceneFinish(SceneManager.GetActiveScene().name);
   }
 }

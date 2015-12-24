@@ -16,7 +16,10 @@ public class ObjectTag {
 /// </summary>
 public class SceneTag {
   public const string title = "Title";
-  public const string prologue = "Prologue";
-  public const string mainGame = "MainGame";
-  public const string epilogue = "Epilogue";
+  public const string tutorial = "Tutorial";
+  public const string shrine = "Shrine";
+  public const string manhole = "ManHole";
+  public const string publicPhone = "PublicPhone";
+  public const string maze = "Maze";
+  public const string ending = "Ending";
 }

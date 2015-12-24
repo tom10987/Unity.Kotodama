@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
@@ -23,6 +24,6 @@ public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
   void Update() {
     if (TouchController.IsPushedQuitKey()) { Application.Quit(); }
     if (!effect.IsFadeFinish()) { return; }
-    Application.LoadLevel(nextScene);
+    SceneManager.LoadScene(nextScene);
   }
 }
