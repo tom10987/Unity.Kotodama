@@ -199,6 +199,7 @@ public class Anko1210Player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneSequencer.instance.SceneFinish(SceneManager.GetActiveScene().name);
+            manager.items.Clear();
         }
     }
 }

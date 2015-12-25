@@ -36,7 +36,6 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
 
     void Start()
     {
-        _manhole = GameObject.FindObjectOfType<ManholeScript>();
         _isChoice = false;
         _isEffect = false;
     }
@@ -46,13 +45,9 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
         if (_count > 0) _count -= 1 * Time.deltaTime;
         if (_isChoice && _count<=0) { FadeDestroy(1.5f); }
         if (_isEffect) {
-            effectSequencer.FadeOutStart();
-            if (effectSequencer.IsFadeFinish())
-            {
-                _manhole.IsDestination(_str);
-                effectSequencer.FadeInStart();
-                _isEffect = false;
-            }
+            effectSequencer.fadeTime = 0.5f;
+            effectSequencer.AutoFadeStart(ManholeJump);
+            // 時間かえなきゃだめだよ
         }
     }
 
@@ -125,6 +120,17 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
         else return;
     }
 
+
+    /// 
+    /// 引数なしのもの
+    ///
+    public void ManholeJump()
+    {
+        _manhole = GameObject.FindObjectOfType<ManholeScript>();
+        _manhole.IsDestination(_str);
+        _isEffect = false;
+    }
+
     /// 
     /// 以下にボタン用のスクリプトを書く
     /// 必ず「 public void 関数名(){} 」とかくこと。エラー起こすから
@@ -139,6 +145,7 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
 
     public void IsFloorMove()
     {
+        _manhole = GameObject.FindObjectOfType<ManholeScript>();
         _isChoice = true;
         _manhole.MoveFloor();
     }
