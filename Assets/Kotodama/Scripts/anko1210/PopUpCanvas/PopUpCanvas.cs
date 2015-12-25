@@ -45,9 +45,7 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
         if (_count > 0) _count -= 1 * Time.deltaTime;
         if (_isChoice && _count<=0) { FadeDestroy(1.5f); }
         if (_isEffect) {
-            effectSequencer.fadeTime = 0.5f;
-            effectSequencer.AutoFadeStart(ManholeJump);
-            // 時間かえなきゃだめだよ
+            effectSequencer.FadeStart(ManholeJump, 0.5f);
         }
     }
 
