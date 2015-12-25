@@ -8,6 +8,8 @@ public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
   EffectSequencer effect { get { return EffectSequencer.instance; } }
 
   bool _isFinish = false;
+  public bool isSceneFinish { get { return _isFinish; } }
+
   string _nextScene = string.Empty;
 
 
