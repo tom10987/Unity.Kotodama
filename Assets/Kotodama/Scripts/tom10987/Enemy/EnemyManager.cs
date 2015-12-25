@@ -32,14 +32,24 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
     enemy.transform.SetParent(transform);
 
     var actor = enemy.GetComponent<EnemyActor>();
-    actor.SetCourse(_spots.ToArray());
-    actor.SetTarget(PlayerStatus.instance.transform);
+    actor.Initialize(_spots.ToArray());
+    actor.State(EnemyState.Move);
     _actors.Add(actor);
   }
 
   /// <summary> 敵キャラを全て削除 </summary>
-  public void DestroyEnemy() {
+  public void DestroyEnemies() {
     foreach (var actor in _actors) { Destroy(actor.gameObject); }
+  }
+
+  /// <summary> 敵キャラを全て停止 </summary>
+  public void PauseEnemies() {
+    foreach (var actor in _actors) { actor.SetTarget(actor.transform); }
+  }
+
+  /// <summary> 敵キャラを全て行動できるようにする </summary>
+  public void StartEnemies() {
+    foreach (var actor in _actors) { actor.SetTarget(PlayerStatus.instance.transform); }
   }
 
 
@@ -52,10 +62,13 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
     _actors = new List<EnemyActor>();
   }
 
+  //debug
+  void Start() {
+    CreateEnemy(new Vector3(-10f, 0f, 0f));
+  }
+
   void Update() {
-    foreach (var actor in _actors) {
-      actor.Execute();
-      if (gameManager.isPause) { }
-    }
+    if (gameManager.isPause) { return; }
+    foreach (var actor in _actors) { actor.Execute(); }
   }
 }
