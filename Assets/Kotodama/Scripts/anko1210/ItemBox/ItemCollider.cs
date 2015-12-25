@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ItemCollider : MonoBehaviour {
+    
+    PopUpCanvas popupCanvas { get { return PopUpCanvas.instance; } }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag.Equals(ObjectTag.player))
+        {
+            /// 中身
+            var itemState = this.gameObject.GetComponent<ItemState>();
+            var effect = this.gameObject.GetComponent<ParticleSystem>();
+            var collider = this.gameObject.GetComponent<Collider>();
+            itemState.UpdateState(true);
+            popupCanvas.CreatePopUpWindowVerItem(ItemData.ToString(itemState.itemName));
+            collider.isTrigger = true;
+            effect.loop = false;
+        }
+    }
+
 }
