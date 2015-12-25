@@ -5,31 +5,7 @@ using UnityEngine;
 public class GameManager : SingletonBehaviour<GameManager> {
 
   [SerializeField]
-  GameObject _sceneSequencer = null;
-  GameObject sceneSequencerObject {
-    get {
-      if (_sceneSequencer == null) { _sceneSequencer = Resources.Load<GameObject>("GameManager/SceneSequencer"); }
-      return _sceneSequencer;
-    }
-  }
-
-  [SerializeField]
-  GameObject _audioManager = null;
-  GameObject audioManagerObject {
-    get {
-      if (_audioManager == null) { _audioManager = Resources.Load<GameObject>("Audio/AudioManager"); }
-      return _audioManager;
-    }
-  }
-
-  [SerializeField]
-  GameObject _mainUI = null;
-  GameObject mainUIObject {
-    get {
-      if (_mainUI == null) { _mainUI = Resources.Load<GameObject>("GameUI/MainUI"); }
-      return _mainUI;
-    }
-  }
+  SingletonInstance _instances = null;
 
   public bool isPause { get; set; }
 
@@ -41,8 +17,8 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
   void Start() {
     DontDestroyOnLoad(gameObject);
-    DontDestroyOnLoad(Instantiate(sceneSequencerObject));
-    DontDestroyOnLoad(Instantiate(audioManagerObject));
-    DontDestroyOnLoad(Instantiate(mainUIObject));
+    DontDestroyOnLoad(Instantiate(_instances.sceneSequencerObject));
+    DontDestroyOnLoad(Instantiate(_instances.audioManagerObject));
+    DontDestroyOnLoad(Instantiate(_instances.mainUIObject));
   }
 }

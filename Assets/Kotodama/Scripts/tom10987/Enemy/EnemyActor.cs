@@ -27,8 +27,9 @@ public class EnemyActor : MonoBehaviour {
   List<Transform> _spot = null;
   int _spotID = 0;
   NavMeshAgent _agent = null;
-  
+
   Transform _target = null;
+  EnemyDetectArea _detect = null;
 
   [SerializeField]
   [Range(1f, 3f)]
@@ -46,7 +47,6 @@ public class EnemyActor : MonoBehaviour {
   }
 
   float _chaseTime = 0;
-  readonly int _second = 60;
 
   [SerializeField]
   [Range(1, 10)]
@@ -88,38 +88,30 @@ public class EnemyActor : MonoBehaviour {
 
   public void State(EnemyState state) {
     _state = state;
-    _chaseTime = 0f;
-    _chaseCount = 0;
+    CountReset();
 
     agentSpeed = (state == EnemyState.Chase) ?
       _originSpeed * _chaseSpeedRatio : _originSpeed;
-  }
-
-  /// <summary> 巡回するルートを登録する </summary>
-  public void SetCourse(Transform[] spots) {
-    _spot = new List<Transform>();
-    foreach (var spot in spots) { _spot.Add(spot); }
   }
 
   public void SetTarget(Transform target) {
     _target = target;
   }
 
-
-  //------------------------------------------------------------
-  // Behaviour
-
-  void Awake() {
+  public void Initialize(Transform[] spots) {
     _action = new Dictionary<EnemyState, Action>();
     _action.Add(EnemyState.Move, Move);
     _action.Add(EnemyState.Alert, Alert);
     _action.Add(EnemyState.Chase, Chase);
-  }
 
-  void Start() {
+    _spot = new List<Transform>();
+    foreach (var spot in spots) { _spot.Add(spot); }
+
     _agent = GetComponent<NavMeshAgent>();
     _agent.SetDestination(_spot[_spotID].position);
     _originSpeed = _agent.speed;
+
+    _detect = GetComponent<EnemyDetectArea>();
   }
 
 
@@ -131,7 +123,8 @@ public class EnemyActor : MonoBehaviour {
     if (distance_.magnitude > agentStoppingDistance) { return; }
 
     ++_spotID;
-    _agent.velocity = Vector3.zero;
+    if (_spotID >= _spot.Count) { _spotID = 0; }
+    _agent.velocity *= 0.5f;
     _agent.SetDestination(_spot[_spotID].position);
   }
 
@@ -141,13 +134,19 @@ public class EnemyActor : MonoBehaviour {
     _chaseTime = 0f;
     _agent.SetDestination(_target.position);
 
-    if (IsCountOver()) { PlayerLost(); }
+    if (!IsCountOver()) { return; }
+
+    if (IsDetectPlayer(_detect.alertRange)) { CountReset(); }
+    else { PlayerLost(); }
   }
 
   void Chase() {
     _agent.SetDestination(_target.position);
     if (IsIntervalTime()) { return; }
-    if (IsCountOver()) { PlayerLost(); }
+    if (!IsCountOver()) { return; }
+
+    if (IsDetectPlayer(_detect.chaseRange)) { CountReset(); }
+    else { PlayerLost(); }
   }
 
 
@@ -160,13 +159,23 @@ public class EnemyActor : MonoBehaviour {
     _agent.SetDestination(_spot[_spotID].position);
   }
 
+  void CountReset() {
+    _chaseTime = 0f;
+    _chaseCount = 0;
+  }
+
   bool IsIntervalTime() {
     _chaseTime += Time.deltaTime;
-    return _chaseTime < (chaseInterval * _second);
+    return _chaseTime < chaseInterval;
   }
 
   bool IsCountOver() {
     ++_chaseCount;
-    return _chaseCount >= _timeLimit;
+    return _chaseCount >= timeLimit;
+  }
+
+  bool IsDetectPlayer(float range) {
+    var distance_ = _target.position - transform.position;
+    return distance_.magnitude < range;
   }
 }
