@@ -8,7 +8,6 @@ public class ManholeScript : MonoBehaviour
 
     private GameObject _upMap;
     private GameObject _downMap;
-    private GameObject _item;
 
     private Transform _rightFloor;
     private Collider _rightWall;
@@ -82,24 +81,11 @@ public class ManholeScript : MonoBehaviour
     {
         var upMap = Resources.Load<GameObject>("Map/Maps/Manhole/ManholeStage_Ver2");
         var downMap = Resources.Load<GameObject>("Map/Maps/Manhole/ManholeDownStage_Ver2");
-        var item = Resources.Load<GameObject>("Map/Maps/Manhole/Item");
         if (_upMap == null) { _upMap = Instantiate(upMap); }
         _upMap.name = "Up";
         if (_downMap == null) { _downMap = Instantiate(downMap); }
         _downMap.name = "Down";
-        if (_item == null) { _item = Instantiate(item); }
-        _item.name = "Item";
         _upMap.SetActive(true);
         _downMap.SetActive(true);
-        _item.SetActive(true);
     }
-
-    public void DestroyStage()
-    {
-        Destroy(_downMap.gameObject);
-        Destroy(_upMap.gameObject);
-        Destroy(_item.gameObject);
-        _upMap = _downMap = _item = null;
-    }
-
 }
