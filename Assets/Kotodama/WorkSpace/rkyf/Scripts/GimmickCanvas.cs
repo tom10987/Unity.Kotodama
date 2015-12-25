@@ -5,37 +5,28 @@ public class GimmickCanvas : MonoBehaviour
 {
     PlayerStatus state { get { return PlayerStatus.instance; } }
 
-    void Awake()
-    {
-    }
+    [SerializeField]
+    string GimmickName;
+    /// <summary>
+    /// 
+    /// 重いm(__)m
+    /// 
+    /// </summary>
+    /// 
 
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
-
-    // 表示させるものはOffsetの子オブジェクトに。
     void OnTriggerEnter(Collider col)
     {
-        //gameObject.transform.FindChild("Offset").gameObject.SetActive(true);
-        //gameObject.GetComponent<Canvas>().gameObject.SetActive(true);
-        //gameObject.transform.FindChild("").gameObject.SetActive(true);
+        gameObject.transform.root.FindChild(GimmickName).gameObject.SetActive(true);
+        //gameObject.transform.root.FindChild(GimmickName).gameObject.transform.parent = null;
+
         state.MoveStop();
     }
 
-    void Check()
-    {
-
-    }
-
-    // OffsetからActiveをfalseに。
+    
     public void CanvasReturn()
     {
-        //gameObject.transform.FindChild("Offset").gameObject.SetActive(false);
-        gameObject.GetComponent<Canvas>().gameObject.SetActive(false);
+        gameObject.transform.root.FindChild(GimmickName).gameObject.SetActive(false);
+        
+        
     }
 }
