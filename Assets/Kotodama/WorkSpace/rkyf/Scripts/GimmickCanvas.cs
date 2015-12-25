@@ -18,9 +18,11 @@ public class GimmickCanvas : MonoBehaviour
     }
 
 
+    // 表示させるものはOffsetの子オブジェクトに。
     void OnTriggerEnter(Collider col)
     {
         gameObject.transform.FindChild("Offset").gameObject.SetActive(true);
+        state.MoveStop();
     }
 
     void Check()
@@ -28,6 +30,7 @@ public class GimmickCanvas : MonoBehaviour
 
     }
 
+    // OffsetからActiveをfalseに。
     public void CanvasReturn()
     {
         gameObject.transform.FindChild("Offset").gameObject.SetActive(false);
