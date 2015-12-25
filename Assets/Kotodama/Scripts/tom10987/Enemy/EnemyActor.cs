@@ -27,8 +27,7 @@ public class EnemyActor : MonoBehaviour {
   List<Transform> _spot = null;
   int _spotID = 0;
   NavMeshAgent _agent = null;
-
-  [SerializeField]
+  
   Transform _target = null;
 
   [SerializeField]
