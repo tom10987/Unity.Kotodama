@@ -30,9 +30,6 @@ public class DetectArea {
 public class EnemyDetectArea : MonoBehaviour {
 
   [SerializeField]
-  DetectArea _kill = null;
-
-  [SerializeField]
   DetectArea _chase = null;
   public float chaseRange { get { return _chase.range; } }
 
@@ -42,7 +39,6 @@ public class EnemyDetectArea : MonoBehaviour {
 
 
   void Start() {
-    _kill.Setup();
     _chase.Setup();
     _alert.Setup();
   }

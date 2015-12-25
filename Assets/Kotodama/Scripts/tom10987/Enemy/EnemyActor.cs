@@ -14,8 +14,10 @@ public enum EnemyState {
 }
 
 
+//------------------------------------------------------------
 // TIPS:
-// オブジェクトのインスタンス化は EnemyManager クラスの関数を使う
+// オブジェクトのインスタンス化は
+// EnemyManager クラスの CreateEnemy(Vector3 position) を使う
 
 public class EnemyActor : MonoBehaviour {
 
@@ -94,9 +96,7 @@ public class EnemyActor : MonoBehaviour {
       _originSpeed * _chaseSpeedRatio : _originSpeed;
   }
 
-  /// <summary>
-  /// 巡回するルートを登録する
-  /// </summary>
+  /// <summary> 巡回するルートを登録する </summary>
   public void SetCourse(Transform[] spots) {
     _spot = new List<Transform>();
     foreach (var spot in spots) { _spot.Add(spot); }

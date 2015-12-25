@@ -5,11 +5,14 @@ using System.Collections.Generic;
 
 public class EnemyManager : SingletonBehaviour<EnemyManager> {
 
+  GameManager gameManager { get { return GameManager.instance; } }
+
   [SerializeField]
-  Transform[] _spots = null;
+  List<Transform> _spots = null;
+  public List<Transform> spots { get { return _spots; } }
 
   GameObject _enemy = null;
-  GameObject enemy {
+  GameObject enemyObject {
     get {
       if (_enemy == null) { _enemy = Resources.Load<GameObject>("Enemy/Enemy"); }
       return _enemy;
@@ -17,36 +20,25 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
   }
 
   List<EnemyActor> _actors = null;
+  public List<EnemyActor> actors { get { return _actors; } }
 
 
   //------------------------------------------------------------
   // Instanciate Enemy
 
-  // TODO: actor の agent パラメータを変更してバリエーションを増やす
-  // TODO: タイプごとに生成メソッドを作る
   public void CreateEnemy(Vector3 position) {
-    var actor = GenerateActor(position);
-    AppendActor(actor);
+    var enemy = Instantiate(enemyObject);
+    enemy.transform.position = position;
+    enemy.transform.SetParent(transform);
+
+    var actor = enemy.GetComponent<EnemyActor>();
+    actor.SetCourse(_spots.ToArray());
+    _actors.Add(actor);
   }
 
+  /// <summary> 敵キャラを全て削除 </summary>
   public void DestroyEnemy() {
     foreach (var actor in _actors) { Destroy(actor.gameObject); }
-  }
-
-
-  //------------------------------------------------------------
-  // System
-
-  EnemyActor GenerateActor(Vector3 position) {
-    var actor = Instantiate(enemy);
-    actor.transform.position = position;
-    actor.transform.SetParent(transform);
-    return actor.GetComponent<EnemyActor>();
-  }
-
-  void AppendActor(EnemyActor actor) {
-    actor.SetCourse(_spots);
-    _actors.Add(actor);
   }
 
 
@@ -55,12 +47,14 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
 
   protected override void Awake() {
     base.Awake();
+    if (_spots == null) { _spots = new List<Transform>(); }
     _actors = new List<EnemyActor>();
   }
 
   void Update() {
-    //TODO: ポーズ中は敵キャラの更新をしない
-    //if (true) { return; }
-    //foreach (var actor in _actors) { actor.Execute(); }
+    foreach (var actor in _actors) {
+      actor.Execute();
+      if (gameManager.isPause) { }
+    }
   }
 }

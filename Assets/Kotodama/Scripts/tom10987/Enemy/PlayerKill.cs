@@ -3,20 +3,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
+/// <summary> 敵キャラに設定、プレイヤーと衝突判定を行う </summary>
 public class PlayerKill : MonoBehaviour {
 
-  SceneSequencer sequencer { get { return SceneSequencer.instance; } }
+  public void OnCollisionEnter(Collision other) {
+    if (other.collider.tag != ObjectTag.player) { return; }
 
-  // TIPS: プレイヤーがトリガーに触れたらステージの最初に戻す
-  public void OnTriggerEnter(Collider other) {
-    if (other.tag != ObjectTag.player) { return; }
-
-    other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    other.collider.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
     var enemy = GetComponentInParent<NavMeshAgent>();
     enemy.SetDestination(enemy.transform.position);
     enemy.velocity = Vector3.zero;
 
-    sequencer.SceneFinish(SceneManager.GetActiveScene().name);
+    // TIPS: すでに演出中なら処理をスキップ
+    if (SceneSequencer.instance.isSceneFinish) { return; }
+    SceneSequencer.instance.SceneFinish(SceneManager.GetActiveScene().name);
   }
 }
