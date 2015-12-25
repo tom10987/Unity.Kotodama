@@ -7,30 +7,33 @@ public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
 
   EffectSequencer effect { get { return EffectSequencer.instance; } }
 
-  bool _isFinish = false;
-  public bool isSceneFinish { get { return _isFinish; } }
-
   string _nextScene = string.Empty;
+  public bool isSceneFinish { get; private set; }
 
 
-  /// <summary>
-  /// シーンをフェードアウトさせながら終了する
-  /// </summary>
+  /// <summary> シーンをフェードアウトさせながら終了する </summary>
   public void SceneFinish(string nextSceneName) {
     if (effect.IsFadeTime()) { return; }
-    _isFinish = true;
     _nextScene = nextSceneName;
-    effect.FadeOutStart();
+    isSceneFinish = true;
+    effect.AutoFadeStart(LoadNextScene);
+  }
+
+  void LoadNextScene() {
+    isSceneFinish = false;
+    SceneManager.LoadScene(_nextScene);
   }
 
 
-  protected override void Awake() { base.Awake(); }
+  //------------------------------------------------------------
+  // Behaviour
+
+  protected override void Awake() {
+    base.Awake();
+    isSceneFinish = false;
+  }
 
   void Update() {
     if (TouchController.IsPushedQuitKey()) { Application.Quit(); }
-    if (!effect.IsFadeFinish() && !_isFinish) { return; }
-
-    _isFinish = false;
-    SceneManager.LoadScene(_nextScene);
   }
 }
