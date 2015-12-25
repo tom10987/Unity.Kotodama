@@ -7,6 +7,10 @@ public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
 
   EffectSequencer effect { get { return EffectSequencer.instance; } }
 
+  [SerializeField]
+  [Tooltip("シーン切り替えの演出時間（単位：秒）")]
+  float _fadeSpeed = 1f;
+
   string _nextScene = string.Empty;
   public bool isSceneFinish { get; private set; }
 
@@ -16,7 +20,7 @@ public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
     if (effect.IsFadeTime()) { return; }
     _nextScene = nextSceneName;
     isSceneFinish = true;
-    effect.AutoFadeStart(LoadNextScene);
+    effect.FadeStart(LoadNextScene, _fadeSpeed);
   }
 
   void LoadNextScene() {
