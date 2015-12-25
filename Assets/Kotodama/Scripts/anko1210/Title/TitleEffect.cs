@@ -9,4 +9,7 @@ public class TitleEffect : MonoBehaviour {
   RectTransform[] _logos = null;
 
   // TODO: 演出の処理など
+  void hoge() {
+    Debug.Log(_logos);
+  }
 }
