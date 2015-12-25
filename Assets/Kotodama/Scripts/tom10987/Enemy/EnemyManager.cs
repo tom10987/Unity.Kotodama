@@ -33,6 +33,7 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
 
     var actor = enemy.GetComponent<EnemyActor>();
     actor.SetCourse(_spots.ToArray());
+    actor.SetTarget(PlayerStatus.instance.transform);
     _actors.Add(actor);
   }
 

@@ -20,7 +20,7 @@ public class ShrineStage : MonoBehaviour {
   }
 
   void Start() {
-    foreach (var instance in _toGimmickArea) { instance.SetActive(true); }
+    //foreach (var instance in _toGimmickArea) { instance.SetActive(true); }
   }
 
   public void RegionRelease() {
