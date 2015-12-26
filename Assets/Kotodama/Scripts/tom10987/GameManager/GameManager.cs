@@ -20,5 +20,6 @@ public class GameManager : SingletonBehaviour<GameManager> {
     DontDestroyOnLoad(Instantiate(_instances.sceneSequencerObject));
     DontDestroyOnLoad(Instantiate(_instances.audioManagerObject));
     DontDestroyOnLoad(Instantiate(_instances.mainUIObject));
+    DontDestroyOnLoad(Instantiate(_instances.enemyManagerObject));
   }
 }

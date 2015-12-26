@@ -7,10 +7,6 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
 
   GameManager gameManager { get { return GameManager.instance; } }
 
-  [SerializeField]
-  List<Transform> _spots = null;
-  public List<Transform> spots { get { return _spots; } }
-
   GameObject _enemy = null;
   GameObject enemyObject {
     get {
@@ -24,15 +20,16 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
 
 
   //------------------------------------------------------------
-  // Instanciate Enemy
+  // public method
 
-  public void CreateEnemy(Vector3 position) {
+  /// <summary> 敵キャラを指定した座標に生成 </summary>
+  public void CreateEnemy(Vector3 position, Transform[] spots) {
     var enemy = Instantiate(enemyObject);
     enemy.transform.position = position;
     enemy.transform.SetParent(transform);
 
     var actor = enemy.GetComponent<EnemyActor>();
-    actor.Initialize(_spots.ToArray());
+    actor.Initialize(spots);
     actor.State(EnemyState.Move);
     _actors.Add(actor);
   }
@@ -58,13 +55,7 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
 
   protected override void Awake() {
     base.Awake();
-    if (_spots == null) { _spots = new List<Transform>(); }
     _actors = new List<EnemyActor>();
-  }
-
-  //debug
-  void Start() {
-    CreateEnemy(new Vector3(-10f, 0f, 0f));
   }
 
   void Update() {
