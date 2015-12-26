@@ -31,4 +31,13 @@ public class SingletonInstance {
       return _mainUI;
     }
   }
+
+  [SerializeField]
+  GameObject _enemyManager = null;
+  public GameObject enemyManagerObject {
+    get {
+      if (_enemyManager == null) { _enemyManager = Resources.Load<GameObject>("Enemy/EnemyManager"); }
+      return _enemyManager;
+    }
+  }
 }
