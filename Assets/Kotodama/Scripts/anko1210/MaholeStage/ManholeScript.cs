@@ -2,6 +2,9 @@
 
 public class ManholeScript : MonoBehaviour
 {
+    PopUpCanvas popupCanvas { get { return PopUpCanvas.instance; } }
+    EffectSequencer effectSequencer { get { return EffectSequencer.instance; } }
+
     [SerializeField]
     private string _playerObjName = "Player";
     private GameObject _player;
@@ -28,15 +31,15 @@ public class ManholeScript : MonoBehaviour
         _player.transform.localPosition = pos;
     }
 
-    public void IsDestination(string name)
+    public void IsDestination()
     {
         /// <summary>
         /// 行先はどこですかの関数
         /// </summary>
 
         /// まずマップが切り替わったらマリちゃんの位置を変更します
-        if (ManholePosition.pos.ContainsKey(name))
-        { ChangePosition(ManholePosition.pos[name]); }
+        if (ManholePosition.pos.ContainsKey(popupCanvas._str))
+        { ChangePosition(ManholePosition.pos[popupCanvas._str]); }
         /// nameが該当しない場合はスタート地点に戻します
         else { ChangePosition(StartPosition.ManholeStage); }
     }
@@ -79,8 +82,8 @@ public class ManholeScript : MonoBehaviour
     /// </summary>
     void ReadingPrefab()
     {
-        var upMap = Resources.Load<GameObject>("Map/Maps/Manhole/ManholeStage_Ver2");
-        var downMap = Resources.Load<GameObject>("Map/Maps/Manhole/ManholeDownStage_Ver2");
+        var upMap = Resources.Load<GameObject>("Map/Stage/Manhole/ManholeStage_Ver2");
+        var downMap = Resources.Load<GameObject>("Map/Stage/Manhole/ManholeDownStage_Ver2");
         if (_upMap == null) { _upMap = Instantiate(upMap); }
         _upMap.name = "Up";
         if (_downMap == null) { _downMap = Instantiate(downMap); }
@@ -88,4 +91,24 @@ public class ManholeScript : MonoBehaviour
         _upMap.SetActive(true);
         _downMap.SetActive(true);
     }
+
+
+
+    /// <summary>
+    /// ボタンの処理
+    /// </summary>
+    public void IsFloorMove()
+    {
+        popupCanvas._isChoice = true;
+        MoveFloor();
+    }
+
+    public void IsWarpMari()
+    {
+        popupCanvas._isChoice = true;
+        effectSequencer.FadeStart(IsDestination, 0.5f);
+    }
+
+
+
 }

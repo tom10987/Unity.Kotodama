@@ -19,4 +19,10 @@ public class ItemCollider : MonoBehaviour {
         }
     }
 
+    void OnCollisionExit()
+    {
+        popupCanvas._count = 1f;
+        popupCanvas.IsCancel();
+    }
+
 }
