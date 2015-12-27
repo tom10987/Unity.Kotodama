@@ -20,7 +20,16 @@ public class ShrineStage : MonoBehaviour {
   }
 
   void Start() {
-    //foreach (var instance in _toGimmickArea) { instance.SetActive(true); }
+    for (uint index = 0; index < _toGimmickArea.Length; ++index) {
+      // TIPS: まだステージに入ったことがなければアイテムが存在しない
+      var existsItem = ExistsItem(_keyItems[index]);
+      _toGimmickArea[index].SetActive(!existsItem);
+      if (!existsItem) { continue; }
+
+      // TIPS: ステージに入ったことがあり、アイテムは持ってないとき
+      var hasItem = itemManager.items[_keyItems[index]].hasItem;
+      _toGimmickArea[index].SetActive(hasItem);
+    }
   }
 
   public void RegionRelease() {

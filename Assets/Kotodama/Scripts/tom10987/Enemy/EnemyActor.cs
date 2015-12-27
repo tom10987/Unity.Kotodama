@@ -30,6 +30,7 @@ public class EnemyActor : MonoBehaviour {
 
   Transform _target = null;
   EnemyDetectArea _detect = null;
+  public EnemyDetectArea detect { get { return _detect; } }
 
   [SerializeField]
   [Range(1f, 3f)]
@@ -136,7 +137,7 @@ public class EnemyActor : MonoBehaviour {
 
     if (!IsCountOver()) { return; }
 
-    if (IsDetectPlayer(_detect.alertRange)) { CountReset(); }
+    if (IsDetectPlayer(_detect.alert.range)) { CountReset(); }
     else { PlayerLost(); }
   }
 
@@ -145,7 +146,7 @@ public class EnemyActor : MonoBehaviour {
     if (IsIntervalTime()) { return; }
     if (!IsCountOver()) { return; }
 
-    if (IsDetectPlayer(_detect.chaseRange)) { CountReset(); }
+    if (IsDetectPlayer(_detect.chase.range)) { CountReset(); }
     else { PlayerLost(); }
   }
 

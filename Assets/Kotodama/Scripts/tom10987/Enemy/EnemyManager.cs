@@ -23,8 +23,9 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
   // public method
 
   /// <summary> 敵キャラを指定した座標に生成 </summary>
-  public void CreateEnemy(Vector3 position, Transform[] spots) {
+  public EnemyDetectArea CreateEnemy(Vector3 position, Transform[] spots, string name = "") {
     var enemy = Instantiate(enemyObject);
+    if (name != string.Empty) { enemy.name = name; }
     enemy.transform.position = position;
     enemy.transform.SetParent(transform);
 
@@ -32,6 +33,8 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
     actor.Initialize(spots);
     actor.State(EnemyState.Move);
     _actors.Add(actor);
+
+    return actor.detect;
   }
 
   /// <summary> 敵キャラを全て削除 </summary>
