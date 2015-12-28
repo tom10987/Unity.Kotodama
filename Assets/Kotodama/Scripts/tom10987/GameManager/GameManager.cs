@@ -13,9 +13,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
   protected override void Awake() {
     base.Awake();
     isPause = false;
-  }
 
-  void Start() {
     DontDestroyOnLoad(gameObject);
     DontDestroyOnLoad(Instantiate(_instances.sceneSequencerObject));
     DontDestroyOnLoad(Instantiate(_instances.audioManagerObject));
