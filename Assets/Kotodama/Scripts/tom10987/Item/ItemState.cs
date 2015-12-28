@@ -2,6 +2,11 @@
 using UnityEngine;
 
 
+//------------------------------------------------------------
+// TIPS:
+// スクリプトが設定されていれば、シーン開始時に
+// インスペクターに設定された内容で ItemManager に自身を登録する
+
 public class ItemState : MonoBehaviour {
 
   ItemManager manager { get { return ItemManager.instance; } }
