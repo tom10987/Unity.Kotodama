@@ -42,12 +42,12 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
     foreach (var actor in _actors) { Destroy(actor.gameObject); }
   }
 
-  /// <summary> 敵キャラを全て停止 </summary>
+  /// <summary> ポーズ用：敵キャラを全て停止 </summary>
   public void PauseEnemies() {
     foreach (var actor in _actors) { actor.SetTarget(actor.transform); }
   }
 
-  /// <summary> 敵キャラを全て行動できるようにする </summary>
+  /// <summary> ポーズ用：敵キャラの動作を再開する </summary>
   public void StartEnemies() {
     foreach (var actor in _actors) { actor.SetTarget(PlayerStatus.instance.transform); }
   }

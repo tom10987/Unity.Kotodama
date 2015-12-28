@@ -17,7 +17,7 @@ public enum EnemyState {
 //------------------------------------------------------------
 // TIPS:
 // オブジェクトのインスタンス化は
-// EnemyManager クラスの CreateEnemy(Vector3 position) を使う
+// EnemyManager クラスの CreateEnemy() を使う
 
 public class EnemyActor : MonoBehaviour {
 
@@ -44,7 +44,10 @@ public class EnemyActor : MonoBehaviour {
   float _chaseInterval = 2f;
   public float chaseInterval {
     get { return _chaseInterval; }
-    set { _chaseInterval = value; }
+    set {
+      if (value <= 0f) { return; }
+      _chaseInterval = value;
+    }
   }
 
   float _chaseTime = 0;
@@ -52,10 +55,10 @@ public class EnemyActor : MonoBehaviour {
   [SerializeField]
   [Range(1, 10)]
   [Tooltip("警戒、追跡モードが終了するまでの時間（単位：秒）")]
-  int _timeLimit = 5;
-  public int timeLimit {
+  uint _timeLimit = 5;
+  public uint timeLimit {
     get { return _timeLimit; }
-    set { _timeLimit = value; }
+    set { if (value != 0) { _timeLimit = value; } }
   }
 
   int _chaseCount = 0;
