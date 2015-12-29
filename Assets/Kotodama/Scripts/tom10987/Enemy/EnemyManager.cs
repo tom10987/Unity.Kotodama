@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 public class EnemyManager : SingletonBehaviour<EnemyManager> {
 
-  GameManager gameManager { get { return GameManager.instance; } }
-
   GameObject _enemy = null;
   GameObject enemyObject {
     get {
@@ -62,7 +60,7 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
   }
 
   void Update() {
-    if (gameManager.isPause) { return; }
+    if (GameManager.instance.isPause) { return; }
     foreach (var actor in _actors) { actor.Execute(); }
   }
 }

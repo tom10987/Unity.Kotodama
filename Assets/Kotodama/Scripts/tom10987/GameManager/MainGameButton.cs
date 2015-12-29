@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public interface MenuAction : GoTitleAction {
@@ -26,22 +27,14 @@ public interface GoTitleAction {
 public class MainGameButton : SingletonBehaviour<MainGameButton>,
   MenuAction, OpenAction, GameOverAction {
 
-  SceneSequencer sequencer { get { return SceneSequencer.instance; } }
-  PlayerStatus player { get { return PlayerStatus.instance; } }
-
-
-  //------------------------------------------------------------
-  // button action
-
   public void Back(GameObject instance) {
     Destroy(instance);
-    //TODO: ポーズ状態を解除する処理
+    GameManager.instance.SwitchPause();
   }
 
   public void Retry(GameObject instance) {
     Destroy(instance);
-    Debug.Log("push retry button");
-    //TODO: リトライ処理
+    SceneSequencer.instance.SceneFinish(SceneManager.GetActiveScene().name);
   }
 
   public void Quit(GameObject instance) {
@@ -51,13 +44,13 @@ public class MainGameButton : SingletonBehaviour<MainGameButton>,
 
   public void GoTitle(GameObject instance) {
     Destroy(instance);
-    sequencer.SceneFinish(SceneTag.title);
+    SceneSequencer.instance.SceneFinish(SceneTag.title);
   }
 
   public void MenuOpen(GameObject instance) {
     Instantiate(instance);
-    player.MoveStop();
-    //TODO: ポーズ状態にする処理
+    PlayerStatus.instance.MoveStop();
+    GameManager.instance.SwitchPause();
   }
 
 

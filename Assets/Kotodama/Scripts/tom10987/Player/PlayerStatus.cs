@@ -2,9 +2,8 @@
 using UnityEngine;
 
 
+// TODO: 名前がおかしいのでリネーム
 public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
-
-  EffectSequencer effect { get { return EffectSequencer.instance; } }
 
   [SerializeField]
   [Range(1f, 10f)]
@@ -24,18 +23,21 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
   //------------------------------------------------------------
   // public method
 
+  // TODO: Move() にリネーム
   public void MoveStart() {
     _ownRigid.velocity = Vector3.zero;
-    if (effect.IsFadeTime()) { return; }
+    if (EffectSequencer.instance.IsFadeTime()) { return; }
 
     var touchPos = TouchController.GetTouchWorldPositionXZ();
     if (touchPos.magnitude < _touchRadius) { return; }
 
+    // TIPS: 画面が横長なので、アスペクト比で割る
     touchPos.x /= Camera.main.aspect;
     _direction = touchPos.normalized * _moveSpeed;
     _ownRigid.AddForce(_direction, ForceMode.Impulse);
   }
 
+  // TODO: Stop() にリネーム
   public void MoveStop() {
     _ownRigid.velocity = Vector3.zero;
   }
