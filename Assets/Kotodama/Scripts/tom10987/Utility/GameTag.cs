@@ -1,7 +1,9 @@
 ﻿
-/// <summary>
-/// ゲーム内で使用しているオブジェクトのタグ一覧
-/// </summary>
+//
+// FIXME: enum にしたほうが使い勝手よさそうなので後日修正
+//
+
+/// <summary> ゲーム内で使用しているオブジェクトのタグ一覧 </summary>
 public class ObjectTag {
   public const string player = "Player";
   public const string enemy = "Enemy";
@@ -12,9 +14,7 @@ public class ObjectTag {
   public const string adventure = "Adventure";
 }
 
-/// <summary>
-/// ゲーム内で管理しているシーンの一覧
-/// </summary>
+/// <summary> ゲーム内で管理しているシーンの一覧 </summary>
 public class SceneTag {
   public const string title = "Title";
   public const string tutorial = "Tutorial";
