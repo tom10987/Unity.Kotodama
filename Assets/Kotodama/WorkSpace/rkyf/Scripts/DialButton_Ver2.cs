@@ -13,13 +13,18 @@ public class DialButton_Ver2 : MonoBehaviour
     string TrueNumber = null;
 
     [SerializeField]
-    public bool clear = false;
+    public static bool ClearFlug_PublicPhone = false;
 
     [SerializeField]
     int StringLimit = 10;
 
     [SerializeField]
     int HyphenPoint = 3;
+
+    void Awake()
+    {
+        ClearFlug_PublicPhone = false;
+    }
 
     void Start()
     {
@@ -43,7 +48,8 @@ public class DialButton_Ver2 : MonoBehaviour
     {
         if(Dial.text == TrueNumber)
         {
-            clear = true;
+            ClearFlug_PublicPhone = true;
+            Debug.Log("" + ClearFlug_PublicPhone);
         }
     }
 }
