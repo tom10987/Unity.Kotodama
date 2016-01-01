@@ -53,13 +53,13 @@ public class NovelSystem : SingletonBehaviour<NovelSystem> {
         Definition();
         _imageMari.enabled = false;
         _imageNana.enabled = false;
-        ReadAct(_reading);
+        FirstReadAct(_reading);
         _isChoices = false;
         _isLineEnd = false;
         _nextIcon.enabled = _isLineEnd;
     }
 
-    void ReadAct(string[,] date)
+    void FirstReadAct(string[,] date)
     {
         for (int i = 0; i < date.Length/4; ++i)
         {
@@ -117,13 +117,18 @@ public class NovelSystem : SingletonBehaviour<NovelSystem> {
         else if (cur[_msgCur, 0] == Command.text)
         { ReadText(cur[_msgCur, 1]); }
 
-        else { _msgCur++; } // Command.act
+        else if (cur[_msgCur, 0] == Command.act)
+        { ReadAct(); }
+
+        else { _msgCur++; } // 変なもの来たら強制スキップ
     }
 
     void ReadStart()
     {
         _nameText.text = "";
         _msgText.text = "";
+        _imageMari.enabled = false;
+        _imageNana.enabled = false;
         _msgCur++;
     }
 
@@ -131,6 +136,15 @@ public class NovelSystem : SingletonBehaviour<NovelSystem> {
     {
         eventSystem._act.Clear();
         Destroy(this.gameObject);
+    }
+
+    void ReadAct()
+    {
+        _nameText.text = "";
+        _msgText.text = "";
+        _imageMari.enabled = false;
+        _imageNana.enabled = false;
+        _msgCur++;
     }
 
     void ReadText(string str)
@@ -212,7 +226,7 @@ public class NovelSystem : SingletonBehaviour<NovelSystem> {
     {
         var b = Instantiate(_button);
         b.name = name;
-        b.transform.SetParent(parent.transform.parent);
+        b.transform.SetParent(parent.transform);
         var set = b.gameObject.GetComponentInChildren<RectTransform>();
         set.localPosition = pos;
         set.localScale = new Vector3(1f, 1f, 1f);
