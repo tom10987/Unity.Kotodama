@@ -44,7 +44,7 @@ public class PublicPhoneEvent : MonoBehaviour
             if(Success_)
             {
                 //Debug.Log("" + Success_.name);
-                EnemyManager.instance.CreateEnemy(CreatePos[c],Success_.GetComponent<RootManager>().spots);
+                EnemyManager.instance.CreateEnemy(Success_.GetComponent<RootManager>().spots);
             }
         }
     }

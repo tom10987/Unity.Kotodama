@@ -21,11 +21,11 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
   // public method
 
   /// <summary> 敵キャラを指定した座標に生成 </summary>
-  public EnemyDetectArea CreateEnemy(Vector3 position, Transform[] spots, string name = "") {
+  public EnemyDetectArea CreateEnemy(Transform[] spots, string name = "") {
     var enemy = Instantiate(enemyObject);
     if (name != string.Empty) { enemy.name = name; }
-    enemy.transform.position = position;
     enemy.transform.SetParent(transform);
+    enemy.transform.position = spots[0].position;
 
     var actor = enemy.GetComponent<EnemyActor>();
     actor.Initialize(spots);
@@ -36,8 +36,8 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
   }
 
   /// <summary> 敵キャラを全て削除 </summary>
-  public void DestroyEnemies() {
-    foreach (var actor in _actors) { Destroy(actor.gameObject); }
+  public void DestroyEnemies(float time = 0.0f) {
+    foreach (var actor in _actors) { Destroy(actor.gameObject, time); }
   }
 
   /// <summary> ポーズ用：敵キャラを全て停止 </summary>
