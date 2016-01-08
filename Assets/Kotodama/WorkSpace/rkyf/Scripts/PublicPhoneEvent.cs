@@ -16,6 +16,9 @@ public class PublicPhoneEvent : MonoBehaviour
     [SerializeField]
     private bool EventStart = false;
 
+
+    
+
     void Awake()
     {
         EventStart = false;
@@ -24,7 +27,7 @@ public class PublicPhoneEvent : MonoBehaviour
     void Start ()
     {
         
-	}
+    }
 	
 	void Update ()
     {
@@ -32,15 +35,16 @@ public class PublicPhoneEvent : MonoBehaviour
         {
             AwakeEnemy();
             EventStart = true;
+            gameObject.transform.root.FindChild("Amulet").gameObject.SetActive(true);
         }
 	}
 
     void AwakeEnemy()
     {
-        for(int c = 0; c < CreateCount; c++)
+        for(int c = 1; c <= CreateCount; c++)
         {
             //Debug.Log("" + c);
-            var Success_ = GameObject.Find("RootBase_" + c);
+            var Success_ = GameObject.Find("ProwlRoot_" + c);
             if(Success_)
             {
                 //Debug.Log("" + Success_.name);
@@ -48,4 +52,6 @@ public class PublicPhoneEvent : MonoBehaviour
             }
         }
     }
+
+   
 }
