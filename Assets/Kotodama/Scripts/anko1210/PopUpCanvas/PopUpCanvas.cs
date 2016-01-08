@@ -124,11 +124,5 @@ public class PopUpCanvas : SingletonBehaviour<PopUpCanvas> {
         /// ウィンドウを消す
         _isChoice = true;
     }
-
-    public void IsEnd()
-    {
-        _isChoice = true;
-        sceneSequencer.SceneFinish(SceneTag.shrine);
-    }
 }
 

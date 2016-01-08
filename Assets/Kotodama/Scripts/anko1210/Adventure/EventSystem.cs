@@ -10,6 +10,9 @@ public class Command
     public const string end = "end";
     public const string start = "start";
     public const string act = "act";
+    public const string cashf = "cashf";
+    public const string cashi = "cashi";
+    public const string cashb = "cashb";
 }
 
 public class CharaName
