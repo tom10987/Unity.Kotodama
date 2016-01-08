@@ -2,8 +2,7 @@
 using UnityEngine;
 
 
-// TODO: 名前がおかしいのでリネーム
-public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
+public class PlayerState : SingletonBehaviour<PlayerState> {
 
   [SerializeField]
   [Range(1f, 10f)]
@@ -20,11 +19,7 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
   PlayerAnimator _animator = null;
 
 
-  //------------------------------------------------------------
-  // public method
-
-  // TODO: Move() にリネーム
-  public void MoveStart() {
+  public void Move() {
     _ownRigid.velocity = Vector3.zero;
     if (EffectSequencer.instance.IsFadeTime()) { return; }
 
@@ -37,20 +32,13 @@ public class PlayerStatus : SingletonBehaviour<PlayerStatus> {
     _ownRigid.AddForce(_direction, ForceMode.Impulse);
   }
 
-  // TODO: Stop() にリネーム
-  public void MoveStop() {
+  public void Stop() {
     _ownRigid.velocity = Vector3.zero;
   }
 
   public void SpriteState(PlayerAnimationState newState) {
     _animator.SetSpriteState(newState);
   }
-
-
-  //------------------------------------------------------------
-  // Behaviour
-
-  protected override void Awake() { base.Awake(); }
 
   void Start() {
     _ownRigid = GetComponent<Rigidbody>();

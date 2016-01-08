@@ -26,9 +26,7 @@ public class Adventure : SingletonBehaviour<Adventure> {
 
   //------------------------------------------------------------
   // Behaviour
-
-  protected override void Awake() { base.Awake(); }
-
+  
   void Start() {
     _manager = GetComponent<StoryManager>();
     gameObject.SetActive(false);

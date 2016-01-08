@@ -1,13 +1,9 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
-public class Prologue : SingletonBehaviour<Prologue> {
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
+public class Prologue : MonoBehaviour {
 
-    public string[,] _act1 =
-    { };
-
+  public string[,] _act1 = {
+  };
 }

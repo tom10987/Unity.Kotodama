@@ -1,31 +1,25 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿
+using UnityEngine;
 
-public class EventChecker : MonoBehaviour
-{
-    [SerializeField]
-    bool Alive = false;
 
-    void LateUpdate ()
-    {
-        EventContinue();
-	}
+public class EventChecker : MonoBehaviour {
+  [SerializeField]
+  bool Alive = false;
 
-    public void EventContinue()
-    {
-        if(!DialButton_Ver2.ClearFlug_PublicPhone) return;
-        Stop();
-    }
+  void LateUpdate() {
+    EventContinue();
+  }
 
-    public bool SetAlive()
-    {
-        return Alive;
-        
-    }
+  public void EventContinue() {
+    if (!DialButton_Ver2.ClearFlug_PublicPhone) return;
+    Stop();
+  }
 
-    public void Stop()
-    {
-        this.gameObject.SetActive(SetAlive());
-    }
+  public bool SetAlive() {
+    return Alive;
+  }
 
+  public void Stop() {
+    gameObject.SetActive(SetAlive());
+  }
 }

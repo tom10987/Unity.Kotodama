@@ -10,17 +10,7 @@ public class DialButton : MonoBehaviour {
   [SerializeField]
   int TrueNumber = 1234567890;
 
-  /*
-  [SerializeField]
-  bool clear = false;
-  */
-
-  //public Event r;
-
-  void Start() {
-    Dial.text = null;
-    //r.
-  }
+  void Start() { Dial.text = null; }
 
   public void DialToText(int i) {
     if (Dial.text.Length < 10)

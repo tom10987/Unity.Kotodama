@@ -1,34 +1,30 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
-public class LampGimmick : MonoBehaviour
-{
 
-    [SerializeField]
-    GameObject _lampEffect;
+public class LampGimmick : MonoBehaviour {
 
-    private bool _clearFlag;
-    private bool _onEffect = false;
+  [SerializeField]
+  GameObject _lampEffect;
 
-    void LampsInFire()
-    {
-        if (!_onEffect)
-        {
-            _clearFlag = GetComponent<TouchGimmick>()._isClear;
+  private bool _clearFlag;
+  private bool _onEffect = false;
 
-            if (_clearFlag)
-            {
-                _onEffect = true;
+  void LampsInFire() {
+    if (!_onEffect) {
+      _clearFlag = GetComponent<TouchGimmick>()._isClear;
 
-                var lampEffect_ = Instantiate(_lampEffect);
-                lampEffect_.transform.parent = transform;
-                lampEffect_.transform.position = gameObject.transform.position;
-            }
-        }
+      if (_clearFlag) {
+        _onEffect = true;
+
+        var lampEffect_ = Instantiate(_lampEffect);
+        lampEffect_.transform.parent = transform;
+        lampEffect_.transform.position = gameObject.transform.position;
+      }
     }
+  }
 
-    void Update()
-    {
-        LampsInFire();
-    }
-
+  void Update() {
+    LampsInFire();
+  }
 }
