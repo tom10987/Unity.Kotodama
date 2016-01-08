@@ -25,8 +25,8 @@ public class StageGate : MonoBehaviour {
 
 
   void Start() {
-    var isActivate_ = (_activateState == GameManager.instance.state);
-    _gateObject.SetActive(!isActivate_);
+    //var isActivate_ = (_activateState == GameManager.instance.state);
+    //_gateObject.SetActive(!isActivate_);
   }
 
   public void OnTriggerEnter(Collider other) {
