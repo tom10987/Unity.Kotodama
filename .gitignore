@@ -1,5 +1,6 @@
 
 /.vs
+
 /[lL]ibrary
 /[tT]emp
 /obj
@@ -8,6 +9,5 @@
 *.apk
 
 *.sln
-*.suo
 *.csproj
 
