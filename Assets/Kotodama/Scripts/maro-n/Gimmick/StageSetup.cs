@@ -20,12 +20,11 @@ public class StageSetup : MonoBehaviour
             {
                 EnemyManager.instance.CreateEnemy(enemyPosB, rootObject_.spots, "EnemyB");
             }
-            if(rootObject_.name == "RootBaseC")
+            if (rootObject_.name == "RootBaseC")
             {
                 EnemyManager.instance.CreateEnemy(enemyPosC, rootObject_.spots, "EnemyC");
             }
-        }
 
-        EnemyManager.instance.StartEnemies();
+        }
     }
 }
