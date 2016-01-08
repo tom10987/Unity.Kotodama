@@ -47,7 +47,7 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
 
   /// <summary> ポーズ用：敵キャラの動作を再開する </summary>
   public void StartEnemies() {
-    foreach (var actor in _actors) { actor.SetTarget(PlayerStatus.instance.transform); }
+    foreach (var actor in _actors) { actor.SetTarget(PlayerState.instance.transform); }
   }
 
 

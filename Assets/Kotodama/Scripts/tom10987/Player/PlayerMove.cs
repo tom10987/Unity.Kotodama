@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
 
-  public void OnTouch() { PlayerStatus.instance.MoveStart(); }
+  public void OnTouch() { PlayerState.instance.Move(); }
 }

@@ -49,7 +49,7 @@ public class MainGameButton : SingletonBehaviour<MainGameButton>,
 
   public void MenuOpen(GameObject instance) {
     Instantiate(instance);
-    PlayerStatus.instance.MoveStop();
+    PlayerState.instance.Stop();
     GameManager.instance.SwitchPause();
   }
 
