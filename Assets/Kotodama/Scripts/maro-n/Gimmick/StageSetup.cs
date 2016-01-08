@@ -14,15 +14,15 @@ public class StageSetup : MonoBehaviour
         {
             if (rootObject_.name == "RootBaseA")
             {
-                EnemyManager.instance.CreateEnemy(enemyPosA, rootObject_.spots, "EnemyA");
+                EnemyManager.instance.CreateEnemy(rootObject_.spots, "EnemyA");
             }
             if (rootObject_.name == "RootBaseB")
             {
-                EnemyManager.instance.CreateEnemy(enemyPosB, rootObject_.spots, "EnemyB");
+                EnemyManager.instance.CreateEnemy(rootObject_.spots, "EnemyB");
             }
             if (rootObject_.name == "RootBaseC")
             {
-                EnemyManager.instance.CreateEnemy(enemyPosC, rootObject_.spots, "EnemyC");
+                EnemyManager.instance.CreateEnemy(rootObject_.spots, "EnemyC");
             }
 
         }

@@ -9,10 +9,6 @@ public class AudioManager : SingletonBehaviour<AudioManager> {
   public AudioPlayer bgm { get { return _bgm; } }
 
   [SerializeField]
-  AudioPlayer _field = null;
-  public AudioPlayer field { get { return _field; } }
-
-  [SerializeField]
   AudioPlayer _effect = null;
   public AudioPlayer effect { get { return _effect; } }
 
