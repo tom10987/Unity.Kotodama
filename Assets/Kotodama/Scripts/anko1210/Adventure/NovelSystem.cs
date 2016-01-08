@@ -8,6 +8,9 @@ public class NovelSystem : SingletonBehaviour<NovelSystem> {
     protected override void Awake()
     {
         base.Awake();
+        _cashInt = 0;
+        _cashFloat = 0f;
+        _cashBool = false;
     }
 
     private Text _msgText = null;
@@ -34,6 +37,10 @@ public class NovelSystem : SingletonBehaviour<NovelSystem> {
     private Button _button;
     public bool _isChoices = false;
 
+    public int _cashInt;
+    public float _cashFloat;
+    public bool _cashBool;
+
     void Definition()
     {
         var obj = this.gameObject;
@@ -50,6 +57,7 @@ public class NovelSystem : SingletonBehaviour<NovelSystem> {
 
     void Start()
     {
+        Debug.Log(_cashInt);
         Definition();
         _imageMari.enabled = false;
         _imageNana.enabled = false;
@@ -119,6 +127,15 @@ public class NovelSystem : SingletonBehaviour<NovelSystem> {
 
         else if (cur[_msgCur, 0] == Command.act)
         { ReadAct(); }
+
+        else if (cur[_msgCur, 0] == Command.cashi)
+        { _cashInt = ReadCashi(cur[_msgCur, 1]); _msgCur++; }
+
+        else if (cur[_msgCur, 0] == Command.cashf)
+        { _cashFloat = ReadCashf(cur[_msgCur, 1]); _msgCur++; }
+
+        else if (cur[_msgCur, 0] == Command.cashb)
+        { _cashBool = ReadCashb(cur[_msgCur, 1]); _msgCur++; }
 
         else { _msgCur++; } // 変なもの来たら強制スキップ
     }
@@ -208,6 +225,25 @@ public class NovelSystem : SingletonBehaviour<NovelSystem> {
         }
     }
 
+    int ReadCashi(string str)
+    {
+        _cashInt = 0;
+        var i = int.Parse(str);
+        return i;
+    }
+
+    float ReadCashf(string str)
+    {
+        _cashFloat = 0f;
+        var f = float.Parse(str);
+        return f;
+    }
+
+    bool ReadCashb(string str)
+    {
+        var b = bool.Parse(str);
+        return b;
+    }
     /// 
     ///
 

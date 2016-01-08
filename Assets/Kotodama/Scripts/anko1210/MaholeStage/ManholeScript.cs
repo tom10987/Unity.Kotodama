@@ -1,29 +1,51 @@
 ﻿using UnityEngine;
 
-public class ManholeScript : MonoBehaviour
+public class ManholeScript : SingletonBehaviour<ManholeScript>
 {
     PopUpCanvas popupCanvas { get { return PopUpCanvas.instance; } }
     EffectSequencer effectSequencer { get { return EffectSequencer.instance; } }
+    EnemyManager enemy { get { return EnemyManager.instance; } }
+
+    [SerializeField]
+    RootManager _rootMapUp;
+
+    [SerializeField]
+    RootManager _rootMapDown;
 
     [SerializeField]
     private string _playerObjName = "Player";
+    /// <summary>
+    /// マリちゃのすたーと位置
+    /// </summary>
+    private static Vector3 _playerStartPosition = new Vector3(-40f, 0.0f, -60f);
     private GameObject _player;
+    public Vector3 _playerChangePosition;
 
-    private GameObject _upMap;
-    private GameObject _downMap;
     private GameObject _items;
-    private GameObject _gimmicks;
 
     private Transform _rightFloor;
     private Collider _rightWall;
     private Transform _leftFloor;
     private Collider _leftWall;
-
-    private float _min = -2.55f;
-    private float _max = -1.55f;
+    
+    private float _min = -1f;
+    private float _max = +0f;
 
     void Start()
     {
+        _playerChangePosition = new Vector3(0f, 0f, 0f);
+        //foreach (var root in _rootMapUp.spots) { Debug.Log(root.position); }
+        //enemy.CreateEnemy(_rootMapUp.spots);
+        //var objects = FindObjectsOfType<RootManager>();
+        //foreach (var root in objects)
+        //{
+        //    if (root.name == _rootMapUp.name) { enemy.CreateEnemy(root.spots[0].position,root.spots); }
+        //}
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
         RESET();
     }
 
@@ -31,19 +53,12 @@ public class ManholeScript : MonoBehaviour
     {
         /// プレイヤーの座標を変更する関数
         _player.transform.localPosition = pos;
+        _playerChangePosition = new Vector3(0f, 0f, 0f);
     }
 
     public void IsDestination()
     {
-        /// <summary>
-        /// 行先はどこですかの関数
-        /// </summary>
-
-        /// まずマップが切り替わったらマリちゃんの位置を変更します
-        if (ManholePosition.pos.ContainsKey(popupCanvas._str))
-        { ChangePosition(ManholePosition.pos[popupCanvas._str]); }
-        /// nameが該当しない場合はスタート地点に戻します
-        else { ChangePosition(StartPosition.ManholeStage); }
+        ChangePosition(_playerChangePosition);
     }
 
     public void MoveFloor()
@@ -76,7 +91,7 @@ public class ManholeScript : MonoBehaviour
         _leftFloor.localPosition = new Vector3(0f, _max);
         _rightFloor.localPosition = new Vector3(0f, _min);
         _player = GameObject.Find(_playerObjName);
-        ChangePosition(StartPosition.ManholeStage);
+        ChangePosition(_playerStartPosition);
     }
 
     /// <summary>
@@ -84,25 +99,23 @@ public class ManholeScript : MonoBehaviour
     /// </summary>
     void ReadingPrefab()
     {
-        var upMap = Resources.Load<GameObject>("Map/Stage/Manhole/ManholeStage_Ver2");
-        var downMap = Resources.Load<GameObject>("Map/Stage/Manhole/ManholeDownStage_Ver2");
-        var item = Resources.Load<GameObject>("Map/Stage/Manhole/ManholeItem");
-        var gimmick = Resources.Load<GameObject>("Map/Stage/Manhole/ManholeGimmick");
-        if (_upMap == null) { _upMap = Instantiate(upMap); }
-        _upMap.name = "Up";
-        if (_downMap == null) { _downMap = Instantiate(downMap); }
-        _downMap.name = "Down";
+        //var upMap = Resources.Load<GameObject>("Map/Stage/Manhole/ManholeStage_Ver2");
+        //var downMap = Resources.Load<GameObject>("Map/Stage/Manhole/ManholeDownStage_Ver2");
+        var item = Resources.Load<GameObject>("Map/Stage/Manhole/ManholeObjects");
+        //var rootUp = Resources.Load<GameObject>("Map/Stage/Manhole/EnemyUP");
+        //var rootDown = Resources.Load<GameObject>("Map/Stage/Manhole/EnemyDOWN");
+        //if (_upMap == null) { _upMap = Instantiate(upMap); }
+        //_upMap.name = "Up";
+        //if (_downMap == null) { _downMap = Instantiate(downMap); }
+        //_downMap.name = "Down";
         if (_items == null) { _items = Instantiate(item); }
-        _items.name = "items";
-        if (_gimmicks == null) { _gimmicks = Instantiate(gimmick); }
-        _gimmicks.name = "gimmicks";
-        _upMap.SetActive(true);
-        _downMap.SetActive(true);
+        _items.name = "objects";
+        //_rootMapUp = Instantiate(rootUp).GetComponent<RootManager>();
+        //_rootMapDown = Instantiate(rootDown).GetComponent<RootManager>();
+        //_upMap.SetActive(true);
+        //_downMap.SetActive(true);
         _items.SetActive(true);
-        _gimmicks.SetActive(true);
     }
-
-
 
     /// <summary>
     /// ボタンの処理

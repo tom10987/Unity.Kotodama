@@ -7,6 +7,10 @@ public class Test : MonoBehaviour {
     /// 「EventState.cs」を必ず読み込む！
     /// </summary>
     EventState state;
+    NovelSystem novel;
+
+    public int _int = 0;
+    public float _float = 0f;
 
     void Start()
     {
@@ -14,9 +18,25 @@ public class Test : MonoBehaviour {
         state._entry = test;
     }
 
+    void Update()
+    {
+        if (state._canvas != null)
+        {
+            novel = FindObjectOfType<NovelSystem>();
+            Debug.Log(novel._cashFloat);
+            _float = novel._cashFloat;
+            Debug.Log("BOOL = " + novel._cashBool);
+        }
+        Debug.Log("FLOAT = " + _float);
+        Debug.Log("INT = " + _int);
+    }
+
     public string[,] test =
     {
         { Command.start, "", "", "" },
+        { Command.cashb, "TRUE", "", "" },
+        { Command.cashi, "5", "", "" },
+        { Command.cashf, "0.5", "", "" },
         { Command.act,  "testChapter", "", "" },
         { Command.name, CharaName.narrator, "", "" },
         { Command.text, "チャプターテスト", "", "" },
