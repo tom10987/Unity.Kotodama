@@ -13,7 +13,7 @@ public class LampGimmick : MonoBehaviour
     {
         if (!_onEffect)
         {
-            _clearFlag = GetComponent<AllGimmick>()._isClear;
+            _clearFlag = GetComponent<TouchGimmick>()._isClear;
 
             if (_clearFlag)
             {
