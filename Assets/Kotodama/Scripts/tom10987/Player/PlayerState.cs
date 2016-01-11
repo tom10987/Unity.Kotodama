@@ -14,8 +14,11 @@ public class PlayerState : SingletonBehaviour<PlayerState> {
   float _touchRadius = 0.5f;
 
   Vector3 _direction = Vector3.zero;
+
+  [SerializeField]
   Rigidbody _ownRigid = null;
 
+  [SerializeField]
   PlayerAnimator _animator = null;
 
 
@@ -30,20 +33,25 @@ public class PlayerState : SingletonBehaviour<PlayerState> {
     touchPos.x /= Camera.main.aspect;
     _direction = touchPos.normalized * _moveSpeed;
     _ownRigid.AddForce(_direction, ForceMode.Impulse);
+    _animator.UpdateDirection(_direction);
   }
 
   public void Stop() {
     _ownRigid.velocity = Vector3.zero;
+    _animator.StopAnimation();
   }
 
-  public void SpriteState(PlayerAnimationState newState) {
-    _animator.SetSpriteState(newState);
+  public void ChangeSpriteState() {
+    _animator.ChangeSpriteState();
   }
 
   void Start() {
-    _ownRigid = GetComponent<Rigidbody>();
-    _animator = FindObjectOfType<PlayerAnimator>();
-
+    if (_ownRigid == null) { _ownRigid = GetComponent<Rigidbody>(); }
+    if (_animator == null) { _animator = GetComponentInChildren<PlayerAnimator>(); }
     CameraMove.target = transform;
+  }
+
+  void Update() {
+    if (_ownRigid.velocity.magnitude > 0f) { _animator.UpdateAnimation(); }
   }
 }
