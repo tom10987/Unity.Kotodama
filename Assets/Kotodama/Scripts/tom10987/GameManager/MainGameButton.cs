@@ -44,7 +44,7 @@ public class MainGameButton : SingletonBehaviour<MainGameButton>,
 
   public void GoTitle(GameObject instance) {
     Destroy(instance);
-    SceneSequencer.instance.SceneFinish(SceneTag.title);
+    SceneSequencer.instance.SceneFinish(SceneTag.Title.ToString());
   }
 
   public void MenuOpen(GameObject instance) {

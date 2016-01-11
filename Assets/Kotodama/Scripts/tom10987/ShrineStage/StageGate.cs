@@ -4,18 +4,8 @@ using UnityEngine;
 
 public class StageGate : MonoBehaviour {
 
-  // TODO: SceneTag 仕様変更に対応させる
-  enum Stage {
-    PublicPhone,
-    ManHole,
-    Labyrinth,
-
-    Max,
-    None = -1,
-  }
-
   [SerializeField]
-  Stage _stage = Stage.None;
+  SceneTag _sceneName = SceneTag.Title;
 
   [SerializeField]
   GameState _activateState = GameState.None;
@@ -30,7 +20,7 @@ public class StageGate : MonoBehaviour {
   }
 
   public void OnTriggerEnter(Collider other) {
-    if (other.tag != ObjectTag.player) { return; }
-    SceneSequencer.instance.SceneFinish(_stage.ToString());
+    if (other.tag != ObjectTag.Player.ToString()) { return; }
+    SceneSequencer.instance.SceneFinish(_sceneName.ToString());
   }
 }

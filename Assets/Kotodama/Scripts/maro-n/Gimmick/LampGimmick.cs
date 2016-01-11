@@ -1,4 +1,5 @@
 ﻿
+/*
 using UnityEngine;
 
 
@@ -28,3 +29,4 @@ public class LampGimmick : MonoBehaviour {
     LampsInFire();
   }
 }
+*/

@@ -1,4 +1,5 @@
 ﻿
+/*
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -35,7 +36,7 @@ public class BoradGimmick : MonoBehaviour {
     var canvasName_ = board.gameObject.transform.parent.name;
     // 掲示板のトリガーに当たったら、その掲示板の名前を格納
     if (!_isClear) {
-      if (board.gameObject.tag.Equals(ObjectTag.gimmick)) {
+      if (board.gameObject.tag.Equals(bjectTag.gimmick)) {
         if (_hitBorads.Count < _maxGimmickCanvas) {
           // 謎解きに関係のない５番の掲示板は格納しない
           if (canvasName_ != (string)(_gimmickCanvas + 5)) {
@@ -95,3 +96,4 @@ public class BoradGimmick : MonoBehaviour {
     MoveHouse();
   }
 }
+*/

@@ -1,4 +1,5 @@
 ﻿
+/*
 using UnityEngine;
 
 
@@ -24,3 +25,4 @@ public class StageSetup : MonoBehaviour {
     }
   }
 }
+*/

@@ -7,7 +7,7 @@ public class ItemCollider : MonoBehaviour {
   PopUpCanvas popupCanvas { get { return PopUpCanvas.instance; } }
 
   void OnCollisionEnter(Collision other) {
-    if (other.gameObject.tag != ObjectTag.player) { return; }
+    if (other.gameObject.tag != ObjectTag.Player.ToString()) { return; }
     /// 中身
     var itemState = gameObject.GetComponent<ItemState>();
     var effect = gameObject.GetComponent<ParticleSystem>();
