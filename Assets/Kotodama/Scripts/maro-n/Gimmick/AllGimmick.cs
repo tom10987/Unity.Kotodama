@@ -1,44 +1,33 @@
 ﻿
+/*
 using UnityEngine;
 
 
 public class AllGimmick : MonoBehaviour {
 
-  private bool _isHit = false;
+  bool _isHit = false;
   public bool _isClear = false;
+  public bool isClear { get { return _isClear; } }
 
-  void OnCollisionStay(Collision player) {
+  void OnCollisionStay(Collision other) {
+
     // 灯籠の床部にプレイヤーが接触してる間
-    if (player.gameObject.tag.Equals(ObjectTag.player)) {
-      _isHit = true;
-    }
-    else {
-      _isHit = false;
-    }
-  }
-
-  void ClearGimmick() {
-    if (_isHit) {
-      // 画面をタッチした時
-      if (TouchController.IsTouchBegan()) {
-        // カメラからタッチ位置へのレイを生成
-        Ray ray_ = Camera.main.ScreenPointToRay(TouchController.GetTouchScreenPosition());
-        RaycastHit hit_ = new RaycastHit();
-
-        // レイが当たったオブジェクトのコライダーを取得
-        if (Physics.Raycast(ray_, out hit_)) {
-          if (hit_.collider.gameObject.tag.Equals(ObjectTag.gimmick)) {
-            // クリアフラグをtrueにする
-            if (!_isClear) {
-              _isClear = true;
-            }
-          }
-        }
-      }
-    }
+    _isHit = (other.gameObject.tag == bjectTag.Player.ToString());
   }
 
   void Update() {
-    ClearGimmick();
+    // TIPS: 灯籠の床にプレイヤーが触れている かつ タッチされてなければスキップ
+    if (!_isHit || !TouchController.IsTouchBegan()) { return; }
+
+    // TIPS: タッチ位置から画面奥方向へのレイを生成
+    Ray ray = Camera.main.ScreenPointToRay(TouchController.GetTouchScreenPosition());
+    RaycastHit hit = new RaycastHit();
+
+    // TIPS: レイが当たってなければスキップ
+    if (Physics.Raycast(ray, out hit)) { return; }
+
+    // TIPS: レイがギミックに当たっていたらフラグを ON にする
+    _isClear = (hit.collider.tag == bjectTag.Gimmick.ToString());
   }
 }
+*/

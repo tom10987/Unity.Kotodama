@@ -15,6 +15,6 @@ public class MGoal : MonoBehaviour {
 
   public void IsEnd() {
     pop._isChoice = true;
-    sequencer.SceneFinish(SceneTag.shrine);
+    sequencer.SceneFinish(SceneTag.Shrine.ToString());
   }
 }

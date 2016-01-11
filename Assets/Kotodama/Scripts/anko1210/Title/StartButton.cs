@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class StartButton : MonoBehaviour {
 
-  SceneSequencer sequencer { get { return SceneSequencer.instance; } }
-  public void TouchStart() { sequencer.SceneFinish(SceneTag.tutorial); }
+  public void TouchStart() {
+    SceneSequencer.instance.SceneFinish(SceneTag.Tutorial.ToString());
+    AudioManager.instance.bgm.Stop();
+  }
+
+  void Start() { AudioManager.instance.bgm.Play(0); }
 }

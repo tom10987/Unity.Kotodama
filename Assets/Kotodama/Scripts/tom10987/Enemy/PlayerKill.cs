@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerKill : MonoBehaviour {
 
   public void OnTriggerEnter(Collider other) {
-    if (other.tag != ObjectTag.player) { return; }
+    if (other.tag != ObjectTag.Player.ToString()) { return; }
 
     other.GetComponent<Rigidbody>().velocity = Vector3.zero;
 

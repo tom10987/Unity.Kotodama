@@ -16,7 +16,7 @@ public class EnemyReaction : MonoBehaviour {
   }
 
   public void OnTriggerEnter(Collider other) {
-    if (other.tag != ObjectTag.player) { return; }
+    if (other.tag != ObjectTag.Player.ToString()) { return; }
     _actor.SetTarget(other.transform);
     _actor.State(_state);
   }

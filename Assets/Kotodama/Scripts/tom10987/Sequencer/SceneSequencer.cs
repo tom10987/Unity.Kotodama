@@ -28,16 +28,14 @@ public class SceneSequencer : SingletonBehaviour<SceneSequencer> {
     SceneManager.LoadScene(_nextScene);
   }
 
-
-  //------------------------------------------------------------
-  // Behaviour
-
   protected override void Awake() {
     base.Awake();
     isSceneFinish = false;
+    DontDestroyOnLoad(gameObject);
   }
 
   void Update() {
+    // TODO: 戻るボタンを押した時に、ゲーム終了するか確認するようにする
     if (TouchController.IsPushedQuitKey()) { Application.Quit(); }
   }
 }

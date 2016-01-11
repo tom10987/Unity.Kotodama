@@ -34,15 +34,15 @@ public class ArawareCollider : MonoBehaviour {
     if (_itemState == null) { Debug.LogError(gameObject.name + "のitemStateがみつかりません"); }
   }
 
-  void OnTriggerEnter(Collider col) {
-    if (col.gameObject.tag.Equals(ObjectTag.player)) {
-      state.Stop();
-      if (_itemState.hasItem) {
-        _itemState.UpdateState(false);
-        _isDestroy = true;
-      }
-      else { popup.CreatePopUpWindow(_StayText); }
+  void OnTriggerEnter(Collider other) {
+    if (other.tag != ObjectTag.Player.ToString()) { return; }
+
+    state.Stop();
+    if (_itemState.hasItem) {
+      _itemState.UpdateState(false);
+      _isDestroy = true;
     }
+    else { popup.CreatePopUpWindow(_StayText); }
   }
 
   void OnTriggerExit() {

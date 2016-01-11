@@ -1,26 +1,26 @@
 ﻿
-//
-// FIXME: enum にしたほうが使い勝手よさそうなので後日修正
-//
 
 /// <summary> ゲーム内で使用しているオブジェクトのタグ一覧 </summary>
-public class ObjectTag {
-  public const string player = "Player";
-  public const string enemy = "Enemy";
-  public const string ui = "UI";
+public enum ObjectTag {
+  Player,
+  Enemy,
+  UI,
+  Gimmick,
+  Item,
+  Adventure,
 
-  public const string gimmick = "Gimmick";
-  public const string item = "Item";
-  public const string adventure = "Adventure";
+  Max,
 }
 
 /// <summary> ゲーム内で管理しているシーンの一覧 </summary>
-public class SceneTag {
-  public const string title = "Title";
-  public const string tutorial = "Tutorial";
-  public const string shrine = "Shrine";
-  public const string manhole = "ManHole";
-  public const string publicPhone = "PublicPhone";
-  public const string maze = "Maze";
-  public const string ending = "Ending";
+public enum SceneTag {
+  Title,
+  Tutorial,
+  Shrine,
+  PublicPhone,
+  Manhole,
+  Labyrinth,
+  Ending,
+
+  Max,
 }
