@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public class EnemyAnimator : MonoBehaviour {
+public class ChaserAnimator : MonoBehaviour {
 
   const byte animationSpan = 60;
 
@@ -12,16 +12,12 @@ public class EnemyAnimator : MonoBehaviour {
   [SerializeField]
   SpriteRenderer _renderer = null;
 
-  [SerializeField]
-  Rigidbody _ownRigid = null;
-
   byte _time = 0;
   bool _existsSprite = false;
 
 
   void Start() {
     if (_renderer == null) { _renderer = GetComponent<SpriteRenderer>(); }
-    if (_ownRigid == null) { _ownRigid = GetComponentInParent<Rigidbody>(); }
     _existsSprite = _sprite.Length > 0;
   }
 

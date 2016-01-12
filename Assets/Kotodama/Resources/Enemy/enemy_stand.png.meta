@@ -1,15 +1,15 @@
 fileFormatVersion: 2
 guid: 3377b8b19ad7fd84a996f52c36d3bbd4
-timeCreated: 1452512725
+timeCreated: 1452573703
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: enemy_stand_0
-    21300002: enemy_stand_1
-    21300004: enemy_stand_2
-    21300006: enemy_stand_3
-    21300008: enemy_stand_4
-    21300010: enemy_stand_5
+    21300000: stand_front_0
+    21300002: stand_front_1
+    21300004: stand_back_0
+    21300006: stand_back_1
+    21300008: stand_front_2
+    21300010: stand_back_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -56,7 +56,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: enemy_stand_0
+    - name: stand_front_0
       rect:
         serializedVersion: 2
         x: 39
@@ -64,7 +64,7 @@ TextureImporter:
         width: 54
         height: 174
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -27, y: 87}
@@ -74,7 +74,7 @@ TextureImporter:
         - {x: 27, y: -81}
         - {x: 27, y: 69}
         - {x: 16, y: 87}
-    - name: enemy_stand_1
+    - name: stand_front_1
       rect:
         serializedVersion: 2
         x: 162
@@ -82,7 +82,7 @@ TextureImporter:
         width: 54
         height: 174
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: 12, y: 87}
@@ -94,7 +94,7 @@ TextureImporter:
         - {x: 14, y: -83}
         - {x: 27, y: -69}
         - {x: 27, y: 76}
-    - name: enemy_stand_2
+    - name: stand_back_0
       rect:
         serializedVersion: 2
         x: 295
@@ -102,7 +102,7 @@ TextureImporter:
         width: 54
         height: 174
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -27, y: 87}
@@ -112,7 +112,7 @@ TextureImporter:
         - {x: 27, y: -81}
         - {x: 27, y: 69}
         - {x: 16, y: 87}
-    - name: enemy_stand_3
+    - name: stand_back_1
       rect:
         serializedVersion: 2
         x: 418
@@ -120,7 +120,7 @@ TextureImporter:
         width: 54
         height: 174
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: 12, y: 87}
@@ -132,7 +132,7 @@ TextureImporter:
         - {x: 14, y: -83}
         - {x: 27, y: -69}
         - {x: 27, y: 76}
-    - name: enemy_stand_4
+    - name: stand_front_2
       rect:
         serializedVersion: 2
         x: 39
@@ -140,7 +140,7 @@ TextureImporter:
         width: 54
         height: 173
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -20, y: 86.5}
@@ -153,7 +153,7 @@ TextureImporter:
         - {x: 27, y: -69.5}
         - {x: 27, y: 66.5}
         - {x: 11, y: 86.5}
-    - name: enemy_stand_5
+    - name: stand_back_2
       rect:
         serializedVersion: 2
         x: 295
@@ -161,7 +161,7 @@ TextureImporter:
         width: 54
         height: 173
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -20, y: 86.5}
