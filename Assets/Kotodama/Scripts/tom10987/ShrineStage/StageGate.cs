@@ -8,15 +8,14 @@ public class StageGate : MonoBehaviour {
   SceneTag _sceneName = SceneTag.Title;
 
   [SerializeField]
-  GameState _activateState = GameState.None;
+  GameState _activeState = GameState.Start;
 
   [SerializeField]
   GameObject _gateObject = null;
 
 
   void Start() {
-    //var isActivate_ = (_activateState == GameManager.instance.state);
-    //_gateObject.SetActive(!isActivate_);
+    //_gateObject.SetActive(_activeState == GameManager.instance.state);
   }
 
   public void OnTriggerEnter(Collider other) {

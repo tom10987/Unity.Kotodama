@@ -24,12 +24,17 @@ public class ItemState : MonoBehaviour {
   string _itemInfo = string.Empty;
   public string itemInfo { get { return _itemInfo; } }
 
+  /// <summary> アイテムを取得したかどうか </summary>
   public bool hasItem { get; private set; }
-  public void UpdateState(bool newState) { hasItem = newState; }
+
+  /// <summary> アイテムを使用したかどうか </summary>
+  public bool useItem { get; private set; }
+
+  public void UpdateState(bool newState) { useItem = newState; }
 
 
   void Start() {
-    hasItem = false;
-    manager.items.Add(_itemName, this);
+    hasItem = useItem = false;
+    if (!manager.items.ContainsKey(_itemName)) { manager.items.Add(_itemName, this); }
   }
 }

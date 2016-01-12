@@ -38,7 +38,7 @@ public class ArawareCollider : MonoBehaviour {
     if (other.tag != ObjectTag.Player.ToString()) { return; }
 
     state.Stop();
-    if (_itemState.hasItem) {
+    if (_itemState.useItem) {
       _itemState.UpdateState(false);
       _isDestroy = true;
     }

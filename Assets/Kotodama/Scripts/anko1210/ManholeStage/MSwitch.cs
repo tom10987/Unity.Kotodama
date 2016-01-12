@@ -2,21 +2,16 @@
 using UnityEngine;
 
 
-public class GimmickManhole : MonoBehaviour {
+public class MSwitch : MonoBehaviour {
 
   PlayerState state { get { return PlayerState.instance; } }
   PopUpCanvas pop { get { return PopUpCanvas.instance; } }
-  ManholeScript manhole { get { return ManholeScript.instance; } }
-
-  public ItemState _key;
+  ManholeStageManager manhole { get { return ManholeStageManager.instance; } }
 
   [SerializeField]
-  private LayerMask mask;
+  public LayerMask mask;
 
-  [SerializeField]
-  public Vector3 _position;
-
-  RaycastHit hit;
+  private RaycastHit hit;
   private bool _isHit;
 
   void Update() {
@@ -26,7 +21,7 @@ public class GimmickManhole : MonoBehaviour {
       GameObject obj = hit.collider.gameObject;
       if (_isHit && obj.name == this.gameObject.name && TouchController.IsTouchBegan()) {
         state.Stop();
-        Hit();
+        pop.CreatePopUpWindowVerGimmick("スイッチを押しますか？", manhole.MoveFloor);
       }
     }
   }
@@ -39,15 +34,5 @@ public class GimmickManhole : MonoBehaviour {
   void OnTriggerExit() {
     pop.IsCancel();
     _isHit = false;
-  }
-
-  void Hit() {
-    if (_key.hasItem) {
-      manhole._playerChangePosition = _position;
-      pop.CreatePopUpWindowVerGimmick("移動しますか？", manhole.IsWarpMari);
-    }
-    else {
-      pop.CreatePopUpWindow("開かない…");
-    }
   }
 }

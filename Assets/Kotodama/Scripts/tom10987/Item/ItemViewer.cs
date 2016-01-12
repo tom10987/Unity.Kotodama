@@ -20,7 +20,7 @@ public class ItemViewer : MonoBehaviour {
 
   void Start() {
     foreach (var itemData in manager.items) {
-      if (!itemData.Value.hasItem) { continue; }
+      if (!itemData.Value.useItem) { continue; }
 
       var newObject = Instantiate(itemBox);
       newObject.name = itemData.Key.ToString();
