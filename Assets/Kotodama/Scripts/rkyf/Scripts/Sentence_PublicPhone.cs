@@ -11,6 +11,8 @@ public class Sentence_PublicPhone : MonoBehaviour {
     PublicPhone = this.gameObject.GetComponentInChildren<EventState>();
     PublicPhone._entry = TextPublicPhone;
     Check = gameObject.transform.root.gameObject.AddComponent<EventChecker>();
+
+        
   }
 
   void Update() {
@@ -18,6 +20,8 @@ public class Sentence_PublicPhone : MonoBehaviour {
       Check.Stop();
     else if (PublicPhone._isAlreadyNovel && !DialButton_Ver2.ClearFlug_PublicPhone)
       PublicPhone._isAlreadyNovel = false;
+
+        
   }
 
   public string[,] TextPublicPhone = {
@@ -35,6 +39,9 @@ public class Sentence_PublicPhone : MonoBehaviour {
     { Command.end, "", "", "" },
 
     { Command.act,  "NoUse", "", "" },
+    { Command.cashb, "false", "", ""},
     { Command.end, "", "", "" },
+
+    
   };
 }
