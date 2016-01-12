@@ -1,18 +1,29 @@
 ﻿
-using System.Collections.Generic;
+using ItemList = System.Collections.Generic.Dictionary<ItemName, string>;
 
 
 public enum ItemName {
   Empty,
 
-  Amulet_Bill,
-  Amulet_A,
-  Amulet_B,
-  Amulet_C,
-  Amulet_D,
+  Tutorial_A,
+  Tutorial_B,
+  Tutorial_C,
+  Tutorial_Clear,
 
-  ManholeKey_B,
-  ManholeKey_D,
+  Phone_A,
+  Phone_B,
+  Phone_C,
+  Phone_Clear,
+
+  Manhole_A,
+  Manhole_B,
+  Manhole_C,
+  Manhole_D,
+  ManholeKey_1,
+  ManholeKey_2,
+  Manhole_Clear,
+
+  Labyrinth_Clear,
 
   Shoes,
   Papers,
@@ -23,17 +34,8 @@ public enum ItemName {
 
 public class ItemData {
 
-  static Dictionary<ItemName, string> _itemName = new Dictionary<ItemName, string> {
-    { ItemName.Empty, string.Empty },
-
-    { ItemName.Amulet_Bill, "お札" },
-    { ItemName.Amulet_A, "お札" },
-    { ItemName.Amulet_B, "お札" },
-    { ItemName.Amulet_C, "お札" },
-    { ItemName.Amulet_D, "お札" },
-
-    { ItemName.ManholeKey_B, "お札" },
-    { ItemName.ManholeKey_D, "お札" },
+  static readonly ItemList _itemName = new ItemList {
+    { ItemName.Empty, "Empty" },
 
     { ItemName.Shoes,  "シューズ" },
     { ItemName.Papers, "作文用紙" },
@@ -41,5 +43,8 @@ public class ItemData {
     { ItemName.Doll,   "ぬいぐるみ" },
   };
 
-  static public string ToString(ItemName key) { return _itemName[key]; }
+  static public string ToString(ItemName key) {
+    var existsItem = _itemName.ContainsKey(key);
+    return existsItem ? _itemName[key] : "お札";
+  }
 }

@@ -8,7 +8,7 @@ public class StageGate : MonoBehaviour {
   SceneTag _sceneName = SceneTag.Title;
 
   [SerializeField]
-  GameState _activeState = GameState.Start;
+  ItemName _activeItem = ItemName.Empty;
 
   [SerializeField]
   GameObject _gateObject = null;
