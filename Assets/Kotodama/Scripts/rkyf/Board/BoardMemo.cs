@@ -19,6 +19,6 @@ public class BoardMemo : MonoBehaviour {
   /// <summary> タッチされたらメモを削除する </summary>
   public void OnTouch() {
     Destroy(gameObject);
-    if (enemy != null) { GameManager.instance.SwitchPause(); }
+    GameManager.instance.ReStart();
   }
 }

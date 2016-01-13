@@ -8,7 +8,7 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
   GameObject _enemy = null;
   GameObject enemyObject {
     get {
-      if (_enemy == null) { _enemy = Resources.Load<GameObject>("Enemy/Chaser"); }
+      if (_enemy == null) { _enemy = Resources.Load<GameObject>("Enemy/Enemy"); }
       return _enemy;
     }
   }
@@ -16,9 +16,6 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
   List<EnemyActor> _actors = null;
   public List<EnemyActor> actors { get { return _actors; } }
 
-
-  //------------------------------------------------------------
-  // public method
 
   /// <summary> 敵キャラを指定した座標に生成 </summary>
   public EnemyDetectArea CreateEnemy(Transform[] spots, string name = "") {
@@ -40,18 +37,13 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
     foreach (var actor in _actors) { Destroy(actor.gameObject, time); }
   }
 
-  /// <summary> 敵キャラの状態を切り替える </summary>
-  /// <param name="state">true = 動作開始, false = 停止</param>
-  public void SwitchEnemiesState(bool state) {
+  public void SwitchEnemiesState() {
+    var game = GameManager.instance;
     foreach (var actor in _actors) {
-      var target = state ? PlayerState.instance.transform : actor.transform;
+      var target = game.isPause ? actor.transform : PlayerState.instance.transform;
       actor.SetTarget(target);
     }
   }
-
-
-  //------------------------------------------------------------
-  // MonoBehaviour
 
   protected override void Awake() {
     base.Awake();

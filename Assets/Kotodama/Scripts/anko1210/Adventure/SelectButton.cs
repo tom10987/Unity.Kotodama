@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SelectButton : MonoBehaviour {
 
-  EventSystem state { get { return EventSystem.instance; } }
+  EventResource state { get { return EventResource.instance; } }
   NovelSystem novel { get { return NovelSystem.instance; } }
 
   private Text _buttonText;

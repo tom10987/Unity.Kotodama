@@ -29,7 +29,7 @@ public class MainGameButton : SingletonBehaviour<MainGameButton>,
 
   public void Back(GameObject instance) {
     Destroy(instance);
-    GameManager.instance.SwitchPause();
+    GameManager.instance.ReStart();
   }
 
   public void Retry(GameObject instance) {
@@ -50,12 +50,6 @@ public class MainGameButton : SingletonBehaviour<MainGameButton>,
   public void MenuOpen(GameObject instance) {
     Instantiate(instance);
     PlayerState.instance.Stop();
-    GameManager.instance.SwitchPause();
+    GameManager.instance.Pause();
   }
-
-
-  //------------------------------------------------------------
-  // Behaviour
-
-  protected override void Awake() { base.Awake(); }
 }

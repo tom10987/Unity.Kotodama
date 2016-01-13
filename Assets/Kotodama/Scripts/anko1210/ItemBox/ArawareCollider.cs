@@ -1,68 +1,71 @@
 ﻿
 using UnityEngine;
+using System.Collections;
 
+
+//------------------------------------------------------------
+// TIPS:
+// アイテムの設定さえ出来ていれば、条件を満たした時に勝手に消滅する
 
 public class ArawareCollider : MonoBehaviour {
 
-  PlayerState state { get { return PlayerState.instance; } }
-  PopUpCanvas popup { get { return PopUpCanvas.instance; } }
+  WindowManager window { get { return WindowManager.instance; } }
 
   [SerializeField]
-  private string _itemName;
-
-  private ItemState _itemState;
-
-  [SerializeField]
-  private string _DestroyText = "どこか消えちゃった…";
+  ItemName _itemName = ItemName.Empty;
+  ItemState _item = null;
 
   [SerializeField]
-  private string _StayText = "近付かないほうがいいかも";
+  SpriteRenderer _sprite = null;
 
-  /// <summary>
-  /// あらわれちゃん
-  /// </summary>
-  private bool _isDestroy;
-  private float _alpha = 1f;
-  private Collider _collider;
-  private SpriteRenderer _sprite;
+  [SerializeField]
+  string _dead = "どこか消えちゃった…";
+
+  [SerializeField]
+  string _stay = "近付かないほうがいいかも";
+
+  bool _isDestroy = false;
 
   void Start() {
-    _isDestroy = false;
-    _collider = gameObject.GetComponent<Collider>();
-    _sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
-    _itemState = GameObject.Find(_itemName).gameObject.GetComponentInChildren<ItemState>();
-    if (_itemState == null) { Debug.LogError(gameObject.name + "のitemStateがみつかりません"); }
+    StartCoroutine(ItemLoad());
   }
 
   void OnTriggerEnter(Collider other) {
+    if (_isDestroy) { return; }
     if (other.tag != ObjectTag.Player.ToString()) { return; }
 
-    state.Stop();
-    if (_itemState.useItem) {
-      _itemState.UpdateState(false);
-      _isDestroy = true;
-    }
-    else { popup.CreatePopUpWindow(_StayText); }
-  }
+    PlayerState.instance.Stop();
 
-  void OnTriggerExit() {
-    popup.IsCancel();
-  }
+    var message = _item.hasItem ? _dead : _stay;
+    window.CreateMessageWindow(message);
 
-  void DestroyAraware() {
-    state.Stop();
-    var view = (_alpha >= 0f) ? 1f : 0f;
-    _alpha -= view * Time.deltaTime;
-    _sprite.color = new Vector4(_alpha, _alpha, _alpha, _alpha);
-    if (_alpha <= 0f) {
-      popup.CreatePopUpWindow(_DestroyText);
-      Destroy(gameObject);
-      popup._count = 1f;
-      popup.IsCancel();
+    if (_item.hasItem) {
+      _item.useItem = true;
+      StartCoroutine(DestroyAraware());
     }
   }
 
-  void Update() {
-    if (_isDestroy) { DestroyAraware(); }
+  IEnumerator DestroyAraware() {
+    _isDestroy = true;
+
+    var enemyColor = _sprite.color;
+    float alpha = 1f;
+
+    while (alpha > 0f) {
+      alpha -= Time.deltaTime;
+      _sprite.color = enemyColor * alpha;
+      yield return null;
+    }
+
+    Destroy(gameObject);
+  }
+
+  IEnumerator ItemLoad() {
+    var items = ItemManager.instance.items;
+
+    while (_item == null) {
+      if (items.ContainsKey(_itemName)) { _item = items[_itemName]; }
+      yield return null;
+    }
   }
 }

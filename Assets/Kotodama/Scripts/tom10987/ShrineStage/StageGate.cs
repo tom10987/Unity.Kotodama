@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StageGate : MonoBehaviour {
 
+  ItemManager manager { get { return ItemManager.instance; } }
+
   [SerializeField]
   SceneTag _sceneName = SceneTag.Title;
 
@@ -15,7 +17,11 @@ public class StageGate : MonoBehaviour {
 
 
   void Start() {
-    //_gateObject.SetActive(_activeState == GameManager.instance.state);
+    var existsItem = manager.items.ContainsKey(_activeItem);
+    if (!existsItem) { return; }
+
+    var isActive = manager.items[_activeItem].useItem;
+    _gateObject.SetActive(isActive);
   }
 
   public void OnTriggerEnter(Collider other) {

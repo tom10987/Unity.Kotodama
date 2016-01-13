@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class ItemCollider : MonoBehaviour {
 
-  PopUpCanvas popupCanvas { get { return PopUpCanvas.instance; } }
+  WindowManager window { get { return WindowManager.instance; } }
 
-  void OnCollisionEnter(Collision other) {
-    if (other.gameObject.tag != ObjectTag.Player.ToString()) { return; }
-    /// 中身
-    var itemState = gameObject.GetComponent<ItemState>();
-    var effect = gameObject.GetComponent<ParticleSystem>();
-    var collider = gameObject.GetComponent<Collider>();
-    itemState.UpdateState(true);
-    popupCanvas.CreatePopUpWindowVerItem(ItemData.ToString(itemState.itemName));
-    collider.isTrigger = true;
+  new Collider collider { get { return GetComponent<Collider>(); } }
+  ParticleSystem effect { get { return GetComponent<ParticleSystem>(); } }
+  ItemState itemState { get { return GetComponent<ItemState>(); } }
+
+  void OnTriggerEnter(Collider other) {
+    if (other.tag != ObjectTag.Player.ToString()) { return; }
+
     effect.loop = false;
-  }
+    collider.enabled = false;
 
-  void OnCollisionExit() {
-    popupCanvas._count = 1f;
-    popupCanvas.IsCancel();
+    var item = itemState;
+    item.hasItem = true;
+    window.CreateMessageWindow(ItemData.ToString(item.itemName), true);
   }
 }

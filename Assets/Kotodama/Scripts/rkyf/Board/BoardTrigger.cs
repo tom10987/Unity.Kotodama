@@ -35,6 +35,6 @@ public class BoardTrigger : MonoBehaviour {
 
     // TIPS: プレイヤーと敵キャラを停止する
     PlayerState.instance.Stop();
-    if (enemy != null) { GameManager.instance.SwitchPause(); }
+    GameManager.instance.Pause();
   }
 }

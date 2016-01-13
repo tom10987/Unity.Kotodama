@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class NovelSystem : SingletonBehaviour<NovelSystem> {
 
-  EventSystem eventSystem { get { return EventSystem.instance; } }
+  EventResource eventSystem { get { return EventResource.instance; } }
 
   protected override void Awake() {
     base.Awake();
