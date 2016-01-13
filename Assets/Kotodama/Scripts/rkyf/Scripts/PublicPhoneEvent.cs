@@ -21,12 +21,14 @@ public class PublicPhoneEvent : MonoBehaviour {
   }
 
   void Update() {
-    if (DialButton_Ver2.ClearFlug_PublicPhone == true && EventStart == false) {
-      AwakeEnemy();
-      EventStart = true;
-      gameObject.transform.root.FindChild("Amulet").gameObject.SetActive(true);
+        if(DialButton_Ver2.ClearFlug_PublicPhone == true && EventStart == false)
+        {
+            AwakeEnemy();
+            EventStart = true;
+            gameObject.transform.root.FindChild("Amulet").gameObject.SetActive(true);
+        }
+        
     }
-  }
 
   void AwakeEnemy() {
     for (int c = 1; c <= CreateCount; c++) {

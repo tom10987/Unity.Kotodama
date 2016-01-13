@@ -8,7 +8,7 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
   GameObject _enemy = null;
   GameObject enemyObject {
     get {
-      if (_enemy == null) { _enemy = Resources.Load<GameObject>("Enemy/Enemy"); }
+      if (_enemy == null) { _enemy = Resources.Load<GameObject>("Enemy/Chaser"); }
       return _enemy;
     }
   }

@@ -43,5 +43,10 @@ public class DialButton_Ver2 : MonoBehaviour {
       ClearFlug_PublicPhone = true;
       Debug.Log("" + ClearFlug_PublicPhone);
     }
+        else
+        {
+            this.gameObject.transform.root.gameObject.SetActive(false);
+        }
   }
+
 }
