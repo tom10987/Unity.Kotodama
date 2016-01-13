@@ -10,5 +10,6 @@ public class StageInitializer : MonoBehaviour {
 
   void Start() {
     AudioManager.instance.bgm.Play(_bgmNumber);
+    PlayerState.instance.transform.position = GameManager.instance.playerStartPosition;
   }
 }
