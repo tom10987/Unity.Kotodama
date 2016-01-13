@@ -25,13 +25,10 @@ public class ItemState : MonoBehaviour {
   public string itemInfo { get { return _itemInfo; } }
 
   /// <summary> アイテムを取得したかどうか </summary>
-  public bool hasItem { get; private set; }
+  public bool hasItem { get; set; }
 
   /// <summary> アイテムを使用したかどうか </summary>
-  public bool useItem { get; private set; }
-
-  public void UpdateState(bool newState) { useItem = newState; }
-
+  public bool useItem { get; set; }
 
   void Start() {
     hasItem = useItem = false;

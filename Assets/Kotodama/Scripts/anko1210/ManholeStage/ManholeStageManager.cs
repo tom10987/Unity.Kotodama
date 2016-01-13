@@ -1,16 +1,17 @@
 ﻿
 using UnityEngine;
+using System.Collections.Generic;
+
+
+public interface ITrigger {
+  bool isEnter { get; }
+  void TriggerUpdate(Vector3 touchPosition);
+}
 
 
 public class ManholeStageManager : SingletonBehaviour<ManholeStageManager> {
 
-  PopUpCanvas popupCanvas { get { return PopUpCanvas.instance; } }
-
-  [SerializeField]
-  RootManager _rootMapUp;
-
-  [SerializeField]
-  RootManager _rootMapDown;
+  WindowManager window { get { return WindowManager.instance; } }
 
   [SerializeField]
   GameObject _player = null;
@@ -28,15 +29,22 @@ public class ManholeStageManager : SingletonBehaviour<ManholeStageManager> {
   [SerializeField]
   UnderGroundStage _right = null;
 
+  public List<ITrigger> triggers { get; set; }
+
   /// <summary> マリちゃのすたーと位置 </summary>
-  readonly Vector3 _playerStartPosition = new Vector3(-40f, 0.0f, -60f);
+  readonly Vector3 _playerStartPosition = new Vector3(40f, 0f, -38f);
 
   /// <summary> プレイヤーの移動先 </summary>
   public Vector3 playerDestination { get; set; }
 
+  /// <summary> 移動に必要なキーアイテム </summary>
+  public ItemName keyItem { get; set; }
+
 
   protected override void Awake() {
     base.Awake();
+
+    triggers = new List<ITrigger>();
 
     System.Action<UnderGroundStage, bool, Vector3> StageSetup = null;
     StageSetup = (stage, isEnable, place) => {
@@ -54,11 +62,23 @@ public class ManholeStageManager : SingletonBehaviour<ManholeStageManager> {
     // TIPS: プレイヤーの開始位置を初期化
     ChangePlayerPosition(_playerStartPosition);
     playerDestination = Vector3.zero;
+
+    keyItem = ItemName.Empty;
+  }
+
+  void Update() {
+    if (!TouchController.IsTouchBegan()) { return; }
+
+    var touchPosition = TouchController.GetTouchScreenPosition();
+    foreach (var trigger in triggers) {
+      if (!trigger.isEnter) { continue; }
+      trigger.TriggerUpdate(touchPosition);
+    }
   }
 
   /// <summary> ボタンの処理 </summary>
-  public void MoveFloor() {
-    popupCanvas._isChoice = true;
+  public void MoveBridge() {
+    window.DestroyWindow();
 
     _left.wall.enabled = !_left.wall.enabled;
     _right.wall.enabled = !_right.wall.enabled;
@@ -68,9 +88,19 @@ public class ManholeStageManager : SingletonBehaviour<ManholeStageManager> {
   }
 
   /// <summary> エリア移動の処理 </summary>
-  public void IsWarpMari() {
-    popupCanvas._isChoice = true;
-    EffectSequencer.instance.FadeStart(MovePlayer, 0.5f);
+  public void ChangeArea() {
+    window.QuickDestroyWindow();
+
+    var items = ItemManager.instance.items;
+    var existsItem = items.ContainsKey(keyItem);
+    if (existsItem ? items[keyItem].hasItem : (keyItem == ItemName.Empty)) {
+      EffectSequencer.instance.FadeStart(MovePlayer, 0.5f);
+    }
+    else {
+      window.CreateMessageWindow("開かない...");
+    }
+
+    keyItem = ItemName.Empty;
   }
 
   void MovePlayer() {
@@ -78,7 +108,6 @@ public class ManholeStageManager : SingletonBehaviour<ManholeStageManager> {
   }
 
   void ChangePlayerPosition(Vector3 place) {
-    _player.transform.localPosition = place;
-    playerDestination = Vector3.zero;
+    _player.transform.position = place;
   }
 }

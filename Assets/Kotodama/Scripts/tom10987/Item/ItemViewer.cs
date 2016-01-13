@@ -3,7 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-// TIPS: メニュー画面生成時の初期化のみ動作する
+//------------------------------------------------------------
+// TIPS: メニュー画面生成時の初期化のみで動作する
+
 public class ItemViewer : MonoBehaviour {
 
   [SerializeField]
@@ -20,7 +22,7 @@ public class ItemViewer : MonoBehaviour {
 
   void Start() {
     foreach (var itemData in manager.items) {
-      if (!itemData.Value.useItem) { continue; }
+      if (!itemData.Value.hasItem || itemData.Value.useItem) { continue; }
 
       var newObject = Instantiate(itemBox);
       newObject.name = itemData.Key.ToString();

@@ -48,7 +48,7 @@ public class ImageName {
 }
 
 
-public class EventSystem : SingletonBehaviour<EventSystem> {
+public class EventResource : SingletonBehaviour<EventResource> {
 
   [SerializeField]
   public Sprite[] _mari;
