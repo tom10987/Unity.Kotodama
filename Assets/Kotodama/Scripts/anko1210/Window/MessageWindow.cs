@@ -16,5 +16,5 @@ public class MessageWindow : MonoBehaviour {
   public string text { get; set; }
 
   /// <summary> アイテム取得用：テキストを連結して出力する </summary>
-  public string ItemMessage(string text) { return text + " を手に入れました"; }
+  public string ItemMessage(string text) { return text + "を手に入れました"; }
 }

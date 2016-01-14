@@ -10,6 +10,9 @@ public class GoToShrine : MonoBehaviour {
   [Tooltip("神社エリアの開始地点を設定")]
   Vector3 _shrinePosition = Vector3.zero;
 
+  [SerializeField]
+  string _telop = string.Empty;
+
 
   void OnTriggerEnter(Collider other) {
     if (other.tag != ObjectTag.Player.ToString()) { return; }
@@ -18,7 +21,7 @@ public class GoToShrine : MonoBehaviour {
     PlayerState.instance.Stop();
     GameManager.instance.playerStartPosition = _shrinePosition;
 
-    window.CreateCommandWindow("神社へ戻りますか？", OnYes);
+    window.CreateCommandWindow(_telop, OnYes);
   }
 
   public void OnYes() {

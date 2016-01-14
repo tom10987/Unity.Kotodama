@@ -2,26 +2,22 @@
 using UnityEngine;
 
 
-public class Sentence_PublicPhone : MonoBehaviour {
+public class PublicPhoneADV : MonoBehaviour {
 
-  EventState PublicPhone;
-  EventChecker Check;
+  EventState _publicPhone;
 
   void Start() {
-    PublicPhone = this.gameObject.GetComponentInChildren<EventState>();
-    PublicPhone._entry = TextPublicPhone;
-    Check = gameObject.transform.root.gameObject.AddComponent<EventChecker>();
-
-        
+    _publicPhone = gameObject.GetComponentInChildren<EventState>();
+    _publicPhone._entry = TextPublicPhone;
   }
 
   void Update() {
-    if (PublicPhone._isAlreadyNovel && DialButton_Ver2.ClearFlug_PublicPhone)
+    /*
+    if (PublicPhone._isAlreadyNovel && DialButton_Ver2.IsInputSuccess)
       Check.Stop();
-    else if (PublicPhone._isAlreadyNovel && !DialButton_Ver2.ClearFlug_PublicPhone)
+    else if (PublicPhone._isAlreadyNovel && !DialButton_Ver2.IsInputSuccess)
       PublicPhone._isAlreadyNovel = false;
-
-        
+    */
   }
 
   public string[,] TextPublicPhone = {
@@ -41,7 +37,5 @@ public class Sentence_PublicPhone : MonoBehaviour {
     { Command.act,  "NoUse", "", "" },
     { Command.cashb, "false", "", ""},
     { Command.end, "", "", "" },
-
-    
   };
 }
