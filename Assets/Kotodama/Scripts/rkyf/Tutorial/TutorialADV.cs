@@ -2,11 +2,12 @@
 using UnityEngine;
 
 
-public class Sentence_Tutorial : MonoBehaviour {
-  EventState Tutorial = null;
+public class TutorialADV : MonoBehaviour {
+
+  EventState _tutorial = null;
 
   void Start() {
-    Tutorial = gameObject.GetComponentInChildren<EventState>();
+    _tutorial = gameObject.GetComponentInChildren<EventState>();
   }
 
   public readonly string[,] Sentence = {
