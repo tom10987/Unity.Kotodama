@@ -3,11 +3,14 @@
 
 /[lL]ibrary
 /[tT]emp
-/obj
+/[pP]rojectSettings
 
-/[aA]pk
-*.apk
+/bin
+/obj
 
 *.sln
 *.csproj
+
+/[aA]pk
+*.apk
 
