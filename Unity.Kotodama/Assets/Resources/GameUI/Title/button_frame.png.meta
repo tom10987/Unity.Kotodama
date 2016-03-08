@@ -1,0 +1,100 @@
+fileFormatVersion: 2
+guid: c652ed182bee08a42bc483aea9c1b0d2
+timeCreated: 1457330308
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: button_frame_0
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: button_frame_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 212
+        width: 336
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 55, y: -150}
+        - {x: 65, y: -146}
+        - {x: 68, y: -147}
+        - {x: 72, y: -148}
+        - {x: 78, y: -148}
+        - {x: 91, y: -145}
+        - {x: 100, y: -146}
+        - {x: 111, y: -145}
+        - {x: 114, y: -141}
+        - {x: 120, y: -144}
+        - {x: 127, y: -144}
+        - {x: 136, y: -142}
+        - {x: 160, y: -143}
+        - {x: 165, y: -142}
+        - {x: 168, y: -137}
+        - {x: 168, y: 144}
+        - {x: 164, y: 148}
+        - {x: 157, y: 150}
+        - {x: -7, y: 150}
+        - {x: -9, y: 149}
+        - {x: -37, y: 149}
+        - {x: -39, y: 150}
+        - {x: -168, y: 150}
+        - {x: -168, y: -144}
+        - {x: -166, y: -146}
+        - {x: -162, y: -148}
+        - {x: -154, y: -150}
+        - {x: -111, y: -150}
+        - {x: -106, y: -149}
+        - {x: -72, y: -149}
+        - {x: -71, y: -150}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
