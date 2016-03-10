@@ -3,10 +3,14 @@
 public enum ObjectTag {
   Player,
   Enemy,
+
   UI,
   Gimmick,
   Item,
   Adventure,
+
+  Ground,
+  NavObstacle,
 
   Max,
 }

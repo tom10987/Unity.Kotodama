@@ -4,52 +4,37 @@ using UnityEngine;
 public class PlayerState : SingletonBehaviour<PlayerState> {
 
   [SerializeField]
-  [Range(1f, 10f)]
-  float _moveSpeed = 3f;
+  Rigidbody _rigid = null;
+  public Rigidbody rigidBody { get { return _rigid; } }
 
   [SerializeField]
-  [Range(0f, 2f)]
-  [Tooltip("キャラクターに対するタッチ判定の大きさ")]
-  float _touchRadius = 0.5f;
-
-  Vector3 _direction = Vector3.zero;
+  NavMeshAgent _agent = null;
+  public NavMeshAgent agent { get { return _agent; } }
 
   [SerializeField]
-  Rigidbody _ownRigid = null;
+  AbstractPlayer[] _components = null;
 
-  [SerializeField]
-  PlayerAnimator _animator = null;
+  /// <summary> プレイヤーが動作中なら true を返す </summary>
+  public bool isPlaying { get; private set; }
 
-  public void Move() {
-    _ownRigid.velocity = Vector3.zero;
-    // if (EffectSequencer.instance.IsFadeTime()) { return; }
+  /// <summary> ランプを持ってるかどうかを指定する </summary>
+  public bool hasLantern { get; set; }
 
-    var touchPos = TouchController.GetScreenToWorldPositionXZ();
-    if (touchPos.magnitude < _touchRadius) { return; }
-
-    // TIPS: 画面が横長なので、アスペクト比で割る
-    touchPos.x /= Camera.main.aspect;
-    _direction = touchPos.normalized * _moveSpeed;
-    _ownRigid.AddForce(_direction, ForceMode.Impulse);
-    _animator.UpdateDirection(_direction);
+  /// <summary> プレイヤー動作開始 </summary>
+  public void Play() {
+    isPlaying = true;
+    foreach (var component in _components) { component.Activate(); }
   }
 
-  public void Stop() {
-    _ownRigid.velocity = Vector3.zero;
-    _animator.StopAnimation();
-  }
+  /// <summary> プレイヤーの動作を停止する </summary>
+  public void Stop() { isPlaying = false; }
 
-  public void ChangeSpriteState() {
-    _animator.ChangeSpriteState();
-  }
+  /// <summary> プレイヤーを指定した座標に向けて移動させる </summary>
+  public void Translate(Vector3 position) { _agent.SetDestination(position); }
 
   void Start() {
-    if (_ownRigid == null) { _ownRigid = GetComponent<Rigidbody>(); }
-    if (_animator == null) { _animator = GetComponentInChildren<PlayerAnimator>(); }
     CameraController.instance.ChaseTarget(transform);
-  }
-
-  void Update() {
-    if (_ownRigid.velocity.magnitude > 0f) { _animator.UpdateAnimation(); }
+    hasLantern = false;
+    Play();
   }
 }

@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 
 public class Fade : Effect {
-  public Fade(float time) : base() { _sequenceTime = (time > 0f) ? time : 1f; }
+  public Fade(float time) : base() { _sequenceTime = (time > 0f) ? time * 0.5f : 1f; }
 
   enum State { FadeOut, FadeIn, Update, }
   State _state = State.Update;

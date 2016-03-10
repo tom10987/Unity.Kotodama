@@ -1,80 +1,96 @@
 ﻿
 using UnityEngine;
-using System.Collections.Generic;
+using System;
+using System.Collections;
 
+//------------------------------------------------------------
+// TIPS:
+// Renderer クラスの material プロパティのパラメータについて
+//
+// 1. mainTextureOffset
+// Material の Offset パラメータを指す。
+// 画像の左下を座標の基準にする。
+//
+// 2. mainTextureScale
+// Material の Tiling パラメータを指す。
+// Offset の位置からの切り取りサイズを示す。
+// Texture が設定されたオブジェクトの面に収まるようにサイズが変わる。
+//
+//------------------------------------------------------------
 
-public class PlayerAnimator : MonoBehaviour {
+public class PlayerAnimator : AbstractPlayer {
 
-  [System.Serializable]
-  class PlayerSprite {
-    public Sprite[] _defaultUp = null;
-    public Sprite[] _defaultDown = null;
-    public Sprite[] _lanternUp = null;
-    public Sprite[] _lanternDown = null;
-  }
+  bool hasLantern { get { return PlayerState.instance.hasLantern; } }
 
-  enum SpriteState { Default, Lantern, }
-  enum DirectionState { Up, Down, }
-
-  const byte animationSpan = 40;
+  NavMeshAgent agent { get { return PlayerState.instance.agent; } }
+  bool isMoving { get { return agent.velocity.magnitude > 0f; } }
+  float agentSpeed { get { return agent.velocity.magnitude / agent.speed; } }
 
   [SerializeField]
-  SpriteRenderer _renderer = null;
+  MeshRenderer _renderer = null;
 
   [SerializeField]
-  PlayerSprite _sprite = null;
+  [Range(0f, 180f)]
+  float _angle = 120f;
+  Quaternion cameraLook { get { return Quaternion.Euler(Vector3.right * _angle); } }
 
-  SpriteState _state = SpriteState.Default;
-  bool IsDefault() { return _state == SpriteState.Default; }
-  SpriteState OtherState() { return IsDefault() ? SpriteState.Lantern : SpriteState.Default; }
+  [SerializeField]
+  [Range(0.1f, 0.5f)]
+  float _scale = 0.15f;
+  Vector3 baseScale { get { return (Vector3.one - Vector3.up) * _scale; } }
+  
+  static readonly float tile = 0.25f;
+  Vector2 textureScale { get { return Vector2.one * tile; } }
 
-  DirectionState _direction = DirectionState.Up;
-  Dictionary<SpriteState, Dictionary<DirectionState, Sprite[]>> _animation = null;
-
-  byte _time = 0;
-
-
-  public void ChangeSpriteState() { _state = OtherState(); }
-
-  public void UpdateDirection(Vector3 velocity) {
-    // TIPS: 左に進んでいたら左向きにする
-    transform.localScale = new Vector3((velocity.x < 0f) ? -1f : 1f, 1f, 1f);
-
-    // TIPS: 画面奥に向かって進んでいたら上向きの画像にする
-    _direction = (velocity.z > 0f) ? DirectionState.Up : DirectionState.Down;
+  void Start() {
+    transform.localScale = baseScale + Vector3.down;
+    _renderer.material.mainTextureScale = textureScale;
   }
 
-  public void StopAnimation() {
-    _time = 0;
-    SetAnimationState();
-  }
+  public override IEnumerator UpdateComponent() {
+    var previous = transform.position;
+    var material = _renderer.material;
+    var time = 0f;
 
-  public void UpdateAnimation() {
-    ++_time;
-    if (_time > animationSpan) { _time = 0; }
-    SetAnimationState();
-  }
-
-  void SetAnimationState() {
-    var array = _animation[_state][_direction];
-    var index = (_time / (animationSpan / array.Length)) % array.Length;
-    if (_renderer.sprite != array[index]) { _renderer.sprite = array[index]; }
-  }
-
-  void Awake() {
-    _animation = new Dictionary<SpriteState, Dictionary<DirectionState, Sprite[]>>();
-
-    System.Action<Sprite[], Sprite[], SpriteState> spriteSetup = null;
-    spriteSetup = (up, down, type) => {
-      var dictionary = new Dictionary<DirectionState, Sprite[]>();
-      dictionary.Add(DirectionState.Up, up);
-      dictionary.Add(DirectionState.Down, down);
-      _animation.Add(type, dictionary);
+    Action Animation = () => {
+      time += DeltaSpeed();
+      var direction = GetDirection(previous);
+      material.mainTextureOffset = TextureOffsetY(IsDirectionBack(direction));
+      material.mainTextureOffset += AnimationX(time);
+      SetDirectionX(IsDirectionLeft(direction));
+      previous += direction;
     };
 
-    spriteSetup(_sprite._defaultUp, _sprite._defaultDown, SpriteState.Default);
-    spriteSetup(_sprite._lanternUp, _sprite._lanternDown, SpriteState.Lantern);
+    while (PlayerState.instance.isPlaying) {
+      transform.rotation = cameraLook;
+      if (isMoving) { Animation(); }
+      yield return null;
+    }
+  }
 
-    _time = 0;
+  Vector3 GetDirection(Vector3 previous) { return transform.position - previous; }
+  bool IsDirectionLeft(Vector3 direction) { return direction.x < 0f; }
+  bool IsDirectionBack(Vector3 direction) { return direction.z < 0f; }
+
+  // TIPS: ランプを持ってるか、手前と奥のどちらに向いているかで画像を切り替える
+  Vector2 TextureOffsetY(bool isBack) {
+    var lantern = hasLantern ? 0.0f : 0.5f;
+    var back = isBack ? 0.25f : 0.0f;
+    return Vector2.up * (lantern + back);
+  }
+
+  float DeltaSpeed() { return isMoving ? agentSpeed / Mathf.Pow(Mathf.PI, 2f) : 0f; }
+
+  // TIPS: 移動速度が早いほど早くアニメーションする
+  Vector2 AnimationX(float time) {
+    var angle = Mathf.RoundToInt(Mathf.Sin(time));
+    return Vector2.right * (angle * tile + tile);
+  }
+
+  // TIPS: 左右どちらに向いているかで画像の向きを決定する
+  void SetDirectionX(bool isLeft) {
+    var scale = baseScale + Vector3.down;
+    if (!isLeft) { scale.x *= -1f; }
+    transform.localScale = scale;
   }
 }
