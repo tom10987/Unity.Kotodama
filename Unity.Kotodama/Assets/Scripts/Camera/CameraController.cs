@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 public class CameraController : SingletonBehaviour<CameraController> {
-
+  
   Vector3 _start = Vector3.zero;
 
   /// <summary> カメラの位置を取得 </summary>
