@@ -12,7 +12,7 @@ public class PlayerMove : AbstractPlayer {
   public override IEnumerator UpdateComponent() {
     var hit = new RaycastHit();
 
-    System.Action Move = () => {
+    System.Action Moved = () => {
       if (!IsRaycastHit(out hit)) { return; }
 
       // TIPS:
@@ -23,8 +23,14 @@ public class PlayerMove : AbstractPlayer {
       agent.SetDestination(hit.point);
     };
 
+    System.Action Touch = () => {
+      if (!IsRaycastHit(out hit)) { return; }
+      agent.SetDestination(hit.point);
+    };
+
     while (PlayerState.instance.isPlaying) {
-      if (TouchController.IsTouchMoved()) { Move(); }
+      if (TouchController.IsTouchMoved()) { Moved(); }
+      if (TouchController.IsTouchBegan()) { Touch(); }
       yield return null;
     }
   }
@@ -32,5 +38,12 @@ public class PlayerMove : AbstractPlayer {
   // TIPS: 移動可能な範囲にのみ反応するレイを飛ばす
   bool IsRaycastHit(out RaycastHit hit) {
     return TouchController.IsRaycastHitWithLayer(out hit, _moveLayer);
+  }
+
+  // TIPS: レイ判定の結果、プレイヤーだったら移動停止
+  bool IsHitPlayer(RaycastHit hit) {
+    var result = ObjectTag.Player.Equal(hit.transform.tag);
+    if (result) { agent.SetDestination(transform.position); }
+    return result;
   }
 }
