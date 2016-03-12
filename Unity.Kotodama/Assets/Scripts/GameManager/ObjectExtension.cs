@@ -16,5 +16,5 @@ public enum ObjectTag {
 }
 
 public static class ObjectExtension {
-  public static bool Equal(this ObjectTag tag, string tagName) { return tag.ToString() == tagName; }
+  public static bool EqualTo(this ObjectTag tag, string tagName) { return tag.ToString() == tagName; }
 }

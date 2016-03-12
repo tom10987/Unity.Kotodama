@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerKill : MonoBehaviour {
 
   public void OnTriggerEnter(Collider other) {
-    if (!ObjectTag.Player.Equal(other.tag)) { return; }
+    if (!ObjectTag.Player.EqualTo(other.tag)) { return; }
 
     var enemy = GetComponentInParent<NavMeshAgent>();
     enemy.SetDestination(enemy.transform.position);

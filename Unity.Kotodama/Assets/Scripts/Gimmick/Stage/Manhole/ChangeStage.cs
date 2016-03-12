@@ -8,7 +8,7 @@ public class ChangeStage : MonoBehaviour, ITrigger {
   ManholeStageManager manhole { get { return ManholeStageManager.instance; } }
 
   [SerializeField]
-  ItemName _itemName = ItemName.Empty;
+  ItemType _itemName = ItemType.Empty;
 
   [SerializeField]
   LayerMask _layerMask = new LayerMask();
@@ -35,7 +35,7 @@ public class ChangeStage : MonoBehaviour, ITrigger {
 
     // TIPS: 行き先を指定、選択肢を表示する
     manhole.playerDestination = _destination;
-    if (_itemName != ItemName.Empty) { manhole.keyItem = _itemName; }
+    if (_itemName != ItemType.Empty) { manhole.keyItem = _itemName; }
     window.waitTime = 0f;
     window.CreateCommandWindow("移動しますか？", manhole.ChangeArea);
   }

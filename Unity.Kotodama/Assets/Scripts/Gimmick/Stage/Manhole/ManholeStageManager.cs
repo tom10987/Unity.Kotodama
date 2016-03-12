@@ -38,7 +38,7 @@ public class ManholeStageManager : SingletonBehaviour<ManholeStageManager> {
   public Vector3 playerDestination { get; set; }
 
   /// <summary> 移動に必要なキーアイテム </summary>
-  public ItemName keyItem { get; set; }
+  public ItemType keyItem { get; set; }
 
 
   protected override void Awake() {
@@ -63,7 +63,7 @@ public class ManholeStageManager : SingletonBehaviour<ManholeStageManager> {
     ChangePlayerPosition(_playerStartPosition);
     playerDestination = Vector3.zero;
 
-    keyItem = ItemName.Empty;
+    keyItem = ItemType.Empty;
   }
 
   void Update() {
@@ -92,16 +92,18 @@ public class ManholeStageManager : SingletonBehaviour<ManholeStageManager> {
   public void ChangeArea() {
     window.QuickDestroyWindow();
 
+    /*
     var items = ItemManager.instance.items;
     var existsItem = items.ContainsKey(keyItem);
-    if (existsItem ? items[keyItem].hasItem : (keyItem == ItemName.Empty)) {
+    if (existsItem ? items[keyItem].hasItem : (keyItem == ItemType.Empty)) {
       //EffectSequencer.instance.FadeStart(MovePlayer, 0.5f);
     }
     else {
       window.CreateMessageWindow("開かない...");
     }
+    */
 
-    keyItem = ItemName.Empty;
+    keyItem = ItemType.Empty;
   }
 
   void MovePlayer() {

@@ -10,18 +10,20 @@ public class StageGate : MonoBehaviour {
   SceneTag _sceneName = SceneTag.Title;
 
   [SerializeField]
-  ItemName _activeItem = ItemName.Empty;
+  ItemType _activeItem = ItemType.Empty;
 
   [SerializeField]
   GameObject _gateObject = null;
 
 
   void Start() {
+    /*
     var existsItem = manager.items.ContainsKey(_activeItem);
     if (!existsItem) { return; }
 
     var isActive = manager.items[_activeItem].useItem;
     _gateObject.SetActive(isActive);
+    */
   }
 
   public void OnTriggerEnter(Collider other) {
