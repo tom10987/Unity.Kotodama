@@ -24,10 +24,14 @@ public class PlayerState : SingletonBehaviour<PlayerState> {
   public void Play() {
     isPlaying = true;
     foreach (var component in _components) { component.Activate(); }
+    Translate(transform.position);
   }
 
   /// <summary> プレイヤーの動作を停止する </summary>
-  public void Stop() { isPlaying = false; }
+  public void Stop() {
+    isPlaying = false;
+    Translate(transform.position);
+  }
 
   /// <summary> プレイヤーを指定した座標に向けて移動させる </summary>
   public void Translate(Vector3 position) { _agent.SetDestination(position); }

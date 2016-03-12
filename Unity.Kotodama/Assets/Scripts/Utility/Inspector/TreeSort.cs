@@ -30,6 +30,7 @@ public class TreeSort : MonoBehaviour {
   Vector3 treeScale { get { return Vector3.one * _scale; } }
 
   void OnValidate() {
+    if (!_activate) { return; }
     var children = this.GetComponentsOnlyChildren<TreeComponent>();
     var baseOffset = Vector3.left * treeOffset * (children.Count() - 1) * 0.5f;
 

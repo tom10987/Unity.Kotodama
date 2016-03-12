@@ -22,6 +22,7 @@ public class GroundSort : MonoBehaviour {
   Vector3 planeScale { get { return plane * _scale + Vector3.up; } }
 
   void OnValidate() {
+    if (!_activate) { return; }
     var children = this.GetComponentsOnlyChildren<Transform>();
     var rowCount = Mathf.FloorToInt(Mathf.Sqrt(children.Count()));
     var baseOffset = -(plane * planeOffset) * (rowCount - 1) * 0.5f;

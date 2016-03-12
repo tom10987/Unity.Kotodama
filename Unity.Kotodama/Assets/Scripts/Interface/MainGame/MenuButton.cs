@@ -3,14 +3,21 @@ using UnityEngine;
 
 public class MenuButton : MonoBehaviour {
 
-  /*
-  MenuAction button { get { return MainGameButton.instance; } }
-  */
+  [SerializeField]
+  GameObject _create = null;
 
-  public void OnBack() {
-    //button.Back(gameObject);
+  [SerializeField]
+  bool _isActivePlayer = false;
+  System.Action _action = null;
+
+  void Start() {
+    var player = PlayerState.instance;
+    _action = _isActivePlayer ? (System.Action)player.Play : player.Stop;
   }
-  public void OnGoTitle() {
-    //button.GoTitle(gameObject);
+
+  public void OnTouch() {
+    _action();
+    Instantiate(_create);
+    Destroy(gameObject);
   }
 }

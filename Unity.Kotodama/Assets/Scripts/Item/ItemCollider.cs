@@ -1,23 +1,18 @@
 ﻿
 using UnityEngine;
 
-
 public class ItemCollider : MonoBehaviour {
 
-  WindowManager window { get { return WindowManager.instance; } }
-
-  new Collider collider { get { return GetComponent<Collider>(); } }
-  ParticleSystem effect { get { return GetComponent<ParticleSystem>(); } }
-  ItemState itemState { get { return GetComponent<ItemState>(); } }
+  [SerializeField]
+  [Tooltip("触れると取得できる、アイテムのプレハブを指定")]
+  ItemIcon _item = null;
 
   void OnTriggerEnter(Collider other) {
-    if (other.tag != ObjectTag.Player.ToString()) { return; }
+    if (!ObjectTag.Player.EqualTo(other.tag)) { return; }
 
-    effect.loop = false;
-    collider.enabled = false;
-
-    var item = itemState;
-    item.hasItem = true;
-    window.CreateMessageWindow(ItemData.ToString(item.itemName), true);
+    // TIPS: アイテムが登録済みなら、未使用の状態に戻す
+    var success = ItemManager.instance.Add(_item);
+    if (!success) { ItemManager.instance.GetItem(_item.type).useItem = false; }
+    Destroy(gameObject);
   }
 }

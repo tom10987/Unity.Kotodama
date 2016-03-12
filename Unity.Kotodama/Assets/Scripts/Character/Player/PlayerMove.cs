@@ -5,7 +5,13 @@ using System.Collections;
 public class PlayerMove : AbstractPlayer {
 
   [SerializeField]
-  LayerMask _moveLayer;
+  [Tooltip("タッチのレイ判定の対象にするレイヤー")]
+  LayerMask _targetLayer;
+
+  [SerializeField]
+  [Tooltip("移動速度がこの値以下の時、タッチ終了した場所に自動で移動する")]
+  [Range(0f, 1f)]
+  float _autoMove = 0.5f;
 
   NavMeshAgent agent { get { return PlayerState.instance.agent; } }
 
@@ -23,26 +29,34 @@ public class PlayerMove : AbstractPlayer {
       agent.SetDestination(hit.point);
     };
 
-    System.Action Touch = () => {
+    System.Action Point = () => {
       if (!IsRaycastHit(out hit)) { return; }
       agent.SetDestination(hit.point);
     };
 
     while (PlayerState.instance.isPlaying) {
       if (TouchController.IsTouchMoved()) { Moved(); }
-      if (TouchController.IsTouchBegan()) { Touch(); }
+      if (IsAutoMove()) { Point(); }
       yield return null;
     }
   }
 
+  // TIPS: 一定以下の移動速度 かつ 壁にぶつかってなければ true を返す
+  bool IsAutoMove() {
+    var isTouchEnded = TouchController.IsTouchEnded();
+    var enableAutoMove = agent.velocity.magnitude < _autoMove;
+    return isTouchEnded && enableAutoMove;
+  }
+
   // TIPS: 移動可能な範囲にのみ反応するレイを飛ばす
   bool IsRaycastHit(out RaycastHit hit) {
-    return TouchController.IsRaycastHitWithLayer(out hit, _moveLayer);
+    var result = TouchController.IsRaycastHitWithLayer(out hit, _targetLayer);
+    return result && !IsHitPlayer(hit);
   }
 
   // TIPS: レイ判定の結果、プレイヤーだったら移動停止
   bool IsHitPlayer(RaycastHit hit) {
-    var result = ObjectTag.Player.Equal(hit.transform.tag);
+    var result = ObjectTag.Player.EqualTo(hit.transform.tag);
     if (result) { agent.SetDestination(transform.position); }
     return result;
   }

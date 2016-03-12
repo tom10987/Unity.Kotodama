@@ -18,6 +18,7 @@ public class TreeGroupSort : MonoBehaviour {
   float _offset = 3f;
 
   void OnValidate() {
+    if (!_activate) { return; }
     var children = this.GetComponentsOnlyChildren<Transform>();
     var baseOffset = Vector3.back * _offset * (children.Count() - 1) * 0.5f;
 
