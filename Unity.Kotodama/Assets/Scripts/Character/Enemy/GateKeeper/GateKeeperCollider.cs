@@ -16,6 +16,10 @@ public class GateKeeperCollider : MonoBehaviour {
   [SerializeField]
   string _dead = "お札が黒い影を消した";
 
+  [SerializeField]
+  [Range(0.5f, 2.0f)]
+  float _messageTime = 1.0f;
+
   void OnTriggerEnter(Collider other) {
     if (!ObjectTag.Player.EqualTo(other.tag)) { return; }
 
@@ -26,7 +30,7 @@ public class GateKeeperCollider : MonoBehaviour {
     var isDead = (find != null ? !find.useItem : false);
 
     var message = (isDead ? _dead : _stay);
-    WindowManager.instance.CreateMessageWindow(message, 0.5f);
+    WindowManager.instance.CreateMessageWindow(message, _messageTime);
 
     if (!isDead) { return; }
     ItemManager.instance.UseItem(_keyItem);

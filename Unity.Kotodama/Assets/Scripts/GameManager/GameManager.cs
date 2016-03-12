@@ -20,11 +20,6 @@ public class GameManager : SingletonBehaviour<GameManager> {
     if (enemy != null) { enemy.SwitchEnemiesState(); }
   }
 
-  protected override void Awake() {
-    base.Awake();
-    DontDestroyOnLoad(gameObject);
-  }
-
   public void Initialize() {
     isPause = false;
     playerStartPosition = Vector3.zero;
