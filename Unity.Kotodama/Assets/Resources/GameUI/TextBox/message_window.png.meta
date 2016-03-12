@@ -1,9 +1,11 @@
 fileFormatVersion: 2
-guid: 79974b2e756f7834cb532a2bb770396d
-timeCreated: 1450898536
+guid: 913954a979c4b284ab05d48c4e555e8d
+timeCreated: 1457771933
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: option_ItemWaku0
+    21300002: message_window_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -38,7 +40,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -47,14 +49,38 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
-  buildTargetSettings:
-  - buildTarget: Standalone
-    maxTextureSize: 1024
-    textureFormat: -2
-    compressionQuality: 50
-    allowsAlphaSplitting: 0
+  buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: message_window_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 466
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 233, y: -48}
+        - {x: 233, y: 39}
+        - {x: 232, y: 59}
+        - {x: 226, y: 62}
+        - {x: 216, y: 63}
+        - {x: -232, y: 63}
+        - {x: -233, y: 55}
+        - {x: -233, y: -57}
+        - {x: -231, y: -63}
+        - {x: -175, y: -63}
+        - {x: -76, y: -61}
+        - {x: -54, y: -63}
+        - {x: 45, y: -63}
+        - {x: 65, y: -62}
+        - {x: 76, y: -63}
+        - {x: 101, y: -63}
+        - {x: 144, y: -60}
+        - {x: 229, y: -59}
     outline: []
   spritePackingTag: 
   userData: 

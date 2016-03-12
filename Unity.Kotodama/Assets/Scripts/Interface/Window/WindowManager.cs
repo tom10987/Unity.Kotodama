@@ -3,87 +3,65 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 
-
 public class WindowManager : SingletonBehaviour<WindowManager> {
 
-  GameManager game { get { return GameManager.instance; } }
-  EnemyManager enemy { get { return EnemyManager.instance; } }
+  [SerializeField]
+  MessageWindow _messageWindow = null;
 
   [SerializeField]
-  GameObject _commandWindow = null;
+  CommandWindow _commandWindow = null;
 
-  [SerializeField]
-  GameObject _messageWindow = null;
-
-  /// <summary> 現在有効になっているキャンバスのプレハブ </summary>
-  GameObject _currentWindow = null;
-  CanvasGroup _currentGroup = null;
+  // TIPS: 有効になっているウィンドウのインスタンス
+  IWindow _currentWindow = null;
   bool IsActiveWindow { get { return _currentWindow != null; } }
 
-  [SerializeField]
-  [Tooltip("ウィンドウ消滅までの待機時間（単位：秒）")]
-  float _defaultTime = 0.5f;
-  public float waitTime { get; set; }
-
-
   /// <summary> 選択肢を表示する </summary>
-  /// <param name="yes"> 「はい」ボタンを押した時の動作 </param>
-  public void CreateCommandWindow(string message, UnityAction yes) {
-    // TIPS: すでに有効になっているウィンドウがあれば何もしない
+  /// <param name="velocity"> ウィンドウ消滅までの遷移時間（秒） </param>
+  public void CreateCommandWindow(string message,
+                                  float velocity,
+                                  UnityAction yes) {
     if (IsActiveWindow) { return; }
 
-    _currentWindow = Instantiate(_commandWindow);
-    var window = _currentWindow.GetComponent<CommandWindow>();
-    window.message.text = message;
-    window.yes.onClick.AddListener(yes);
-    window.no.onClick.AddListener(DestroyWindow);
-    _currentGroup = window.group;
+    // TIPS: 引数付きのメソッドを受け付けないので、ラムダ式でラップする
+    UnityAction DestroyAction = () => { DestroyWindow(velocity); };
 
-    GameManager.instance.Pause();
+    var window = Instantiate(_commandWindow);
+    window.message.text = message;
+    window.yes.onClick.AddListener(yes + DestroyAction);
+    window.no.onClick.AddListener(DestroyAction);
+    _currentWindow = window;
   }
 
   /// <summary> メッセージを表示する </summary>
-  /// <param name="isGetItem"> true = " を手に入れました" を連結して出力 </param>
-  public void CreateMessageWindow(string message, bool isGetItem = false) {
-    // TIPS: すでに有効になっているウィンドウがあれば何もしない
+  public void CreateMessageWindow(string message,
+                                  float velocity) {
     if (IsActiveWindow) { return; }
 
     _currentWindow = Instantiate(_messageWindow);
-    var window = _currentWindow.GetComponent<MessageWindow>();
-
-    var newText = isGetItem ? window.ItemMessage(message) : message;
-    window.message.text = newText;
-    _currentGroup = window.group;
-
-    DestroyWindow();
+    _currentWindow.message.text = message;
+    DestroyWindow(velocity);
   }
 
-  /// <summary> destroyTime で指定した時間をかけてウィンドウを消去する </summary>
-  public void DestroyWindow() {
-    StartCoroutine(DestroyRoutine());
+  /// <summary> 指定した時間（秒）をかけてウィンドウを消去する </summary>
+  public void DestroyWindow(float velocity) {
+    StartCoroutine(DestroyRoutine(velocity));
   }
 
-  /// <summary> 即座にウィンドウを消去する </summary>
-  public void QuickDestroyWindow() {
-    Destroy(_currentWindow);
+  /// <summary> ウィンドウの状態を解放する </summary>
+  public void Clear() {
+    Destroy(_currentWindow.instance);
     _currentWindow = null;
-    _currentGroup = null;
-    waitTime = _defaultTime;
-    GameManager.instance.ReStart();
   }
 
-  IEnumerator DestroyRoutine() {
-    _currentGroup.interactable = false;
+  IEnumerator DestroyRoutine(float velocity) {
+    _currentWindow.group.interactable = false;
 
-    yield return new WaitForSeconds(waitTime);
-    while (true) {
-      _currentGroup.alpha -= Time.deltaTime * 2f;
-      if (_currentGroup.alpha <= 0f) { break; }
+    yield return new WaitForSeconds(velocity);
+    while (_currentWindow.group.alpha > 0f) {
+      _currentWindow.group.alpha -= Time.deltaTime * 2f;
       yield return null;
     }
 
-    QuickDestroyWindow();
+    Clear();
   }
-
-  void Start() { waitTime = _defaultTime; }
 }

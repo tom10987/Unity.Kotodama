@@ -25,7 +25,7 @@ public class SwitchTrigger : MonoBehaviour, ITrigger {
     // TIPS: ギミックだったらプレイヤーを止める
     if (hit.collider.gameObject.name != gameObject.name) { return; }
     PlayerState.instance.Stop();
-    window.CreateCommandWindow("スイッチを押しますか？", manhole.MoveBridge);
+//    window.CreateCommandWindow("スイッチを押しますか？", manhole.MoveBridge);
   }
 
   void OnTriggerEnter(Collider other) {

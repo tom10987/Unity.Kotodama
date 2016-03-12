@@ -11,4 +11,8 @@ public class ItemText : SingletonBehaviour<ItemText> {
   [SerializeField]
   Text _itemInfo = null;
   public Text info { get { return _itemInfo; } }
+
+  void Start() { gameObject.SetActive(false); }
+
+  public void Activate() { gameObject.SetActive(true); }
 }

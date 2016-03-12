@@ -36,8 +36,7 @@ public class ChangeStage : MonoBehaviour, ITrigger {
     // TIPS: 行き先を指定、選択肢を表示する
     manhole.playerDestination = _destination;
     if (_itemName != ItemType.Empty) { manhole.keyItem = _itemName; }
-    window.waitTime = 0f;
-    window.CreateCommandWindow("移動しますか？", manhole.ChangeArea);
+//    window.CreateCommandWindow("移動しますか？", manhole.ChangeArea);
   }
 
   void OnTriggerEnter(Collider other) {
