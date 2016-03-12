@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public class PublicPhoneADV : MonoBehaviour {
+public class PhoneBoothADV : MonoBehaviour {
 
   EventState _publicPhone;
 

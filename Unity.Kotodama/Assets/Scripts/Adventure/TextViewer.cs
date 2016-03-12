@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class TextViewer : MonoBehaviour {
 
   public string[] text;                       // テキストの格納

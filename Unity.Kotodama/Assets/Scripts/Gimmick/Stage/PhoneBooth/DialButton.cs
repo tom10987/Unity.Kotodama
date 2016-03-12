@@ -1,15 +1,18 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections;
 
 public class DialButton : MonoBehaviour {
 
   [SerializeField]
-  Text _dial;
+  CanvasGroup _group = null;
 
   [SerializeField]
-  string _trueNumber = null;
+  Text _dial = null;
+
+  [SerializeField]
+  string _trueNumber = string.Empty;
 
   [SerializeField]
   int _stringLimit = 7;
@@ -17,30 +20,48 @@ public class DialButton : MonoBehaviour {
   [SerializeField]
   int _hyphenPoint = 3;
 
-  GameObject rootObject { get { return transform.root.gameObject; } }
+  void Awake() { StartCoroutine(StartEvent()); }
 
-  static public bool IsInputSuccess { get; private set; }
+  IEnumerator StartEvent() {
+    TextReset();
+    _group.alpha = 0f;
+    _group.interactable = false;
 
-  void Awake() {
-    IsInputSuccess = false;
-    _dial.text = null;
+    while (_group.alpha < 1f) {
+      _group.alpha += Time.deltaTime;
+      yield return null;
+    }
+
+    _group.interactable = true;
   }
+
+  IEnumerator DestroyEvent() {
+    _group.interactable = false;
+
+    while (_group.alpha > 0f) {
+      _group.alpha -= Time.deltaTime;
+      yield return null;
+    }
+
+    Destroy(gameObject);
+  }
+
+  void TextReset() { _dial.text = string.Empty; }
 
   public void OnNumber(int i) {
     if (_dial.text.Length < _stringLimit) { _dial.text += i.ToString(); }
     if (_dial.text.Length == _hyphenPoint) { _dial.text += "-"; }
   }
 
-  public void OnBackSpace() {
-    _dial.text = null;
-  }
+  // TIPS: * ボタン
+  public void OnRemove() { TextReset(); }
 
-  public void OnFinish() {
-    Destroy(rootObject);
-  }
+  // TIPS: 戻るボタン
+  public void OnFinish() { StartCoroutine(DestroyEvent()); }
 
+  // TIPS: # ボタン
   public void OnEnter() {
-    IsInputSuccess = (_dial.text == _trueNumber);
-    Destroy(rootObject);
+    if (_dial.text == _trueNumber) { PhoneBoothEvent.instance.AwakeEvent(); }
+    StartCoroutine(DestroyEvent());
   }
 }
