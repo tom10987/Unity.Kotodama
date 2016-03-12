@@ -8,6 +8,7 @@ public class DialEvent : MonoBehaviour {
 
   void OnTriggerEnter(Collider other) {
     if (!ObjectTag.Player.EqualTo(other.tag)) { return; }
+    if (PhoneBoothEvent.instance.eventFinish) { return; }
     Instantiate(_dialEvent);
     GameManager.instance.Pause();
   }
