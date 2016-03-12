@@ -2,7 +2,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 public class GateKeeperAnimator : MonoBehaviour {
 
@@ -10,6 +9,10 @@ public class GateKeeperAnimator : MonoBehaviour {
 
   [SerializeField]
   SpriteRenderer _renderer = null;
+
+  [SerializeField]
+  [Range(0.1f, 0.5f)]
+  float _animationSpeed = 0.25f;
 
   [SerializeField]
   Sprite[] _front = null;
@@ -23,16 +26,10 @@ public class GateKeeperAnimator : MonoBehaviour {
 
   IEnumerator UpdateAnimation() {
     _isAnimation = true;
-
-    const byte animationSpan = 40;
-    byte time = 0;
-    while (_isAnimation) {
-      ++time;
-      if (time > animationSpan) { time = 0; }
-      yield return null;
-    }
+    while (_isAnimation) { yield return StartCoroutine(SpriteAnimation()); }
   }
 
+  /// <summary> アニメーションを終了、消滅させる </summary>
   public IEnumerator DestroyEnemy() {
     _isAnimation = false;
 
@@ -46,24 +43,17 @@ public class GateKeeperAnimator : MonoBehaviour {
     Destroy(gameObject);
   }
 
+  IEnumerator SpriteAnimation() {
+    foreach (var sprite in GetSprites()) {
+      yield return new WaitForSeconds(_animationSpeed);
+      _renderer.sprite = sprite;
+    }
+  }
+
   // TIPS: プレイヤーとの位置関係で画像を切り替える
   IEnumerable<Sprite> GetSprites() {
     var player = PlayerState.instance.transform.position;
     var isForward = transform.position.z > player.z;
     return (isForward ? _front : _back);
-  }
-
-  void Update() {
-    /*
-    // TIPS: 画像が登録されてなければ何もしない
-    var sprites = _sprites[_direction];
-    if (sprites.Length == 0) { return; }
-
-    ++_time;
-    if (_time > animationSpan) { _time = 0; }
-
-    var index = (_time / (animationSpan / sprites.Length)) % sprites.Length;
-    if (_renderer.sprite != sprites[index]) { _renderer.sprite = sprites[index]; }
-    */
   }
 }
