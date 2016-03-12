@@ -20,6 +20,7 @@ public class ItemIcon : MonoBehaviour {
   // TIPS: メニュー画面でタッチされた時の処理
   public void OnTouch() {
     var itemData = ItemText.instance;
+    itemData.Activate();
     itemData.name.text = _itemType.GetName();
     itemData.info.text = _itemInfo;
   }

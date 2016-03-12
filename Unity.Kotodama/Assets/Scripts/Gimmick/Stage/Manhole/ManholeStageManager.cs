@@ -79,7 +79,7 @@ public class ManholeStageManager : SingletonBehaviour<ManholeStageManager> {
 
   /// <summary> ボタンの処理 </summary>
   public void MoveBridge() {
-    window.DestroyWindow();
+//    window.DestroyWindow();
 
     _left.wall.enabled = !_left.wall.enabled;
     _right.wall.enabled = !_right.wall.enabled;
@@ -90,7 +90,7 @@ public class ManholeStageManager : SingletonBehaviour<ManholeStageManager> {
 
   /// <summary> エリア移動の処理 </summary>
   public void ChangeArea() {
-    window.QuickDestroyWindow();
+ //   window.QuickDestroyWindow();
 
     /*
     var items = ItemManager.instance.items;

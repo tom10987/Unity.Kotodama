@@ -21,11 +21,11 @@ public class GoToShrine : MonoBehaviour {
     PlayerState.instance.Stop();
     GameManager.instance.playerStartPosition = _shrinePosition;
 
-    window.CreateCommandWindow(_telop, OnYes);
+    //window.CreateCommandWindow(_telop, OnYes);
   }
 
-  public void OnYes() {
-    window.DestroyWindow();
+  void OnYes() {
+    //window.DestroyWindow();
     //SceneSequencer.instance.SceneFinish(SceneTag.Shrine.ToString());
   }
 }
