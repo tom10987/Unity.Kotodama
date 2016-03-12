@@ -13,8 +13,11 @@ public class PlayerLight : AbstractPlayer {
   [SerializeField]
   Color _danger = Color.red;
 
+  [SerializeField]
+  Color _ambient = Color.yellow * 0.5f;
+
   public override IEnumerator UpdateComponent() {
-    _light.color = _safe;
+    _light.color = _safe + _ambient * 0.5f;
 
     // TODO: 敵が接近してきたら色を変える
 
