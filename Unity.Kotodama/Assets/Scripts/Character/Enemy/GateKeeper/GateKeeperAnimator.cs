@@ -12,7 +12,7 @@ public class GateKeeperAnimator : MonoBehaviour {
 
   [SerializeField]
   [Range(0.1f, 0.5f)]
-  float _animationSpeed = 0.25f;
+  float _animationSpan = 0.2f;
 
   [SerializeField]
   Sprite[] _front = null;
@@ -45,7 +45,7 @@ public class GateKeeperAnimator : MonoBehaviour {
 
   IEnumerator SpriteAnimation() {
     foreach (var sprite in GetSprites()) {
-      yield return new WaitForSeconds(_animationSpeed);
+      yield return new WaitForSeconds(_animationSpan);
       _renderer.sprite = sprite;
     }
   }

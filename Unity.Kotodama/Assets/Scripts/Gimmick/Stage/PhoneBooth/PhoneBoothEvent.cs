@@ -5,9 +5,6 @@ using UnityEngine;
 public class PhoneBoothEvent : SingletonBehaviour<PhoneBoothEvent> {
 
   [SerializeField]
-  RootManager[] _rootObjects = null;
-
-  [SerializeField]
   [Tooltip("イベント開始時に有効化したいアイテムを指定")]
   ItemCollider _amulet = null;
 
@@ -17,10 +14,8 @@ public class PhoneBoothEvent : SingletonBehaviour<PhoneBoothEvent> {
 
   /// <summary> 敵キャラを出現させる </summary>
   public void AwakeEvent() {
-    _amulet.gameObject.SetActive(true);
     eventFinish = true;
-
-    var manager = EnemyManager.instance;
-    foreach (var root in _rootObjects) { manager.CreateEnemy(root.spots); }
+    _amulet.gameObject.SetActive(true);
+    EnemyManager.instance.ActivateActors();
   }
 }

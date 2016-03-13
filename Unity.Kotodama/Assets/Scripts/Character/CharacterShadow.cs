@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class PlayerShadow : MonoBehaviour {
+public class CharacterShadow : MonoBehaviour {
 
   [SerializeField]
   Transform _polygon = null;
