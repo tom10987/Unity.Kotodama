@@ -1,10 +1,10 @@
 ﻿
 using UnityEngine;
 
-public class test : MonoBehaviour {
+public class LabyrinthClear : MonoBehaviour {
 
   void OnTriggerEnter(Collider other) {
     if (!ObjectTag.Player.EqualTo(other.tag)) { return; }
-    EnemyManager.instance.ActivateActors();
+    EnemyManager.instance.DestroyActors();
   }
 }

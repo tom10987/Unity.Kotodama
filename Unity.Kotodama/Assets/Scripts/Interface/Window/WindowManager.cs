@@ -51,6 +51,7 @@ public class WindowManager : SingletonBehaviour<WindowManager> {
   public void Clear() {
     Destroy(_currentWindow.instance);
     _currentWindow = null;
+    GameManager.instance.ReStart();
   }
 
   IEnumerator DestroyRoutine(float velocity) {

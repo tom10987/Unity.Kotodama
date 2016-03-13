@@ -16,7 +16,7 @@ public class RootRegister : MonoBehaviour {
 
   public void Initialize() {
     var children = this.GetComponentsOnlyChildren<Transform>();
-    _rootSpots = children.Select(child => child.localPosition);
+    _rootSpots = children.Select(child => child.position);
   }
 
   /// <summary> 支配下にある全ての子オブジェクトの座標を取得 </summary>

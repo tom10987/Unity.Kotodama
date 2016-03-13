@@ -11,8 +11,5 @@ public class AudioManager : SingletonBehaviour<AudioManager> {
   AudioPlayer _effect = null;
   public AudioPlayer effect { get { return _effect; } }
 
-  protected override void Awake() {
-    base.Awake();
-    DontDestroyOnLoad(gameObject);
-  }
+  void Start() { DontDestroyOnLoad(gameObject); }
 }
