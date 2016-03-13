@@ -25,6 +25,8 @@ public class PlayerLight : AbstractPlayer {
     var state = PlayerState.instance;
     var manager = EnemyManager.instance;
 
+    _light.color = GenerateColor(_dangerRange);
+
     while (state.isPlaying) {
       if (!manager.isActive) { break; }
       var actors = manager.actors.Select(actor => actor.transform);
@@ -47,7 +49,7 @@ public class PlayerLight : AbstractPlayer {
       yield return null;
     }
 
-    GenerateColor(_dangerRange);
+    _light.color = GenerateColor(_dangerRange);
   }
 
   Color GenerateColor(float rate) {
