@@ -1,33 +1,44 @@
 ﻿
 using UnityEngine;
-
+using System.Collections;
 
 public class ChaserAnimator : MonoBehaviour {
 
-  const byte animationSpan = 60;
-
   [SerializeField]
-  Sprite[] _sprite = null;
+  [Range(0.1f, 2.0f)]
+  float _animationSpan = 0.175f;
 
   [SerializeField]
   SpriteRenderer _renderer = null;
 
-  byte _time = 0;
-  bool _existsSprite = false;
+  [SerializeField]
+  Sprite[] _sprites = null;
 
+  /// <summary> アニメーション開始 </summary>
+  public void StartAnimation() { StartCoroutine(UpdateAnimation()); }
 
-  void Start() {
-    if (_renderer == null) { _renderer = GetComponent<SpriteRenderer>(); }
-    _existsSprite = _sprite.Length > 0;
+  IEnumerator UpdateAnimation() {
+    var manager = EnemyManager.instance;
+    while (manager.isActive) { yield return StartCoroutine(UpdateRenderer()); }
   }
 
-  void Update() {
-    if (!_existsSprite) { return; }
+  IEnumerator UpdateRenderer() {
+    foreach (var sprite in _sprites) {
+      yield return new WaitForSeconds(_animationSpan);
+      _renderer.sprite = sprite;
+    }
+  }
 
-    ++_time;
-    if (_time > animationSpan) { _time = 0; }
+  /// <summary> 消滅アニメーション </summary>
+  public void Destroy(ChaseActor actor) { StartCoroutine(DeadAnimation(actor)); }
 
-    var index = (_time / (animationSpan / _sprite.Length)) % _sprite.Length;
-    if (_renderer.sprite != _sprite[index]) { _renderer.sprite = _sprite[index]; }
+  IEnumerator DeadAnimation(ChaseActor actor) {
+    var alpha = 1f;
+    while (alpha > 0f) {
+      alpha -= Time.deltaTime;
+      _renderer.color = Color.white * alpha;
+      yield return null;
+    }
+    Destroy(actor.gameObject);
   }
 }

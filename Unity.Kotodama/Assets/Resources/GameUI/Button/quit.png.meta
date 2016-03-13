@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: c127f72d04d14594b9ad49401f72f234
-timeCreated: 1446774824
+timeCreated: 1457837829
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Quit
+    21300002: quit_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -18,7 +19,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -43,7 +44,7 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
@@ -51,16 +52,33 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Quit
+    - name: quit_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 136
-        width: 391
+        y: 8
+        width: 394
         height: 120
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 169, y: -58}
+        - {x: 194, y: -45}
+        - {x: 197, y: -35}
+        - {x: 197, y: 37}
+        - {x: 189, y: 59}
+        - {x: 183, y: 60}
+        - {x: -183, y: 60}
+        - {x: -190, y: 57}
+        - {x: -197, y: 43}
+        - {x: -197, y: -50}
+        - {x: -183, y: -60}
+        - {x: 34, y: -60}
+        - {x: 84, y: -56}
+        - {x: 115, y: -60}
+        - {x: 143, y: -60}
+    outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

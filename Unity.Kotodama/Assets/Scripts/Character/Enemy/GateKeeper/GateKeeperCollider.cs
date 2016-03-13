@@ -23,9 +23,10 @@ public class GateKeeperCollider : MonoBehaviour {
   void OnTriggerEnter(Collider other) {
     if (!ObjectTag.Player.EqualTo(other.tag)) { return; }
 
+    // TIPS: プレイヤーの移動停止
     PlayerState.instance.Translate(other.transform.position);
 
-    // TIPS: 消滅判定＝未使用の対応アイテムを所持している
+    // TIPS: 消滅判定＝プレイヤーが、未使用の対応アイテムを所持している
     var find = ItemManager.instance.GetItem(_keyItem);
     var isDead = (find != null ? !find.useItem : false);
 

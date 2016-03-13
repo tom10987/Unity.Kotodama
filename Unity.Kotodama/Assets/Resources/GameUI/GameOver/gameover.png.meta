@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: 3b57dee54d5353541b36c9531f412b52
-timeCreated: 1446775358
+timeCreated: 1457837731
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: GameOverTelop
+    21300002: gameover_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -18,7 +19,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -43,7 +44,7 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
@@ -51,16 +52,26 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: GameOverTelop
+    - name: gameover_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 116
-        width: 768
-        height: 140
+        y: 36
+        width: 512
+        height: 92
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 215, y: 46}
+        - {x: -248, y: 46}
+        - {x: -256, y: 40}
+        - {x: -256, y: -43}
+        - {x: -255, y: -46}
+        - {x: 218, y: -46}
+        - {x: 256, y: -17}
+        - {x: 256, y: 35}
+    outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

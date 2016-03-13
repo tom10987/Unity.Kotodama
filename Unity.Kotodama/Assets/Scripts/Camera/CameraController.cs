@@ -6,7 +6,7 @@ public class CameraController : SingletonBehaviour<CameraController> {
 
   [SerializeField]
   Vector3 _start = Vector3.zero;
-  
+
   /// <summary> カメラの注視対象の位置を取得 </summary>
   public Transform target { get; set; }
 

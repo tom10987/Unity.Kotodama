@@ -21,10 +21,7 @@ using System.Collections;
 public class PlayerAnimator : AbstractPlayer {
 
   bool hasLantern { get { return PlayerState.instance.hasLantern; } }
-
   NavMeshAgent agent { get { return PlayerState.instance.agent; } }
-  bool isMoving { get { return agent.velocity.magnitude > 0f; } }
-  float agentSpeed { get { return agent.velocity.magnitude / agent.speed; } }
 
   [SerializeField]
   MeshRenderer _renderer = null;
@@ -38,7 +35,7 @@ public class PlayerAnimator : AbstractPlayer {
   [Range(0.1f, 0.5f)]
   float _scale = 0.15f;
   Vector3 baseScale { get { return (Vector3.one - Vector3.up) * _scale; } }
-  
+
   static readonly float tile = 0.25f;
   Vector2 textureScale { get { return Vector2.one * tile; } }
 
@@ -63,7 +60,7 @@ public class PlayerAnimator : AbstractPlayer {
 
     while (PlayerState.instance.isPlaying) {
       transform.rotation = cameraLook;
-      if (isMoving) { Animation(); }
+      if (agent.velocity.magnitude > 0f) { Animation(); }
       yield return null;
     }
   }
@@ -79,12 +76,16 @@ public class PlayerAnimator : AbstractPlayer {
     return Vector2.up * (lantern + back);
   }
 
-  float DeltaSpeed() { return isMoving ? agentSpeed / Mathf.Pow(Mathf.PI, 2f) : 0f; }
+  float DeltaSpeed() {
+    var velocity = Mathf.Clamp(agent.velocity.magnitude, 0f, 2f);
+    return Mathf.Pow(velocity + 1f, 2f) * Time.deltaTime;
+  }
 
   // TIPS: 移動速度が早いほど早くアニメーションする
   Vector2 AnimationX(float time) {
     var angle = Mathf.RoundToInt(Mathf.Sin(time));
-    return Vector2.right * (angle * tile + tile);
+    var rate = Mathf.Clamp01((angle * tile) + tile);
+    return Vector2.right * rate;
   }
 
   // TIPS: 左右どちらに向いているかで画像の向きを決定する
