@@ -1,44 +1,40 @@
 ﻿
 using UnityEngine;
 
-
-public class SwitchTrigger : MonoBehaviour, ITrigger {
+public class SwitchTrigger : MonoBehaviour {
 
   WindowManager window { get { return WindowManager.instance; } }
-  ManholeStageManager manhole { get { return ManholeStageManager.instance; } }
 
   [SerializeField]
-  LayerMask _layerMask;
+  UnderGroundBridge[] _bridges = null;
 
-  const int _distance = 100;
+  [SerializeField]
+  SwitchState _switch = null;
 
-  public bool isEnter { get; private set; }
+  [SerializeField]
+  string _command = "スイッチを押しますか？";
 
-  public void TriggerUpdate(Vector3 touchPosition) {
-    // TIPS: タッチ座標から画面奥にレイを飛ばす
-    var ray = Camera.main.ScreenPointToRay(touchPosition);
-    var hit = new RaycastHit();
+  [SerializeField, Range(0f, 1f)]
+  float _closeSpeed = 0f;
 
-    // TIPS: レイがぶつからなければ何もしない
-    if (!Physics.Raycast(ray, out hit, _distance, _layerMask)) { return; }
+  [SerializeField]
+  string _message = "仕掛けが動いたみたい";
 
-    // TIPS: ギミックだったらプレイヤーを止める
-    if (hit.collider.gameObject.name != gameObject.name) { return; }
-    PlayerState.instance.Stop();
-//    window.CreateCommandWindow("スイッチを押しますか？", manhole.MoveBridge);
-  }
+  [SerializeField, Range(0.5f, 1.5f)]
+  float _messageTime = 1.0f;
+
+  bool _isPush = false;
 
   void OnTriggerEnter(Collider other) {
-    isEnter = (other.tag == ObjectTag.Player.ToString());
-    if (isEnter) { PlayerState.instance.Stop(); }
+    if (!ObjectTag.Player.EqualTo(other.tag)) { return; }
+
+    PlayerState.instance.Stop();
+    window.CreateCommandWindow(_command, _closeSpeed, OnYes);
   }
 
-  void OnTriggerExit(Collider other) {
-    isEnter = !(other.tag == ObjectTag.Player.ToString());
-  }
-
-  void Start() {
-    isEnter = false;
-    manhole.triggers.Add(this);
+  void OnYes() {
+    window.CreateMessageWindow(_message, _messageTime);
+    foreach (var bridge in _bridges) { bridge.SwitchActivate(); }
+    _switch.ChangeSwitchColor();
   }
 }

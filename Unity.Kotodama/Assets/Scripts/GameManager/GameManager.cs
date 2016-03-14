@@ -1,5 +1,14 @@
 ﻿
+using UnityEngine;
+
 public class GameManager : SingletonBehaviour<GameManager> {
+
+  public Vector3 start { get; set; }
+
+  void Start() {
+    DontDestroyOnLoad(gameObject);
+    start = Vector3.zero;
+  }
 
   public void Pause() {
     PlayerState.instance.Stop();

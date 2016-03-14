@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-public class ManholeEvent : MonoBehaviour {
+public class ManholeADV : MonoBehaviour {
 
   [SerializeField]
   private string _chapter;

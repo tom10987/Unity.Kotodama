@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public class ShrineEvent : MonoBehaviour {
+public class ShrineADV : MonoBehaviour {
 
   /// <summary>
   /// このスクリプトがついてるオブジェクトについている
@@ -13,11 +13,11 @@ public class ShrineEvent : MonoBehaviour {
 
   public int _int = 0;
   public float _float = 0f;
-  public 
+  public
 
   void Start() {
     state = gameObject.GetComponentInChildren<EventState>();
-//    state._entry = ;
+    //    state._entry = ;
   }
 
   public string[,] firstEvent =
@@ -50,8 +50,8 @@ public class ShrineEvent : MonoBehaviour {
       { Command.end, "", "", "" },
     };
 
-    public string[,] endTutorial = 
-    {
+  public string[,] endTutorial =
+  {
         { Command.start, "", "", "" },
         { Command.name, CharaName.mari, "", "" },
         { Command.text, "「お札が…神社に勝手に入っちゃったよ？」", "", "" },

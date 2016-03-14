@@ -24,10 +24,12 @@ public enum ItemType {
 
   Labyrinth_Clear,
 
+  Doll,
   Shoes,
   Papers,
   Apple,
-  Doll,
+
+  Max,
 }
 
 public static class ItemTypeExtension {
@@ -35,9 +37,9 @@ public static class ItemTypeExtension {
     _itemName = new Dictionary<ItemType, string>();
     _itemName.Add(ItemType.Empty, "Empty");
     _itemName.Add(ItemType.Doll, "汚れたぬいぐるみ");
-    _itemName.Add(ItemType.Apple, "リンゴ");
-    _itemName.Add(ItemType.Papers, "ボロボロの作文用紙");
     _itemName.Add(ItemType.Shoes, "汚れたスニーカー");
+    _itemName.Add(ItemType.Papers, "ボロボロの作文用紙");
+    _itemName.Add(ItemType.Apple, "リンゴ");
   }
 
   static readonly Dictionary<ItemType, string> _itemName = null;

@@ -1,8 +1,7 @@
 ﻿
 using UnityEngine;
 
-
-public class StageGate : MonoBehaviour {
+public class GoToStage : MonoBehaviour {
 
   ItemManager manager { get { return ItemManager.instance; } }
 

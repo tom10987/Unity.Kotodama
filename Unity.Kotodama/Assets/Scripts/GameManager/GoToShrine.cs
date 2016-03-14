@@ -21,6 +21,8 @@ public class GoToShrine : MonoBehaviour {
   [SerializeField]
   string _play = "まだ戻るわけにはいかない";
 
+  void Start() { GameManager.instance.start = _shrinePosition; }
+
   void OnTriggerEnter(Collider other) {
     if (!ObjectTag.Player.EqualTo(other.tag)) { return; }
 
@@ -37,7 +39,6 @@ public class GoToShrine : MonoBehaviour {
 
   void Message() {
     WindowManager.instance.CreateMessageWindow(_play, 1.0f);
-    GameManager.instance.ReStart();
   }
 
   void OnYes() {
