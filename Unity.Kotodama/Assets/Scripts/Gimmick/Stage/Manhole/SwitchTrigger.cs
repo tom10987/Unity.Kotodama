@@ -22,9 +22,7 @@ public class SwitchTrigger : MonoBehaviour {
 
   [SerializeField, Range(0.5f, 1.5f)]
   float _messageTime = 1.0f;
-
-  bool _isPush = false;
-
+  
   void OnTriggerEnter(Collider other) {
     if (!ObjectTag.Player.EqualTo(other.tag)) { return; }
 
