@@ -22,7 +22,7 @@ public class GoToStage : MonoBehaviour {
 
   void Start() {
     var find = ItemManager.instance.GetItem(_keyAmulet);
-    _keeper.gameObject.SetActive(find != null);
+    _keeper.gameObject.SetActive(find == null);
   }
 
   public void OnTriggerEnter(Collider other) {
