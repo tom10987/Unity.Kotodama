@@ -3,24 +3,21 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager> {
 
-  public bool isPause { get; private set; }
-  public Vector3 playerStartPosition { get; set; }
+  public Vector3 start { get; set; }
+
+  void Start() {
+    DontDestroyOnLoad(gameObject);
+    start = Vector3.zero;
+  }
 
   public void Pause() {
-    isPause = true;
     PlayerState.instance.Stop();
-    //if (enemy != null) { enemy.SwitchEnemiesState(); }
+    EnemyManager.instance.ActivateActors();
   }
 
   public void ReStart() {
-    isPause = false;
     PlayerState.instance.Play();
-    //if (enemy != null) { enemy.SwitchEnemiesState(); }
-  }
-
-  public void Initialize() {
-    isPause = false;
-    playerStartPosition = Vector3.zero;
+    EnemyManager.instance.Pause();
   }
 
   //TODO:チャプター選択の結果ごとに初期化

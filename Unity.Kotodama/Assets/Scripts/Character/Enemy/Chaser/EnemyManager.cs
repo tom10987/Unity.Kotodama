@@ -24,5 +24,6 @@ public class EnemyManager : SingletonBehaviour<EnemyManager> {
   public void DestroyActors() {
     Pause();
     foreach (var actor in _actors) { actor.Delete(); }
+    actors.Clear();
   }
 }

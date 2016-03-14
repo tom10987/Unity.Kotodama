@@ -11,8 +11,8 @@ public class MenuButton : MonoBehaviour {
   System.Action _action = null;
 
   void Start() {
-    var player = PlayerState.instance;
-    _action = _isActivePlayer ? (System.Action)player.Play : player.Stop;
+    var game = GameManager.instance;
+    _action = _isActivePlayer ? (System.Action)game.ReStart : game.Pause;
   }
 
   public void OnTouch() {

@@ -1,9 +1,10 @@
 ﻿
 using UnityEngine;
 using System.Collections;
-using System.Linq;
 
 public class ChaseActor : MonoBehaviour {
+
+  static EnemyManager manager { get { return EnemyManager.instance; } }
 
   [SerializeField]
   [Tooltip("初期状態の移動速度")]
@@ -61,7 +62,7 @@ public class ChaseActor : MonoBehaviour {
 
   /// <summary> <see cref="EnemyManager"/> に自身を登録して、休眠状態に入る </summary>
   void Start() {
-    EnemyManager.instance.actors.Add(this);
+    manager.actors.Add(this);
     _agent.speed = _defaultSpeed;
     _register.Initialize();
     gameObject.SetActive(false);
@@ -69,7 +70,7 @@ public class ChaseActor : MonoBehaviour {
 
   // TIPS: オブジェクトのメインループ
   IEnumerator UpdateActor() {
-    while (EnemyManager.instance.isActive) {
+    while (manager.isActive) {
       var state = !isDetectPlayer ? Move() : Chase();
       yield return StartCoroutine(state);
     }
@@ -89,6 +90,7 @@ public class ChaseActor : MonoBehaviour {
     };
 
     while (!isDetectPlayer && spot != null) {
+      if (!manager.isActive) { break; }
       var distance = _agent.remainingDistance;
       if (distance < 0.1f) { Next(); }
       yield return null;
@@ -101,6 +103,7 @@ public class ChaseActor : MonoBehaviour {
     var currentCount = 0;
 
     while (currentCount < _loopCount) {
+      if (!manager.isActive) { break; }
       _agent.SetDestination(player.position);
       if (isAlert) { yield return new WaitForSeconds(_interval); }
       yield return null;

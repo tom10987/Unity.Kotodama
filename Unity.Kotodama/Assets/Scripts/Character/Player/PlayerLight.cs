@@ -1,11 +1,16 @@
 ﻿
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class PlayerLight : AbstractPlayer {
 
   [SerializeField]
   Light _light = null;
+
+  [SerializeField, Range(5f, 15f)]
+  [Tooltip("ランプの色が変わり始める距離")]
+  float _dangerRange = 10f;
 
   [SerializeField]
   Color _safe = Color.cyan;
@@ -14,19 +19,44 @@ public class PlayerLight : AbstractPlayer {
   Color _danger = Color.red;
 
   [SerializeField]
-  Color _ambient = Color.yellow * 0.5f;
+  Color _ambient = Color.yellow;
 
   public override IEnumerator UpdateComponent() {
-    _light.color = _safe + _ambient * 0.5f;
+    var state = PlayerState.instance;
+    var manager = EnemyManager.instance;
 
-    // TODO: 敵が接近してきたら色を変える
+    _light.color = GenerateColor(_dangerRange);
 
-    while (PlayerState.instance.isPlaying) {
+    while (state.isPlaying) {
+      if (!manager.isActive) { break; }
+      var actors = manager.actors.Select(actor => actor.transform);
+      yield return null;
+
+      if (!manager.isActive) { break; }
+      var vector = actors.Select(actor => actor.position - transform.position);
+      yield return null;
+
+      if (!manager.isActive) { break; }
+      var distance = vector.Min(dist => dist.magnitude);
+      yield return null;
+
+      if (!manager.isActive) { break; }
+      var clamp = Mathf.Clamp(distance - _dangerRange, 0f, _dangerRange);
+      yield return null;
+
+      if (!manager.isActive) { break; }
+      _light.color = GenerateColor(clamp);
       yield return null;
     }
+
+    _light.color = GenerateColor(_dangerRange);
   }
 
-  Color GenerateColor() {
-    return default(Color);
+  Color GenerateColor(float rate) {
+    var safe = _safe * rate * 3f;
+    var danger = _danger * (_dangerRange - rate) * 2f;
+    var ambient = _ambient * (_dangerRange - rate) * 0.5f;
+    var result = (safe + danger + ambient) / 3;
+    return (result / _dangerRange) + Color.black;
   }
 }

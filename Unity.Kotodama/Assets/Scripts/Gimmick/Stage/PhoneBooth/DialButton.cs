@@ -43,7 +43,7 @@ public class DialButton : MonoBehaviour {
       yield return null;
     }
 
-    GameManager.instance.ReStart();
+    PlayerState.instance.Play();
     Destroy(gameObject);
   }
 

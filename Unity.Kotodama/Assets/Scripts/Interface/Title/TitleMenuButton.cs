@@ -1,10 +1,7 @@
 ﻿
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TitleMenuButton : MonoBehaviour {
-
-  static ScreenSequencer sequencer { get { return ScreenSequencer.instance; } }
 
   [SerializeField]
   [Range(0.1f, 10f)]
@@ -13,7 +10,9 @@ public class TitleMenuButton : MonoBehaviour {
   [SerializeField]
   SceneTag _tag = SceneTag.None;
 
-  public void OnChangeScene() { sequencer.SequenceStart(ChangeScene, new Fade(_speed)); }
-
-  void ChangeScene() { SceneManager.LoadScene(_tag.ToString()); }
+  public void OnChangeScene() {
+    var sequencer = ScreenSequencer.instance;
+    System.Action ChangeScene = () => { _tag.ChangeScene(); };
+    sequencer.SequenceStart(ChangeScene, new Fade(_speed));
+  }
 }

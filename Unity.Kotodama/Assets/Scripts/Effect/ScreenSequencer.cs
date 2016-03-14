@@ -44,4 +44,6 @@ public class ScreenSequencer : SingletonBehaviour<ScreenSequencer> {
     this.effect = effect;
     SequenceStart(action);
   }
+
+  void Start() { DontDestroyOnLoad(gameObject); }
 }
