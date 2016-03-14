@@ -14,8 +14,6 @@ public class UnderGroundBridge : MonoBehaviour {
 
   IEnumerator UpdateState() {
     var distance = _bridge.position.y - _obstacle.position.y;
-    var isMinus = distance < 0f;
-
     var time = 0f;
     while (time < 1f) {
       time += Time.deltaTime;
