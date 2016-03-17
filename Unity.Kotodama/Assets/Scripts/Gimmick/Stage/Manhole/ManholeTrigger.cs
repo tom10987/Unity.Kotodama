@@ -4,7 +4,7 @@ using System;
 
 public class ManholeTrigger : MonoBehaviour {
 
-  WindowManager window { get { return WindowManager.instance; } }
+  WindowManager window { get { return GameManager.instance.window; } }
 
   [SerializeField]
   ManholeEvent _event = null;

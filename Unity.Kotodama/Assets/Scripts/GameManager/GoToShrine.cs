@@ -34,15 +34,15 @@ public class GoToShrine : MonoBehaviour {
   }
 
   void Command() {
-    WindowManager.instance.CreateCommandWindow(_clear, 0f, OnYes);
+    GameManager.instance.window.CreateCommandWindow(_clear, 0f, OnYes);
   }
 
   void Message() {
-    WindowManager.instance.CreateMessageWindow(_play, 1.0f);
+    GameManager.instance.window.CreateMessageWindow(_play, 1.0f);
   }
 
   void OnYes() {
-    System.Action ChangeScene = () => { SceneTag.Shrine.ChangeScene(); };
+    System.Action ChangeScene = () => { GameScene.Shrine.ChangeScene(); };
     ScreenSequencer.instance.SequenceStart(ChangeScene, new Fade(_sequenceTime));
   }
 }

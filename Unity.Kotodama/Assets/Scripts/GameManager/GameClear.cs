@@ -24,7 +24,7 @@ public class GameClear : MonoBehaviour {
 
     PlayerState.instance.Stop();
 
-    System.Action Finish = () => { SceneTag.Ending.ChangeScene(); };
+    System.Action Finish = () => { GameScene.Ending.ChangeScene(); };
     ScreenSequencer.instance.SequenceStart(Finish, new Fade(_effectTime));
   }
 }

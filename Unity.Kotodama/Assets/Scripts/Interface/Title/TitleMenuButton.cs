@@ -8,7 +8,7 @@ public class TitleMenuButton : MonoBehaviour {
   float _speed = 1f;
 
   [SerializeField]
-  SceneTag _tag = SceneTag.None;
+  GameScene _tag = GameScene.None;
 
   public void OnChangeScene() {
     var sequencer = ScreenSequencer.instance;

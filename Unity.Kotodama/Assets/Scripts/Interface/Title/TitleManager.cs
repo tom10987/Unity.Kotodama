@@ -21,7 +21,6 @@ public class TitleManager : MonoBehaviour {
   float _alphaSpeed = 1f;
 
   void Start() {
-    if (_alphaSpeed <= 0f) { _alphaSpeed = 0.1f; }
     InitializeCanvas(_mode, 1f);
     InitializeCanvas(_chapterButton, 0f);
     InitializeCanvas(_chapterLogo, 0f);

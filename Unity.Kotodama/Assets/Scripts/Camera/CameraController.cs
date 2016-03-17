@@ -1,6 +1,5 @@
 ﻿
 using UnityEngine;
-using System.Collections;
 
 public class CameraController : SingletonBehaviour<CameraController> {
 
@@ -13,21 +12,8 @@ public class CameraController : SingletonBehaviour<CameraController> {
   /// <summary> ターゲットを追尾中なら true を返す </summary>
   public bool isRunning { get; private set; }
 
-  /// <summary> ターゲットの追尾を開始 </summary>
-  public void ChaseStart() { StartCoroutine(UpdateCamera()); }
-
-  /// <summary> 指定されたターゲットの追尾を開始 </summary>
-  public void ChaseTarget(Transform target) {
-    this.target = target;
-    ChaseStart();
-  }
-
-  IEnumerator UpdateCamera() {
-    isRunning = true;
-    while (target != null) {
-      transform.position = target.position + _start;
-      yield return null;
-    }
-    isRunning = false;
+  void LateUpdate() {
+    if (target == null) { return; }
+    transform.position = target.position + _start;
   }
 }

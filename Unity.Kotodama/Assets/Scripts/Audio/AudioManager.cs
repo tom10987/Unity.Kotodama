@@ -10,6 +10,4 @@ public class AudioManager : SingletonBehaviour<AudioManager> {
   [SerializeField]
   AudioPlayer _effect = null;
   public AudioPlayer effect { get { return _effect; } }
-
-  void Start() { DontDestroyOnLoad(gameObject); }
 }

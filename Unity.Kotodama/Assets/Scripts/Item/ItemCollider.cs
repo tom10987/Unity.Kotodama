@@ -18,7 +18,7 @@ public class ItemCollider : MonoBehaviour {
     var success = ItemManager.instance.Add(_item);
     if (!success) { ItemManager.instance.GetItem(_item.type).useItem = false; }
     Destroy(gameObject);
-    WindowManager.instance.CreateMessageWindow(GetItemMessage(), _messageTime);
+    GameManager.instance.window.CreateMessageWindow(GetItemMessage(), _messageTime);
   }
 
   string GetItemMessage() { return _item.type.GetName() + "を拾った"; }

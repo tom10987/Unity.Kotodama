@@ -11,29 +11,30 @@ using System.Linq;
 
 public class GroundSort : MonoBehaviour {
 
-  [SerializeField]
-  bool _activate = false;
+  [SerializeField, Range(3, 6)]
+  int _rows = 4;
 
-  [SerializeField]
-  float _scale = 2f;
-
-  float planeOffset { get { return _scale * 10f; } }
-  Vector3 plane { get { return Vector3.one - Vector3.up; } }
-  Vector3 planeScale { get { return plane * _scale + Vector3.up; } }
+  static readonly string planeName = "Plane_";
+  static readonly int planeSize = 10;
 
   void OnValidate() {
-    if (!_activate) { return; }
     var children = this.GetComponentsOnlyChildren<Transform>();
-    var rowCount = Mathf.FloorToInt(Mathf.Sqrt(children.Count()));
-    var baseOffset = -(plane * planeOffset) * (rowCount - 1) * 0.5f;
+    var xOffset = (_rows - 1) * planeSize * -0.5f;
+    var zOffset = (children.Count() / _rows - 1) * planeSize * -0.5f;
 
-    var i = 0;
+    var rowCount = 0;
     foreach (var child in children) {
-      var x = Vector3.right * planeOffset * (i % rowCount);
-      var z = Vector3.forward * planeOffset * (i / rowCount);
-      child.localPosition = x + z + baseOffset;
-      child.localScale = planeScale;
-      ++i;
+      var currentRow = rowCount % _rows;
+      var currentColumn = rowCount / _rows;
+
+      var x = xOffset + currentRow * planeSize;
+      var z = zOffset + currentColumn * planeSize;
+      child.localPosition = new Vector3(x, 0f, z);
+      child.name = planeName + Row(currentRow) + currentColumn.ToString();
+
+      ++rowCount;
     }
   }
+
+  char Row(int count) { return (char)('a' + count); }
 }

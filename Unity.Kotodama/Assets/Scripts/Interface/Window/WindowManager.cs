@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 
-public class WindowManager : SingletonBehaviour<WindowManager> {
+public class WindowManager : MonoBehaviour {
 
   [SerializeField]
   MessageWindow _messageWindow = null;
