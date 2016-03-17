@@ -3,12 +3,25 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager> {
 
+  [SerializeField]
+  EnemyManager _enemyManager = null;
+  public EnemyManager enemy { get { return _enemyManager; } }
+
+  [SerializeField]
+  ItemManager _itemManager = null;
+  public ItemManager item { get { return _itemManager; } }
+
+  [SerializeField]
+  WindowManager _windowManager = null;
+  public WindowManager window { get { return _windowManager; } }
+
+  /// <summary> シーン開始時のプレイヤー初期位置を指定 </summary>
   public Vector3 start { get; set; }
 
-  void Start() {
-    DontDestroyOnLoad(gameObject);
-    start = Vector3.zero;
-  }
+  public GameScene current { get; set; }
+  public GameScene previous { get; set; }
+
+  void Start() { start = Vector3.zero; }
 
   public void Pause() {
     PlayerState.instance.Stop();
@@ -19,7 +32,4 @@ public class GameManager : SingletonBehaviour<GameManager> {
     PlayerState.instance.Play();
     EnemyManager.instance.Pause();
   }
-
-  //TODO:チャプター選択の結果ごとに初期化
-  //TODO:つづきから選択時の処理と状態管理
 }

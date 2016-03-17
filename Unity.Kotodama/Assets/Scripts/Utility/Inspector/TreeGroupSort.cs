@@ -12,21 +12,23 @@ using System.Linq;
 public class TreeGroupSort : MonoBehaviour {
 
   [SerializeField]
-  bool _activate = false;
+  Vector3 _groupOffset = Vector3.zero;
 
-  [SerializeField]
-  float _offset = 3f;
+  static readonly float _treeScale = 4f;
 
   void OnValidate() {
-    if (!_activate) { return; }
-    var children = this.GetComponentsOnlyChildren<Transform>();
-    var baseOffset = Vector3.back * _offset * (children.Count() - 1) * 0.5f;
+    var children = this.GetComponentsOnlyChildren<TreeSort>();
+    var rowCount = children.Count() - 1;
+    var baseOffset = Vector3.back * rowCount * 0.5f * _treeScale;
 
     var i = 0;
     foreach (var child in children) {
-      var number = (i < 10 ? string.Format("0{0}", i) : i.ToString());
-      child.name = "Trees_" + number;
-      child.localPosition = Vector3.forward * (_offset * i++) + baseOffset;
+      var translate = Vector3.forward * i * _treeScale;
+      var offset = _groupOffset;
+      offset.z = _groupOffset.z * (i++ - rowCount * 0.5f);
+      child.transform.localPosition = translate + offset + baseOffset;
     }
+
+    name = string.Format("TreeGroup({0})", children.Count());
   }
 }

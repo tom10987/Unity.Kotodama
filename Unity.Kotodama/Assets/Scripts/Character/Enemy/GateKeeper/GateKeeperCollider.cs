@@ -31,7 +31,7 @@ public class GateKeeperCollider : MonoBehaviour {
     var isDead = (find != null ? !find.useItem : false);
 
     var message = (isDead ? _dead : _stay);
-    WindowManager.instance.CreateMessageWindow(message, _messageTime);
+    GameManager.instance.window.CreateMessageWindow(message, _messageTime);
 
     if (!isDead) { return; }
     ItemManager.instance.UseItem(_keyItem);

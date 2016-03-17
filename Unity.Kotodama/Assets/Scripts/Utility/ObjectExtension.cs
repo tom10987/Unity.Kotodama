@@ -1,16 +1,20 @@
 ﻿
 /// <summary> ゲーム内で使用しているオブジェクトのタグ一覧 </summary>
 public enum ObjectTag {
+  Untagged,
+
   Player,
   Enemy,
 
-  UI,
+  Ground,
+  NavObstacle,
+
   Gimmick,
   Item,
   Adventure,
 
-  Ground,
-  NavObstacle,
+  Field,
+  UI,
 
   Max,
 }

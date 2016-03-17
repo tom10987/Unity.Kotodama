@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 
-public class PlayerLight : AbstractPlayer {
+public class PlayerLight : PlayerComponent {
 
   [SerializeField]
   Light _light = null;
@@ -21,42 +21,30 @@ public class PlayerLight : AbstractPlayer {
   [SerializeField]
   Color _ambient = Color.yellow;
 
-  public override IEnumerator UpdateComponent() {
-    var state = PlayerState.instance;
-    var manager = EnemyManager.instance;
+  protected override IEnumerator UpdateComponent() {
+    var actors = GameManager.instance.enemy.actors;
 
-    _light.color = GenerateColor(_dangerRange);
-
-    while (state.isPlaying) {
-      if (!manager.isActive) { break; }
-      var actors = manager.actors.Select(actor => actor.transform);
-      yield return null;
-
-      if (!manager.isActive) { break; }
-      var vector = actors.Select(actor => actor.position - transform.position);
-      yield return null;
-
-      if (!manager.isActive) { break; }
-      var distance = vector.Min(dist => dist.magnitude);
-      yield return null;
-
-      if (!manager.isActive) { break; }
-      var clamp = Mathf.Clamp(distance - _dangerRange, 0f, _dangerRange);
-      yield return null;
-
-      if (!manager.isActive) { break; }
-      _light.color = GenerateColor(clamp);
+    // TIPS: 最も近い位置にいる敵との距離を取得して、色情報を生成する
+    while (actors.Any()) {
+      var distance = actors.Min<ChaseActor, float>(GetDistance);
+      _light.color = GenerateColor(Mathf.Clamp(distance - _dangerRange, 0f, _dangerRange));
       yield return null;
     }
 
     _light.color = GenerateColor(_dangerRange);
   }
 
-  Color GenerateColor(float rate) {
-    var safe = _safe * rate * 3f;
-    var danger = _danger * (_dangerRange - rate) * 2f;
-    var ambient = _ambient * (_dangerRange - rate) * 0.5f;
+  Color GenerateColor(float distance) {
+    var safe = _safe * distance * 3f;
+    var danger = _danger * (_dangerRange - distance) * 2f;
+    var ambient = _ambient * (_dangerRange - distance);
     var result = (safe + danger + ambient) / 3;
-    return (result / _dangerRange) + Color.black;
+    return (result / _dangerRange);
+  }
+
+  // TIPS: LINQ 用
+  float GetDistance(ChaseActor actor) {
+    var distance = actor.transform.position - transform.position;
+    return distance.magnitude;
   }
 }

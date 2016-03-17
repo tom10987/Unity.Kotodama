@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SwitchTrigger : MonoBehaviour {
 
-  WindowManager window { get { return WindowManager.instance; } }
+  WindowManager window { get { return GameManager.instance.window; } }
 
   [SerializeField]
   UnderGroundBridge[] _bridges = null;

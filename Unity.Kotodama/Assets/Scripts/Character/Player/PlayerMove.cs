@@ -2,20 +2,19 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlayerMove : AbstractPlayer {
+public class PlayerMove : PlayerComponent {
 
   [SerializeField]
-  [Tooltip("タッチのレイ判定の対象にするレイヤー")]
+  [Tooltip("レイキャスト判定の対象レイヤー")]
   LayerMask _targetLayer;
 
-  [SerializeField]
+  [SerializeField, Range(0f, 1f)]
   [Tooltip("移動速度がこの値以下の時、タッチ終了した場所に自動で移動する")]
-  [Range(0f, 1f)]
   float _autoMove = 0.5f;
 
   NavMeshAgent agent { get { return PlayerState.instance.agent; } }
 
-  public override IEnumerator UpdateComponent() {
+  protected override IEnumerator UpdateComponent() {
     var hit = new RaycastHit();
 
     System.Action Moved = () => {

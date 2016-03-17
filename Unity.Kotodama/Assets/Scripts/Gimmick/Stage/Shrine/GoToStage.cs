@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class GoToStage : MonoBehaviour {
 
-  static WindowManager window { get { return WindowManager.instance; } }
+  static WindowManager window { get { return GameManager.instance.window; } }
 
   [SerializeField]
-  SceneTag _sceneName = SceneTag.Title;
+  GameScene _sceneName = GameScene.Title;
 
   [SerializeField]
   ItemType _keyAmulet = ItemType.Empty;

@@ -1,6 +1,5 @@
 ﻿
 using UnityEngine;
-using System;
 using System.Collections;
 
 //------------------------------------------------------------
@@ -9,16 +8,18 @@ using System.Collections;
 //
 // 1. mainTextureOffset
 // Material の Offset パラメータを指す。
-// 画像の左下を座標の基準にする。
+// 画像の左下が UV 座標の基準。
 //
 // 2. mainTextureScale
 // Material の Tiling パラメータを指す。
 // Offset の位置からの切り取りサイズを示す。
-// Texture が設定されたオブジェクトの面に収まるようにサイズが変わる。
+//
+// 切り取られたサイズをもとに、
+// Material が設定されたオブジェクトの面に収まるように拡大・縮小される。
 //
 //------------------------------------------------------------
 
-public class PlayerAnimator : AbstractPlayer {
+public class PlayerAnimator : PlayerComponent {
 
   bool hasLantern { get { return PlayerState.instance.hasLantern; } }
   NavMeshAgent agent { get { return PlayerState.instance.agent; } }
@@ -26,15 +27,16 @@ public class PlayerAnimator : AbstractPlayer {
   [SerializeField]
   MeshRenderer _renderer = null;
 
-  [SerializeField]
-  [Range(0f, 180f)]
+  [SerializeField, Range(0f, 180f)]
   float _angle = 120f;
   Quaternion cameraLook { get { return Quaternion.Euler(Vector3.right * _angle); } }
 
-  [SerializeField]
-  [Range(0.1f, 0.5f)]
+  [SerializeField, Range(0.1f, 0.5f)]
   float _scale = 0.15f;
   Vector3 baseScale { get { return (Vector3.one - Vector3.up) * _scale; } }
+
+  [SerializeField, Range(1f, 5f)]
+  float _velocityRate = 2.5f;
 
   static readonly float tile = 0.25f;
   Vector2 textureScale { get { return Vector2.one * tile; } }
@@ -44,12 +46,12 @@ public class PlayerAnimator : AbstractPlayer {
     _renderer.material.mainTextureScale = textureScale;
   }
 
-  public override IEnumerator UpdateComponent() {
+  protected override IEnumerator UpdateComponent() {
     var previous = transform.position;
     var material = _renderer.material;
     var time = 0f;
 
-    Action Animation = () => {
+    System.Action Animation = () => {
       time += DeltaSpeed();
       var direction = GetDirection(previous);
       material.mainTextureOffset = TextureOffsetY(IsDirectionBack(direction));
@@ -77,7 +79,7 @@ public class PlayerAnimator : AbstractPlayer {
   }
 
   float DeltaSpeed() {
-    var velocity = Mathf.Clamp(agent.velocity.magnitude, 0f, 2f);
+    var velocity = Mathf.Clamp(agent.velocity.magnitude, 0f, _velocityRate);
     return Mathf.Pow(velocity + 1f, 2f) * Time.deltaTime;
   }
 

@@ -1,5 +1,4 @@
 ﻿
-using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +12,7 @@ public class ItemManager : SingletonBehaviour<ItemManager> {
     public ItemIcon data { get; set; }
     public bool useItem { get; set; }
   }
-  
+
   readonly List<ItemState> _items = new List<ItemState>();
   public IEnumerable<ItemState> items { get { return _items; } }
 

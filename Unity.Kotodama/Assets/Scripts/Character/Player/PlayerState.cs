@@ -4,15 +4,11 @@ using UnityEngine;
 public class PlayerState : SingletonBehaviour<PlayerState> {
 
   [SerializeField]
-  Rigidbody _rigid = null;
-  public Rigidbody rigidBody { get { return _rigid; } }
-
-  [SerializeField]
   NavMeshAgent _agent = null;
   public NavMeshAgent agent { get { return _agent; } }
 
   [SerializeField]
-  AbstractPlayer[] _components = null;
+  PlayerComponent[] _components = null;
 
   /// <summary> プレイヤーが動作中なら true を返す </summary>
   public bool isPlaying { get; private set; }
@@ -37,7 +33,7 @@ public class PlayerState : SingletonBehaviour<PlayerState> {
   public void Translate(Vector3 position) { _agent.SetDestination(position); }
 
   void Start() {
-    CameraController.instance.ChaseTarget(transform);
+    CameraController.instance.target = transform;
     hasLantern = false;
     Play();
   }
